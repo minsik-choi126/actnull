@@ -1,0 +1,67 @@
+{
+ "arch": "clip-vit-base-patch16",
+ "modules": [
+  "encoder.layers.4.self_attn.q_proj",
+  "encoder.layers.4.mlp.fc1",
+  "encoder.layers.8.self_attn.v_proj",
+  "encoder.layers.8.mlp.fc2"
+ ],
+ "experts": [
+  "dtd",
+  "eurosat",
+  "gtsrb",
+  "mnist",
+  "resisc45",
+  "svhn"
+ ],
+ "rows": [
+  {
+   "planted": 0,
+   "k": 8,
+   "truth": 0.0,
+   "raw": 0.026401272742077708,
+   "null": 0.02884108190628467,
+   "iso": 0.008463541666666666,
+   "excess": -0.0024398091642069616,
+   "recovery": null,
+   "delivered": null,
+   "leak": null
+  },
+  {
+   "planted": 1,
+   "k": 8,
+   "truth": 0.125,
+   "raw": 0.14192247800529004,
+   "null": 0.03475534540193621,
+   "iso": 0.008463541666666666,
+   "excess": 0.10716713260335382,
+   "recovery": 85.73370608268306,
+   "delivered": 92.41696421056986,
+   "leak": 4.731410796521235
+  },
+  {
+   "planted": 2,
+   "k": 8,
+   "truth": 0.25,
+   "raw": 0.2625677339732647,
+   "null": 0.03607555006165057,
+   "iso": 0.008463541666666666,
+   "excess": 0.22649218391161413,
+   "recovery": 90.59687356464565,
+   "delivered": 94.46658449247481,
+   "leak": 2.8937872621463607
+  },
+  {
+   "planted": 4,
+   "k": 8,
+   "truth": 0.5,
+   "raw": 0.505687215924263,
+   "null": 0.03791607042949181,
+   "iso": 0.008463541666666666,
+   "excess": 0.4677711454947712,
+   "recovery": 93.55422909895424,
+   "delivered": 95.85718863643706,
+   "leak": 1.8149977046414287
+  }
+ ]
+}

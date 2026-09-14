@@ -1,0 +1,142 @@
+{
+ "zeroshot": {
+  "dtd": 44.4,
+  "eurosat": 38.4,
+  "gtsrb": 26.6,
+  "mnist": 23.2,
+  "resisc45": 50.8,
+  "stanford-cars": 60.2,
+  "sun397": 60.4,
+  "svhn": 7.0
+ },
+ "full": {
+  "dtd": 51.2,
+  "eurosat": 67.8,
+  "gtsrb": 65.0,
+  "mnist": 71.4,
+  "resisc45": 59.8,
+  "stanford-cars": 56.6,
+  "sun397": 60.4,
+  "svhn": 43.6
+ },
+ "tau_8": {
+  "dtd": 43.0,
+  "eurosat": 46.0,
+  "gtsrb": 40.0,
+  "mnist": 55.4,
+  "resisc45": 47.6,
+  "stanford-cars": 47.8,
+  "sun397": 55.2,
+  "svhn": 31.8
+ },
+ "tau_16": {
+  "dtd": 42.6,
+  "eurosat": 51.2,
+  "gtsrb": 46.6,
+  "mnist": 64.4,
+  "resisc45": 49.8,
+  "stanford-cars": 50.4,
+  "sun397": 56.0,
+  "svhn": 38.2
+ },
+ "tau_32": {
+  "dtd": 43.6,
+  "eurosat": 58.0,
+  "gtsrb": 51.8,
+  "mnist": 68.2,
+  "resisc45": 53.4,
+  "stanford-cars": 50.4,
+  "sun397": 55.8,
+  "svhn": 41.0
+ },
+ "tau_64": {
+  "dtd": 47.6,
+  "eurosat": 63.0,
+  "gtsrb": 58.2,
+  "mnist": 70.4,
+  "resisc45": 55.2,
+  "stanford-cars": 51.6,
+  "sun397": 57.2,
+  "svhn": 42.4
+ },
+ "tau_128": {
+  "dtd": 49.4,
+  "eurosat": 65.2,
+  "gtsrb": 62.2,
+  "mnist": 70.8,
+  "resisc45": 57.6,
+  "stanford-cars": 53.8,
+  "sun397": 58.2,
+  "svhn": 43.4
+ },
+ "tau_256": {
+  "dtd": 51.0,
+  "eurosat": 66.8,
+  "gtsrb": 64.6,
+  "mnist": 71.2,
+  "resisc45": 59.4,
+  "stanford-cars": 55.8,
+  "sun397": 59.6,
+  "svhn": 43.2
+ },
+ "cross_8": {
+  "dtd": 43.2,
+  "eurosat": 44.2,
+  "gtsrb": 38.6,
+  "mnist": 52.6,
+  "resisc45": 47.6,
+  "stanford-cars": 49.6,
+  "sun397": 56.4,
+  "svhn": 29.8
+ },
+ "cross_16": {
+  "dtd": 43.8,
+  "eurosat": 49.0,
+  "gtsrb": 44.8,
+  "mnist": 62.0,
+  "resisc45": 50.0,
+  "stanford-cars": 50.0,
+  "sun397": 55.8,
+  "svhn": 35.2
+ },
+ "cross_32": {
+  "dtd": 44.0,
+  "eurosat": 53.8,
+  "gtsrb": 49.4,
+  "mnist": 64.6,
+  "resisc45": 53.2,
+  "stanford-cars": 51.0,
+  "sun397": 57.4,
+  "svhn": 37.6
+ },
+ "cross_64": {
+  "dtd": 46.2,
+  "eurosat": 57.0,
+  "gtsrb": 53.6,
+  "mnist": 67.6,
+  "resisc45": 55.0,
+  "stanford-cars": 51.4,
+  "sun397": 58.2,
+  "svhn": 38.6
+ },
+ "cross_128": {
+  "dtd": 48.0,
+  "eurosat": 58.6,
+  "gtsrb": 56.6,
+  "mnist": 69.4,
+  "resisc45": 55.2,
+  "stanford-cars": 52.4,
+  "sun397": 58.2,
+  "svhn": 39.8
+ },
+ "cross_256": {
+  "dtd": 49.0,
+  "eurosat": 59.8,
+  "gtsrb": 57.8,
+  "mnist": 70.0,
+  "resisc45": 56.2,
+  "stanford-cars": 53.6,
+  "sun397": 58.6,
+  "svhn": 40.2
+ }
+}

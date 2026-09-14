@@ -1,0 +1,6 @@
+work/
+*.pt
+__pycache__/
+*.pyc
+.venv/
+hf_cache/

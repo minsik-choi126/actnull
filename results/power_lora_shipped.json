@@ -1,0 +1,55 @@
+{
+ "arch": "clip-vit-base-patch16",
+ "modules": [
+  "encoder.layers.4.self_attn.q_proj",
+  "encoder.layers.4.self_attn.v_proj",
+  "encoder.layers.8.self_attn.q_proj",
+  "encoder.layers.8.self_attn.v_proj"
+ ],
+ "tasks": [
+  "dtd",
+  "eurosat",
+  "gtsrb",
+  "mnist",
+  "resisc45",
+  "svhn"
+ ],
+ "rows": [
+  {
+   "planted": 0,
+   "k": 8,
+   "O0": 0.4824826928476493,
+   "truth": 0.0,
+   "raw": 0.4824826928476493,
+   "null": 0.6309383101761341,
+   "excess": -0.14845561732848483
+  },
+  {
+   "planted": 1,
+   "k": 8,
+   "O0": 0.4824826928476493,
+   "truth": 0.06468966339404383,
+   "raw": 0.5153934626529614,
+   "null": 0.6309383263190588,
+   "excess": -0.1155448636660974
+  },
+  {
+   "planted": 2,
+   "k": 8,
+   "O0": 0.4824826928476493,
+   "truth": 0.12937932678808767,
+   "raw": 0.5581685453653336,
+   "null": 0.6309383499125639,
+   "excess": -0.07276980454723037
+  },
+  {
+   "planted": 4,
+   "k": 8,
+   "O0": 0.4824826928476493,
+   "truth": 0.25875865357617533,
+   "raw": 0.658769870797793,
+   "null": 0.6309383548796177,
+   "excess": 0.027831515918175342
+  }
+ ]
+}
