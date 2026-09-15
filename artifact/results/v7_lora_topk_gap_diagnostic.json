@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "implementation_sha256": "ec20102066b5cc47e697ebb3b550f63c1aec8764c63f1725d95b5393165227e4",
+  "gap_definition": "(s_k - s_{k+1}) / s_k using linear singular values",
+  "k": 8,
+  "factor_null": {
+    "seeds": [
+      0,
+      1000003,
+      2000003,
+      3000017
+    ],
+    "draws_per_seed_per_task_module_cell": 16,
+    "construction": "B'=U diag(S_B) W^T; U omitted because it cancels the BA singular spectrum and right geometry; W is sign-corrected Gaussian-QR Haar"
+  },
+  "thresholds": [
+    0.0001,
+    0.001,
+    0.01,
+    0.05
+  ],
+  "families": [
+    {
+      "family": "rank16_lora",
+      "scope": {
+        "tasks": 8,
+        "modules_per_task": 24,
+        "observed_cells": 192,
+        "factor_rank": 16,
+        "snapshots": [
+          "tanganke/clip-vit-base-patch16_dtd_lora-16@4540b65d257f5ab4e3ecc8f0649b6ce8e2f16301",
+          "tanganke/clip-vit-base-patch16_eurosat_lora-16@686e08726974b85f017804c623f5057cfd4f885c",
+          "tanganke/clip-vit-base-patch16_gtsrb_lora-16@1bc88199db87fa7e77de6510ff1ee2b3935afe6e",
+          "tanganke/clip-vit-base-patch16_mnist_lora-16@8679565eaf3f576c9797f10baf6e7a7bff892a04",
+          "tanganke/clip-vit-base-patch16_resisc45_lora-16@efb2f6a407efcb1435e34e9be0b3045c063d7b9c",
+          "tanganke/clip-vit-base-patch16_stanford-cars_lora-16@ce7faf3254fa0f45f24ceb8876906492e8d1d91b",
+          "tanganke/clip-vit-base-patch16_sun397_lora-16@28cb1138caf8283903a257cfc287dd964aae11bb",
+          "tanganke/clip-vit-base-patch16_svhn_lora-16@861fa477df01ab5fcbb61948448db46fe7b0f423"
+        ]
+      },
+      "observed_A": {
+        "n": 192,
+        "quantiles": {
+          "0": 0.0011867495927727271,
+          "0.01": 0.002234251868933012,
+          "0.05": 0.0038458383768950263,
+          "0.25": 0.008828850316578004,
+          "0.5": 0.013266580730361653,
+          "0.75": 0.019091127132691725,
+          "0.95": 0.0261316144697823,
+          "0.99": 0.0342554838759875,
+          "1": 0.04036450507830108
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 0,
+          "lt_0.01": 63,
+          "lt_0.05": 192
+        }
+      },
+      "observed_BA": {
+        "n": 192,
+        "quantiles": {
+          "0": 0.005161544537105149,
+          "0.01": 0.011076944249384265,
+          "0.05": 0.030316255595158853,
+          "0.25": 0.06793091273036773,
+          "0.5": 0.09981568763237171,
+          "0.75": 0.1382770603468045,
+          "0.95": 0.21816212580192149,
+          "0.99": 0.2563003696654152,
+          "1": 0.32460167696812636
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 0,
+          "lt_0.01": 1,
+          "lt_0.05": 25
+        }
+      },
+      "factor_null_BA": {
+        "n": 12288,
+        "quantiles": {
+          "0": 0.0007881364507667501,
+          "0.01": 0.013103420254054228,
+          "0.05": 0.027798352367300484,
+          "0.25": 0.06443349863151887,
+          "0.5": 0.09863646506543024,
+          "0.75": 0.1398419684101684,
+          "0.95": 0.21211002831489828,
+          "0.99": 0.2896644320452767,
+          "1": 0.3767736844965193
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 3,
+          "lt_0.01": 68,
+          "lt_0.05": 1963
+        }
+      }
+    },
+    {
+      "family": "rank16_linearized_lora",
+      "scope": {
+        "tasks": 8,
+        "modules_per_task": 24,
+        "observed_cells": 192,
+        "factor_rank": 16,
+        "snapshots": [
+          "tanganke/clip-vit-base-patch16_dtd_l-lora-16@a24ff6915e6988e78b5fb555d26864773caad280",
+          "tanganke/clip-vit-base-patch16_eurosat_l-lora-16@1c44e71f0c1abb0f189093e242f4359dd74d80e0",
+          "tanganke/clip-vit-base-patch16_gtsrb_l-lora-16@7b315e45d39149f3f91ac97c4b555e6f98c91cd9",
+          "tanganke/clip-vit-base-patch16_mnist_l-lora-16@1005cabdb618e0898ba51afaa4d15e9ddac6473b",
+          "tanganke/clip-vit-base-patch16_resisc45_l-lora-16@461d134bd88fa1af0ed4e93d15e30b9fab3fe64d",
+          "tanganke/clip-vit-base-patch16_stanford-cars_l-lora-16@f09575c87b9a01d587a6f9b086a7f18c04e7e162",
+          "tanganke/clip-vit-base-patch16_sun397_l-lora-16@ee2ef3c03b2b60ec11e8701aeda0c2be37c25f28",
+          "tanganke/clip-vit-base-patch16_svhn_l-lora-16@5221efd45a3f0ffe548934629d4d2b96e62a0584"
+        ]
+      },
+      "observed_A": {
+        "n": 192,
+        "quantiles": {
+          "0": 0.002434518683886027,
+          "0.01": 0.002434518683886027,
+          "0.05": 0.0028623111958935832,
+          "0.25": 0.008639337617149042,
+          "0.5": 0.013992665431769464,
+          "0.75": 0.01944478162082776,
+          "0.95": 0.023998640868824944,
+          "0.99": 0.028319009490021058,
+          "1": 0.028319009490021058
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 0,
+          "lt_0.01": 72,
+          "lt_0.05": 192
+        }
+      },
+      "observed_BA": {
+        "n": 192,
+        "quantiles": {
+          "0": 0.0036773982815779256,
+          "0.01": 0.01605303918856488,
+          "0.05": 0.02810858469986271,
+          "0.25": 0.06642927085436946,
+          "0.5": 0.10090718910874612,
+          "0.75": 0.1353023806916247,
+          "0.95": 0.21346829486992913,
+          "0.99": 0.25966864680032403,
+          "1": 0.3299726319809243
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 0,
+          "lt_0.01": 2,
+          "lt_0.05": 31
+        }
+      },
+      "factor_null_BA": {
+        "n": 12288,
+        "quantiles": {
+          "0": 0.0008407847306759993,
+          "0.01": 0.012152106534178583,
+          "0.05": 0.028337025135737312,
+          "0.25": 0.0646395273194479,
+          "0.5": 0.09920131022965517,
+          "0.75": 0.13968065076529068,
+          "0.95": 0.21547137274447967,
+          "0.99": 0.2713457325739045,
+          "1": 0.35640147091814317
+        },
+        "threshold_counts": {
+          "lt_0.0001": 0,
+          "lt_0.001": 1,
+          "lt_0.01": 91,
+          "lt_0.05": 1909
+        }
+      }
+    }
+  ],
+  "path_policy": "No local paths are recorded; snapshot labels are public repository@revision strings."
+}

@@ -1,0 +1,77 @@
+\section{Introduction}
+
+Independently fine-tuned models built on one pre-trained checkpoint have task vectors whose
+input-side singular subspaces overlap far above an isotropic random baseline, and a growing body
+of merging work measures that overlap and builds on it.
+\citet{gargiulo2025task} report the cross-task inner products of right singular vectors and
+define an interference score from them.
+\citet{demystify2026} define a Right Subspace Overlap statistic over $190$ pairs of task vectors
+and use it as one input to a predictor of merging success.
+\citet{qiu2026nufilt} construct a null-space projector out of the cumulative update's right
+singular vectors, and justify it with a theorem that task vectors approximately align with
+representation subspaces.
+In each case the overlap is compared, explicitly or implicitly, against what an unstructured
+subspace would give.
+
+That comparison is correct for unconditional random subspaces, but it does not answer the
+conditional attribution question studied here. For a linear map $y=Wh$, the raw minibatch
+gradient has the outer-product form
+\begin{equation}
+ \nabla_W L_t=\sum_{b\in\mathcal B_t}g_{t,b}h_{t,b}^\top.
+ \label{eq:outer-product}
+\end{equation}
+Under scalar-step gradient descent without weight decay, the final update's row space therefore
+lies in the span of the activations along that specialist's own training trajectory. This exact statement neither
+identifies a common frozen-base span nor applies unchanged after coordinatewise optimiser
+preconditioning: activations drift and optimisers transform gradients. It motivates a weaker,
+measurable question. Using the frozen base's activation second moment as a common coordinate
+system, how much observed overlap is predicted after holding fixed each update's own occupancy
+of that geometry? The isotropic value $k/d_{\mathrm{in}}$ conditions on none of it.
+
+Prior work motivates both sides of this question. \citet{cheng2025wudi} relate linear-layer task
+vectors to their inputs, and \citet{qiu2026nufilt} give an approximate subspace-alignment result;
+the latter note that the effect of shared initialisation remains insufficiently explored. These
+results do not establish frozen-base containment for the checkpoints studied here. Cross-task
+right-subspace overlap itself is already measured at scale by the work above. What is missing is
+a stated conditional baseline, an accounting of how much the answer moves under it, and evidence
+that the baseline randomises what it claims to.
+
+We provide all three. The activation-conditioned null independently acts on each observed update
+with rotations that preserve its complete singular spectrum and blockwise read-mass profile in
+the frozen-base activation eigenbasis. Its expectation has a closed form: it is the overlap
+predicted by the two observed occupancy profiles. The remainder is residual directional
+agreement conditional on them. This is an operational conditional decomposition; the retained
+profile is measured after fine-tuning and may itself contain task-learned structure. A generative
+alternative sampled from $C_H$ is not a valid conditional comparator because it must invent the
+update--activation relationship and produces a conspicuous level failure in our
+common-reference stress test.
+
+Applied to the CLIP benchmarks used by this literature, the null reproduces $25.3\%$ and $22.4\%$
+of above-isotropic top-$8$ overlap in the two complete ViT-B measurements. Conditional on the
+fixed calibration and blocking specification, the remaining excess stays positive throughout the
+crossed task--layer finite-pool stability interval. Under rank-$16$
+LoRA, $\mathrm{row}(BA)\subseteq\mathrm{row}(A)$ makes the observed $A$ factor a necessary
+regime-specific condition. Its top-$8$ right singular subspaces overlap at $0.88$, and at $1.00$
+when linearisation keeps $A$ bit-identical, while the learned $B$ factor's top-$8$ left singular
+subspaces overlap at $0.05$ against $0.01$ isotropic
+chance. An $A$- and factor-spectrum-conditioned null reproduces $80.3\%$ of the product update's
+above-isotropic overlap;
+although its attainable plant delivers only $37.4$--$57.0\%$ of the nominal increment, the null
+recovers $100.7$--$101.1\%$ of what is delivered. This one stress test does not identify which
+mechanism produced the conditioned structure.
+
+The methodological result is why these estimates, rather than a larger number from our first
+implementation, are reported. A zero-signal level check accepts the identity map, so it cannot
+detect under-randomisation. We add a positive control that plants shared directions and measures
+the signal actually delivered and recovered. It exposed two under-randomisation defects in the
+activation null and a nuisance-spectrum mismatch in the LoRA null. Correcting the activation
+null raised delivered-signal recovery from $45.6$--$51.7\%$ to $99.3$--$99.6\%$ and moved the full-
+fine-tuning ViT-B/16 headline from roughly $67\%$ to $25.3\%$. Surrogates independently drawn from that conditional
+null also form a relative stress test: the isotropic and participation-ratio-whitened baselines
+report $+0.0171$ and $+0.0522$ apparent excess. This comparison is conditional on our stated
+reference model and is not an independent intervention.
+
+We make three contributions: a group-conditional decomposition of read-subspace overlap; a
+positive-control protocol that checks power as well as level and catches consequential defects in
+our own nulls; and a regime-specific audit of full fine-tuning and LoRA that separates effect-size
+attribution from pair ranking and downstream merge performance.

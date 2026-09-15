@@ -1,0 +1,258 @@
+{
+  "analysis": {
+    "aggregation": "sum(null_activation-null_isotropic) / sum(raw-null_isotropic)",
+    "architecture": "openai/clip-vit-base-patch16@5ef227a78de3f75873f373246dac80def63b0003",
+    "block_z": 2,
+    "k": 8,
+    "m": 64,
+    "scope": "20 tasks x 190 unordered pairs x 72 modules = 13,680 cells"
+  },
+  "conditional_crossed_task_layer_percentile_95_interval": {
+    "exact_reproduced_fraction_percent": [
+      16.897537228735672,
+      26.268987267650733
+    ],
+    "residual": [
+      0.04860552331363323,
+      0.10901518198309416
+    ]
+  },
+  "conditional_crossed_task_layer_bootstrap": {
+    "record": "bootstrap_task_layer_50000.json",
+    "sha256": "7927ab2bab546ddf30747033cbb41d12ab6482963f0491bd70933feb1b7b884c",
+    "seed": 20260915,
+    "draws": 50000,
+    "rejected_draws": 0,
+    "input_compressed_sha256": "2d7530001ed63800028a4a25a2b495a3e4278599c804fe5364d0e89a0ad1e75a"
+  },
+  "covariance": {
+    "folds": [
+      {
+        "fold": "f0",
+        "image_list_sha256": "02e959b0b920df1b43cd499afb96a80e0948990c0438fe256729374ffb5dc4a9",
+        "n_items": 126,
+        "n_rows_per_module": 24822
+      },
+      {
+        "fold": "f1",
+        "image_list_sha256": "b6d74506264578eff47635fa5c0a67532bff578b7037a152df7b50e4768a160d",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f2",
+        "image_list_sha256": "f3d3c197626928da4825c05650170ceaeac28cb27a4866f7fdb4bb6a6b5e53b2",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f3",
+        "image_list_sha256": "3ead68c4262e9881ee5f147729886662d28f30292d16e5416e4c791b74bca3e9",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f4",
+        "image_list_sha256": "01f6c0bdd596b5fc19e694ac8f8d86b818f7dc6486444f68048aeb9130172656",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f5",
+        "image_list_sha256": "8541113060e81292ef2a25969abf14aa8a125f6732d8544cd9c405dc7f54e348",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f6",
+        "image_list_sha256": "0e4459476034a0cc74b8d02ed257c8d3785a1347b3a401bb2163982773fbb5b7",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      },
+      {
+        "fold": "f7",
+        "image_list_sha256": "6ada0bc49cf79124e829a9e0e55f3b88ff00ecda6168c566a4595cc0d459927d",
+        "n_items": 125,
+        "n_rows_per_module": 24625
+      }
+    ],
+    "full": {
+      "exact_covariance": true,
+      "image_list_sha256": "11cc50029ef78abb11e16adb04be5b845c49061bd049322d0a9ecf41d00b0477",
+      "n_items": 1001,
+      "n_modules": 72,
+      "n_rows_per_module": 197197,
+      "participation_ratio": {
+        "max": 69.96467590332031,
+        "median": 12.691362857818604,
+        "min": 1.580992341041565,
+        "modules_below_64": 71
+      },
+      "stored_eigendirections": 64,
+      "tail_energy_fraction": {
+        "max": 0.5218300819396973,
+        "median": 0.24101361632347107
+      },
+      "tokens_per_image": 197
+    }
+  },
+  "experiment": "B/16 alternative calibration-composition control",
+  "headline": {
+    "activation_explained_fraction": 0.21481765441255055,
+    "activation_explained_percent": 21.481765441255057,
+    "mean_null_activation": 0.02962087574161484,
+    "mean_null_isotropic": 0.009114583333333334,
+    "mean_raw": 0.10457364820564787,
+    "mean_residual": 0.07495277246403304,
+    "modules": 72,
+    "n_blocks": {
+      "max": 50,
+      "median": 36.0,
+      "min": 13
+    },
+    "rows": 13680,
+    "task_pairs": 190,
+    "tasks": 20
+  },
+  "interval_warning": "The 50,000-draw task-by-layer interval conditions on this fitted calibration covariance; it is not uncertainty over possible calibration compositions.",
+  "license_scope": {
+    "images_redistributed": false,
+    "use": "local academic/non-commercial robustness computation",
+    "warning": "The tanganke Stanford Cars dataset card and cached dataset_info have an empty license field. The result may be reported with citation, but source images must not be bundled; independently verify terms before any redistribution."
+  },
+  "observed_runtime_seconds": {
+    "exact_overlap": 86.69,
+    "fold_covariance_parallel_critical_path": 143.22,
+    "full_covariance": 75.52,
+    "materialization": 8.01
+  },
+  "provenance": {
+    "artifact_root": "results/calibration_composition_b16",
+    "artifact_sha256": {
+      "composition_map.json": "b92c159db1c3badef6280b1de477f4993b903b1630eaa01334575411ede0c609",
+      "exact_b16_20task_72module.csv.gz": "bb39b2abf1618fa513529f595ba888d97b6423e829c381745620ced1df0f77cc"
+    },
+    "artifact_sha256_scope": "CSV hash uses decompressed bytes; JSON map hash uses stored bytes",
+    "expert_specs": {
+      "cifar10": "tanganke/clip-vit-base-patch16_cifar10@4c5a15dd4b97045c656bbbf33fefdd4d57508bcc",
+      "cifar100": "tanganke/clip-vit-base-patch16_cifar100@cb08472d93c428fc828fa217658ed6d3c9ff0436",
+      "dtd": "tanganke/clip-vit-base-patch16_dtd@5d2d508b4bba668b6c1e9fefd53f5f9b4ad9de08",
+      "emnist_letters": "tanganke/clip-vit-base-patch16_emnist_letters@aa2a64460e5a97d1c342af0eb97403c6119e8dfb",
+      "eurosat": "tanganke/clip-vit-base-patch16_eurosat@0ed49e2fb92fe2f5427b76089b58ec2a1da5d368",
+      "fashion_mnist": "tanganke/clip-vit-base-patch16_fashion_mnist@f06e3a4bd71130da6fc3d308d6cf9aca5f66f5c2",
+      "fer2013": "tanganke/clip-vit-base-patch16_fer2013@b9233bea4130f962cbfbe8bfa839eace4e138901",
+      "food101": "tanganke/clip-vit-base-patch16_food101@6f1d0c4f7fef15b896b8b3f5d23deb2ad7566dd6",
+      "gtsrb": "tanganke/clip-vit-base-patch16_gtsrb@3eafe17e05610ded0b0ba3c4ebe5bdca4c2069f3",
+      "kmnist": "tanganke/clip-vit-base-patch16_kmnist@6dd3f4198fcdf6550062c2d9dbc24200eddc7df5",
+      "mnist": "tanganke/clip-vit-base-patch16_mnist@5e4477bff96ba83228f4ae224ba256f09acc8acd",
+      "oxford-iiit-pet": "tanganke/clip-vit-base-patch16_oxford-iiit-pet@30565881fe35cc7ceffc1254bb8f088fba2fb67a",
+      "oxford_flowers102": "tanganke/clip-vit-base-patch16_oxford_flowers102@7d4dbfb87a248683591e025690fdbd74edb81652",
+      "pcam": "tanganke/clip-vit-base-patch16_pcam@8cf37119c98f9a565e676099e01cb0dbbd38f8ce",
+      "rendered-sst2": "tanganke/clip-vit-base-patch16_rendered-sst2@06a39517d31a4c34e3aa99d1a56ffb5b7769a75e",
+      "resisc45": "tanganke/clip-vit-base-patch16_resisc45@bc31922d873e49c6f7fbbb0a3931707d394261a8",
+      "stanford-cars": "tanganke/clip-vit-base-patch16_stanford-cars@3e2ee0d52f465d512597e1619e880201612ef69b",
+      "stl10": "tanganke/clip-vit-base-patch16_stl10@6c1fb54f274a6babf79b094c938bcea8542084bc",
+      "sun397": "tanganke/clip-vit-base-patch16_sun397@4af3b59da7ced7b079a73c4c283f166241eed400",
+      "svhn": "tanganke/clip-vit-base-patch16_svhn@ccbcd6cec834a3d014bab1857e9968badd27618c"
+    },
+    "implementations_sha256": {
+      "actnull/covariance.py": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
+      "actnull/null.py": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
+      "materialize_composition_control.py": "fe9061d8f6f23647b191c519a6659cafef3cb30b8175a05bd15d423964fb7a46",
+      "run_resample_exact.py": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d",
+      "scripts/bootstrap_overlap.py": "7865380f4f61488f40936b22fe4471b961fceb7945cc9844451105c33c9efe7b",
+      "scripts/exact_overlap.py": "49175cb0204039c60992ba2dbc176cb9b502f37ff92727680ff2a60d36157dab"
+    },
+    "path_sanitized": true
+  },
+  "reference": {
+    "activation_explained_percent": 25.345116807071417,
+    "change_percentage_points": -3.86335136581636,
+    "logical_path": "results/v7_exact_clip-vit-base-patch16.csv.gz",
+    "sha256": "d1235d81cfb726842edeca5d91d1994e03bec3c046acac82e49f956cce5be9c8",
+    "sha256_scope": "decompressed CSV bytes"
+  },
+  "sampling": {
+    "counts": {
+      "mnist": 334,
+      "stanford_cars": 334,
+      "svhn": 333
+    },
+    "fold_rule": "round-robin available sources by draw index; fold=ordinal mod 8",
+    "folds": 8,
+    "method": "source-balanced simple random sample without replacement from cached test splits",
+    "rng": "Python random.Random (MT19937) with SHA256-derived source-specific seeds",
+    "seed": 20260919,
+    "total": 1001
+  },
+  "schema_version": 1,
+  "separation_from_bootstrap_refits": "This is a deliberately different three-dataset benchmark mixture, not a bootstrap draw from the original seven-source calibration pool.",
+  "source_provenance": {
+    "mnist": {
+      "arrow_shards": [
+        {
+          "bytes": 2949616,
+          "name": "mnist-test.arrow",
+          "sha256": "c1271fa343652fa634d0fb45544b526d89d6a552d18b14a3a05980899a7141fb"
+        }
+      ],
+      "builder_fingerprint": "77f3279092a1c1579b2250db8eafed0ad422088c",
+      "config": "mnist",
+      "dataset_id": "ylecun/mnist",
+      "features": {
+        "image": "Image(mode=None, decode=True)",
+        "label": "ClassLabel(names=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])"
+      },
+      "license_note": "MIT (dataset-card metadata)",
+      "selected_without_replacement": 334,
+      "split": "test",
+      "split_rows": 10000
+    },
+    "stanford_cars": {
+      "arrow_shards": [
+        {
+          "bytes": 501769016,
+          "name": "stanford_cars-test-00000-of-00002.arrow",
+          "sha256": "f93eaec0f687268607af546a7cc0d36b496d66485ea0f5a6681b1393eb91ad13"
+        },
+        {
+          "bytes": 493171160,
+          "name": "stanford_cars-test-00001-of-00002.arrow",
+          "sha256": "f120f8dedf8ac0fec9416b7426c80cd8574b45d147a4627cbc8605b6821f19d4"
+        }
+      ],
+      "builder_fingerprint": "9abf6cf7d6dfa7b95152a0d6e791ea9435b47a40",
+      "config": "default",
+      "dataset_id": "tanganke/stanford_cars",
+      "features": {
+        "image": "Image(mode=None, decode=True)",
+        "label": "ClassLabel(names=['AM General Hummer SUV 2000', 'Acura RL Sedan 2012', 'Acura TL Sedan 2012', 'Acura TL Type-S 2008', 'Acura TSX Sedan 2012', 'Acura Integra Type R 2001', 'Acura ZDX Hatchback 2012', 'Aston Martin V8 Vantage Convertible 2012', 'Aston Martin V8 Vantage Coupe 2012', 'Aston Martin Virage Convertible 2012', 'Aston Martin Virage Coupe 2012', 'Audi RS 4 Convertible 2008', 'Audi A5 Coupe 2012', 'Audi TTS Coupe 2012', 'Audi R8 Coupe 2012', 'Audi V8 Sedan 1994', 'Audi 100 Sedan 1994', 'Audi 100 Wagon 1994', 'Audi TT Hatchback 2011', 'Audi S6 Sedan 2011', 'Audi S5 Convertible 2012', 'Audi S5 Coupe 2012', 'Audi S4 Sedan 2012', 'Audi S4 Sedan 2007', 'Audi TT RS Coupe 2012', 'BMW ActiveHybrid 5 Sedan 2012', 'BMW 1 Series Convertible 2012', 'BMW 1 Series Coupe 2012', 'BMW 3 Series Sedan 2012', 'BMW 3 Series Wagon 2012', 'BMW 6 Series Convertible 2007', 'BMW X5 SUV 2007', 'BMW X6 SUV 2012', 'BMW M3 Coupe 2012', 'BMW M5 Sedan 2010', 'BMW M6 Convertible 2010', 'BMW X3 SUV 2012', 'BMW Z4 Convertible 2012', 'Bentley Continental Supersports Conv. Convertible 2012', 'Bentley Arnage Sedan 2009', 'Bentley Mulsanne Sedan 2011', 'Bentley Continental GT Coupe 2012', 'Bentley Continental GT Coupe 2007', 'Bentley Continental Flying Spur Sedan 2007', 'Bugatti Veyron 16.4 Convertible 2009', 'Bugatti Veyron 16.4 Coupe 2009', 'Buick Regal GS 2012', 'Buick Rainier SUV 2007', 'Buick Verano Sedan 2012', 'Buick Enclave SUV 2012', 'Cadillac CTS-V Sedan 2012', 'Cadillac SRX SUV 2012', 'Cadillac Escalade EXT Crew Cab 2007', 'Chevrolet Silverado 1500 Hybrid Crew Cab 2012', 'Chevrolet Corvette Convertible 2012', 'Chevrolet Corvette ZR1 2012', 'Chevrolet Corvette Ron Fellows Edition Z06 2007', 'Chevrolet Traverse SUV 2012', 'Chevrolet Camaro Convertible 2012', 'Chevrolet HHR SS 2010', 'Chevrolet Impala Sedan 2007', 'Chevrolet Tahoe Hybrid SUV 2012', 'Chevrolet Sonic Sedan 2012', 'Chevrolet Express Cargo Van 2007', 'Chevrolet Avalanche Crew Cab 2012', 'Chevrolet Cobalt SS 2010', 'Chevrolet Malibu Hybrid Sedan 2010', 'Chevrolet TrailBlazer SS 2009', 'Chevrolet Silverado 2500HD Regular Cab 2012', 'Chevrolet Silverado 1500 Classic Extended Cab 2007', 'Chevrolet Express Van 2007', 'Chevrolet Monte Carlo Coupe 2007', 'Chevrolet Malibu Sedan 2007', 'Chevrolet Silverado 1500 Extended Cab 2012', 'Chevrolet Silverado 1500 Regular Cab 2012', 'Chrysler Aspen SUV 2009', 'Chrysler Sebring Convertible 2010', 'Chrysler Town and Country Minivan 2012', 'Chrysler 300 SRT-8 2010', 'Chrysler Crossfire Convertible 2008', 'Chrysler PT Cruiser Convertible 2008', 'Daewoo Nubira Wagon 2002', 'Dodge Caliber Wagon 2012', 'Dodge Caliber Wagon 2007', 'Dodge Caravan Minivan 1997', 'Dodge Ram Pickup 3500 Crew Cab 2010', 'Dodge Ram Pickup 3500 Quad Cab 2009', 'Dodge Sprinter Cargo Van 2009', 'Dodge Journey SUV 2012', 'Dodge Dakota Crew Cab 2010', 'Dodge Dakota Club Cab 2007', 'Dodge Magnum Wagon 2008', 'Dodge Challenger SRT8 2011', 'Dodge Durango SUV 2012', 'Dodge Durango SUV 2007', 'Dodge Charger Sedan 2012', 'Dodge Charger SRT-8 2009', 'Eagle Talon Hatchback 1998', 'FIAT 500 Abarth 2012', 'FIAT 500 Convertible 2012', 'Ferrari FF Coupe 2012', 'Ferrari California Convertible 2012', 'Ferrari 458 Italia Convertible 2012', 'Ferrari 458 Italia Coupe 2012', 'Fisker Karma Sedan 2012', 'Ford F-450 Super Duty Crew Cab 2012', 'Ford Mustang Convertible 2007', 'Ford Freestar Minivan 2007', 'Ford Expedition EL SUV 2009', 'Ford Edge SUV 2012', 'Ford Ranger SuperCab 2011', 'Ford GT Coupe 2006', 'Ford F-150 Regular Cab 2012', 'Ford F-150 Regular Cab 2007', 'Ford Focus Sedan 2007', 'Ford E-Series Wagon Van 2012', 'Ford Fiesta Sedan 2012', 'GMC Terrain SUV 2012', 'GMC Savana Van 2012', 'GMC Yukon Hybrid SUV 2012', 'GMC Acadia SUV 2012', 'GMC Canyon Extended Cab 2012', 'Geo Metro Convertible 1993', 'HUMMER H3T Crew Cab 2010', 'HUMMER H2 SUT Crew Cab 2009', 'Honda Odyssey Minivan 2012', 'Honda Odyssey Minivan 2007', 'Honda Accord Coupe 2012', 'Honda Accord Sedan 2012', 'Hyundai Veloster Hatchback 2012', 'Hyundai Santa Fe SUV 2012', 'Hyundai Tucson SUV 2012', 'Hyundai Veracruz SUV 2012', 'Hyundai Sonata Hybrid Sedan 2012', 'Hyundai Elantra Sedan 2007', 'Hyundai Accent Sedan 2012', 'Hyundai Genesis Sedan 2012', 'Hyundai Sonata Sedan 2012', 'Hyundai Elantra Touring Hatchback 2012', 'Hyundai Azera Sedan 2012', 'Infiniti G Coupe IPL 2012', 'Infiniti QX56 SUV 2011', 'Isuzu Ascender SUV 2008', 'Jaguar XK XKR 2012', 'Jeep Patriot SUV 2012', 'Jeep Wrangler SUV 2012', 'Jeep Liberty SUV 2012', 'Jeep Grand Cherokee SUV 2012', 'Jeep Compass SUV 2012', 'Lamborghini Reventon Coupe 2008', 'Lamborghini Aventador Coupe 2012', 'Lamborghini Gallardo LP 570-4 Superleggera 2012', 'Lamborghini Diablo Coupe 2001', 'Land Rover Range Rover SUV 2012', 'Land Rover LR2 SUV 2012', 'Lincoln Town Car Sedan 2011', 'MINI Cooper Roadster Convertible 2012', 'Maybach Landaulet Convertible 2012', 'Mazda Tribute SUV 2011', 'McLaren MP4-12C Coupe 2012', 'Mercedes-Benz 300-Class Convertible 1993', 'Mercedes-Benz C-Class Sedan 2012', 'Mercedes-Benz SL-Class Coupe 2009', 'Mercedes-Benz E-Class Sedan 2012', 'Mercedes-Benz S-Class Sedan 2012', 'Mercedes-Benz Sprinter Van 2012', 'Mitsubishi Lancer Sedan 2012', 'Nissan Leaf Hatchback 2012', 'Nissan NV Passenger Van 2012', 'Nissan Juke Hatchback 2012', 'Nissan 240SX Coupe 1998', 'Plymouth Neon Coupe 1999', 'Porsche Panamera Sedan 2012', 'Ram C/V Cargo Van Minivan 2012', 'Rolls-Royce Phantom Drophead Coupe Convertible 2012', 'Rolls-Royce Ghost Sedan 2012', 'Rolls-Royce Phantom Sedan 2012', 'Scion xD Hatchback 2012', 'Spyker C8 Convertible 2009', 'Spyker C8 Coupe 2009', 'Suzuki Aerio Sedan 2007', 'Suzuki Kizashi Sedan 2012', 'Suzuki SX4 Hatchback 2012', 'Suzuki SX4 Sedan 2012', 'Tesla Model S Sedan 2012', 'Toyota Sequoia SUV 2012', 'Toyota Camry Sedan 2012', 'Toyota Corolla Sedan 2012', 'Toyota 4Runner SUV 2012', 'Volkswagen Golf Hatchback 2012', 'Volkswagen Golf Hatchback 1991', 'Volkswagen Beetle Hatchback 2012', 'Volvo C30 Hatchback 2012', 'Volvo 240 Sedan 1993', 'Volvo XC90 SUV 2007', 'smart fortwo Convertible 2012'])"
+      },
+      "license_note": "dataset-card field empty; local academic/non-commercial use only; do not redistribute images",
+      "selected_without_replacement": 334,
+      "split": "test",
+      "split_rows": 8041
+    },
+    "svhn": {
+      "arrow_shards": [
+        {
+          "bytes": 44549912,
+          "name": "svhn-test.arrow",
+          "sha256": "e636de302053f47422fac68d0bfa71385507f30f2328d2c9ff84cfd3fda5615d"
+        }
+      ],
+      "builder_fingerprint": "f9e1717d73324ebbc1ece84267ccd80d0aca0690",
+      "config": "cropped_digits",
+      "dataset_id": "ufldl-stanford/svhn",
+      "features": {
+        "image": "Image(mode=None, decode=True)",
+        "label": "ClassLabel(names=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])"
+      },
+      "license_note": "non-commercial use only (dataset card)",
+      "selected_without_replacement": 333,
+      "split": "test",
+      "split_rows": 26032
+    }
+  },
+  "status": "complete"
+}

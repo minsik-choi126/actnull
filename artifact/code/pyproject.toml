@@ -1,0 +1,20 @@
+[project]
+name = "actnull"
+version = "0.1.0"
+description = "Calibrated null models for task-vector subspace overlap, and a protocol for checking them"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "transformers>=4.40",
+    "safetensors",
+    "huggingface_hub",
+    "numpy",
+    "pillow",
+]
+
+[project.optional-dependencies]
+data = ["datasets"]
+figures = ["matplotlib"]
+
+[tool.setuptools]
+packages = ["actnull"]

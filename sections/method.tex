@@ -1,0 +1,113 @@
+\section{A null for task-vector subspace overlap}
+\label{sec:method}
+
+\subsection{What is being measured, and against what}
+
+For a pair of task vectors $\Delta W_i, \Delta W_j \in \mathbb{R}^{d_{\mathrm{out}} \times d_{\mathrm{in}}}$
+let $V_i^{(k)}$ hold the top-$k$ right singular vectors of $\Delta W_i$, and write
+\begin{equation}
+\mathcal{O}(i,j) \;=\; \tfrac{1}{k}\,\big\|\, V_i^{(k)\top} V_j^{(k)} \,\big\|_F^2 ,
+\label{eq:overlap}
+\end{equation}
+the mean squared canonical correlation between the two read subspaces.
+For two independent uniformly random $k$-subspaces of $\mathbb{R}^{d_{\mathrm{in}}}$ this has
+expectation $k/d_{\mathrm{in}}$, which we verify numerically in
+Appendix~\ref{app:invariants}; that value is the isotropic null the literature reports against.
+
+The question is not whether $\mathcal{O}$ exceeds $k/d_{\mathrm{in}}$. It does, by an order of
+magnitude. We ask how much remains after conditioning on specified marginal structure in each
+update. Throughout, \emph{null-reproduced} means reproduced after holding those stated
+statistics fixed. It does not identify which process created them: a statistic measured after
+fine-tuning can itself contain task-learned structure.
+
+\subsection{The activation-conditioned null}
+\label{sec:null}
+
+Let $C_H = \mathbb{E}[h h^\top] = V\operatorname{diag}(w)V^\top$ be the input second moment of the
+\emph{frozen base model} at that layer. This is an operational reference geometry, not the claim
+that the final update is exactly contained in the frozen-base activation span: activations evolve
+during fine-tuning, and optimiser preconditioning can alter the elementary outer-product
+gradient geometry.
+Retain the first $m_C$ eigenvectors and partition them into blocks $\{\mathcal{B}_b\}$, with
+orthogonal projectors $P_b$; the unresolved complement is one additional block. Define
+\begin{equation}
+ \mathcal{G}=\{Q\in O(d_{\mathrm{in}}):QP_b=P_bQ\ \text{for every }b\}.
+ \label{eq:group}
+\end{equation}
+For each task independently, draw $Q_i$ from Haar measure on this product of orthogonal groups
+and set $\widetilde{\Delta W}_i=\Delta W_iQ_i$. This preserves the full singular spectrum because
+$\widetilde{\Delta W}_i\widetilde{\Delta W}_i^\top=\Delta W_i\Delta W_i^\top$. If
+$\Pi_i=V_i^{(k)}V_i^{(k)\top}$ and $t_{ib}=\operatorname{tr}(P_b\Pi_i)$, then, away from a
+singular-value tie at the rank-$k$ boundary, it also preserves every
+block occupancy $t_{ib}$ and every block energy $\|\Delta W_iP_b\|_F$. It randomises which
+directions within those allocations two tasks select.
+It also fixes richer blockwise Gram and principal-angle invariants listed in
+Appendix~\ref{app:invariants}, so the attribution is conditional on more than these summaries.
+
+This construction makes the conditional estimand explicit. Independence and Haar invariance give
+\begin{equation}
+ \mathbb{E}_{\mathcal N}\,\mathcal O(\widetilde{\Delta W}_i,
+ \widetilde{\Delta W}_j)
+ =\frac{1}{k}\sum_b\frac{t_{ib}t_{jb}}{\operatorname{rank}(P_b)}.
+ \label{eq:null-expectation}
+\end{equation}
+Thus the scalar null-reproduced component is evaluated exactly from the two observed block-occupancy
+profiles, not estimated from random draws. For this activation null, sampled matrices are used only when actual null task
+vectors are required---for projector reconstruction, positive controls, and external-reference
+diagnostics---not for the scalar headline.
+For a reported pool, the null-reproduced fraction is
+$f_{\mathcal N}=(\overline{\mathcal O}_{\mathcal N}-\overline{k/d_{\rm in}})/
+(\overline{\mathcal O}_{\rm raw}-\overline{k/d_{\rm in}})$; averaging over its stated rows
+precedes the ratio.
+
+\paragraph{The blocks use a fixed operational coarsening.}
+The exact commutant of empirical $C_H$ rotates only its exact multiplicity eigenspaces. Our
+$\mathcal G$ is instead the commutant of a resolution-coarsened, truncated block operator: for a
+simple retained spectrum its retained action reduces to independent signs, while the deliberately
+unresolved complement is one full orthogonal block. Finite calibration data motivate merging
+nearby retained directions as well. We estimate eigenvalue errors from eight disjoint folds and
+form maximal consecutive runs connected by overlap of adjacent
+$\widehat\lambda_j\mathbin{\pm}2\sigma_j$ intervals; Appendix~\ref{app:calibration} gives the
+exact split-sample formula.
+This is a fixed operational coarsening rule, not a confidence theorem or a unique null. At $1001$
+images, across all measured modules, both ViT-B encoders give a median $37$ blocks over $m_C=64$
+directions; the complement is
+one full block. Appendix~\ref{app:calibration} reports a full $k/m_C/z$ sensitivity grid, the
+budget dependence, stored-spectrum limit, and rejected
+fixed-rank alternative; the rule, calibration sample, and measured power are all part of the
+specification.
+
+\paragraph{Why not a generative null.}
+A generative draw with input covariance proportional to $C_H$ instead invents the update--activation
+relationship: it concentrates top-$k$ mass toward high-variance activation directions and
+overlaps far more than the data in a common-reference diagnostic
+(Appendix~\ref{app:generative}). Coordinate permutation fails for the
+opposite reason, destroying the occupancy profile despite passing the offset check.
+
+\subsection{The null for low-rank adapters}
+\label{sec:lora-null}
+
+For a LoRA update $\Delta W = \tfrac{\alpha}{r} BA$ \citep{hu2022lora} the row space lies inside
+$\mathrm{row}(A)$, and equals it whenever $B$ has full column rank. At initialisation, adapters
+sharing $A_0$ therefore have the same admissible $r$-dimensional row space. This remains exact
+when $A$ is frozen; when $A$ is trained it need not, so we measure its final overlap rather than
+assume it. The activation null does not preserve this regime-specific constraint.
+
+Our \emph{factor-conditioned} null keeps each observed $A$ and the singular values of $B$, and
+redraws $B\mapsto U\operatorname{diag}(S_B)W^\top$ with independent Haar singular frames. It
+preserves $A$ and $B$'s spectrum, but generally not the product spectrum of $BA$; the LoRA
+estimand therefore has different invariants from the activation null. The product-spectrum-
+preserving alternative over-randomises $A$'s anisotropy, giving $+0.2023$ offset. Appendix
+\ref{app:defects} gives the algebra and alternatives. In the selected null's positive control,
+the attainable row-space-constrained plant delivers $37.4$--$57.0\%$ of its nominal increment
+and the null recovers $100.7$--$101.1\%$ of that delivered increment. This establishes measured
+level and response for that intervention, but does not restore product-spectrum preservation.
+
+\subsection{Estimating $C_H$}
+\label{sec:cov}
+
+For the vision encoders studied here the exact $d_{\mathrm{in}} \times d_{\mathrm{in}}$ matrix is
+affordable and we use it. Appendix~\ref{app:cov} gives a two-pass estimator for the sizes where
+it is not, and records why the calibration set is part of the measurement: $C_H$ is an
+expectation over some input distribution, so we draw it from a mixture across several of the
+benchmark's own datasets and record the composition with every covariance.

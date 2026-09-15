@@ -1,0 +1,110 @@
+\section{Experiments}
+\label{sec:exp}
+
+\paragraph{Setup.}
+We evaluate CLIP vision encoders fine-tuned on the task-arithmetic benchmark of
+\citet{ilharco2023editing} as extended to twenty tasks by \citet{wang2024localizing}: all $190$
+pairs over all $72$ linear modules for each ViT-B encoder, and $48$ \texttt{q}/\texttt{v} modules
+for ViT-L/14.
+$C_H$ comes from $1001$ images drawn round-robin across seven of the benchmark's own datasets on
+the frozen base; a separate rebuilding record stores source counts, fold membership, and hashes.
+All substantive overlap results use $k=8$. For whitening comparisons we truncate at the module's
+participation ratio $m_{\rm white}$; the activation null retains $m_C=64$ eigendirections and
+reads its rotation blocks from the eigenvalue standard errors as in \S\ref{sec:method}.
+Appendix~\ref{app:calibration} reports how the stored dimension and block structure move with the
+calibration budget. At fixed source counts, two source-stratified ViT-B/16 covariance refits give
+$25.102\%$ and $25.302\%$ versus $25.345\%$; the maximum $0.243$-percentage-point shift is an observed
+two-refit diagnostic, not a calibration confidence interval.
+A deliberately different balanced MNIST/Cars/SVHN calibration gives $21.482\%$ ($-3.863$ points);
+its residual stays positive under the same finite-pool resampling. Thus the residual's sign is
+robust in this control, but the reproduced fraction is composition-sensitive.
+The external-reference \texttt{H0} is a separate stress diagnostic and is never added to an
+estimate. Brackets are $95\%$ finite-pool stability intervals: the $2.5$th and $97.5$th percentiles
+of $50{,}000$ crossed task--layer resampling replicates (seed $20260915$). They describe
+sensitivity to reweighting the observed tasks and layers, not superpopulation coverage, and
+condition on one checkpoint/training realisation per task, the realised rows, fixed calibration
+and blocking rule, and the exact scalar null (or the pooled $64$-draw realised Monte Carlo null
+for adapter arms; Appendix~\ref{app:limits}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_main.pdf}
+\caption{Left: above-chance overlap split into the part the activation null reproduces and the
+residual for each encoder. Right: an exploratory ViT-B/16 split by whether a module reads the
+residual stream or a representation built within its block. All fractions use the null expectation
+without adding the realised \texttt{H0} diagnostic.}
+\label{fig:main}
+\end{figure}
+
+\subsection{Full fine-tuning: the conditional null reproduces about a quarter}
+
+In the two complete ViT-B measurements, the activation-conditioned null reproduces
+$25.3451\%$ ($[19.3033,31.8010]$) and $22.3961\%$ ($[15.5516,29.8850]$) of above-isotropic
+top-$8$ overlap. The partial ViT-L/14 \texttt{q}/\texttt{v} measurement gives $11.8961\%$
+($[8.1064,16.4895]$).
+Conditional on the fixed
+null specification, the residual is positive under crossed task--layer resampling, but
+should not automatically be identified with
+task-derived sharing: it is directional agreement not accounted for by the conditioned
+statistics. An earlier implementation put its headline reproduced fraction near $67\%$; the positive
+control in \S\ref{sec:validate} shows why we reject it, with delivered-signal recovery of only
+$45.6$--$51.7\%$ instead of the corrected null's $99.3$--$99.6\%$.
+
+Figure~\ref{fig:main} shows the split; Appendix~\ref{app:main} gives the aggregate columns behind
+it. In the exploratory ViT-B/16 grouping, the exact null reproduces $16.5568\%$ for modules reading
+the residual stream and $38.9609\%$ for modules reading a representation built within the block.
+This contrast is not explained by input width alone because attention
+\texttt{q}/\texttt{k}/\texttt{v} and \texttt{out\_proj} have the same input width.
+One possible explanation is that task-specific structure accumulates in the residual stream,
+whereas \texttt{out\_proj} and \texttt{fc2} read representations more tightly constrained by the
+block. This is a descriptive grouping; it does not identify why the split arose.
+
+For ViT-B/16, ViT-B/32, and ViT-L/14 respectively, the crossed-resampling residual stability
+intervals are $[+0.04540,+0.10568]$, $[+0.04224,+0.10085]$, and $[+0.03476,+0.08252]$.
+All endpoints remain positive under this finite-pool reweighting. Within each replicate,
+independent multinomial endpoint counts
+$C_t$ and layer counts $L_\ell$ give row weight $C_aC_bL_\ell$; all module types in a layer stay
+together, weighted means precede the ratio, and external \texttt{H0} diagnostics remain separate.
+
+\subsection{Low-rank adapters: a shared-start-compatible signature}
+\label{sec:lora}
+
+Low-rank adapters make the regime-specific conditioned object explicit. Since
+$\mathrm{row}(BA)\subseteq\mathrm{row}(A)$, shared $A_0$ imposes a common admissible row space;
+this remains exact when $A$ is frozen, while for trained $A$ we measure rather than assume it.
+Across all $24$ targeted modules in the factor audit (Appendix~\ref{app:lora-factors}),
+learned-from-zero $B$ overlaps at $0.0540$--$0.0570$, well below $A$'s
+$0.8759$--$1.0000$ but still about five times chance. The
+linearized pool, with bit-identical frozen $A$, has the highest $A$ and product overlap.
+The following pool-level estimates use all $24$ targeted modules and eight tasks. For LoRA-16,
+the $A$-conditioned factor null reproduces $80.3110\%$ ($[75.7205,85.0681]$) of above-isotropic overlap.
+This conditions jointly on observed final $A$ and $B$'s spectrum. The attainable plant delivers
+$37.39/49.79/57.04\%$ of its nominal increment, while level-centred recovery is
+$101.12/101.08/100.70\%$ at $s=1/2/4$. This establishes response to that narrow intervention.
+With frozen bit-identical $A$, the linearized pool gives $76.0713\%$ ($[72.1974,80.2483]$).
+Full fine-tuning over the same $24$ modules gives $16.2440\%$ ($[9.2333,27.4812]$), leaving a $64$-point
+contrast with the module set held fixed.
+
+\paragraph{A regime-mismatched null changes the attribution.}
+The activation null instead leaves $99.9\%$ of the same LoRA pool's above-chance overlap as
+residual, versus $19.7\%$ under the observed-$A$-preserving factor null ($+0.5966$ versus
+$+0.1176$). It answers a different question because it does not hold observed $A$ fixed;
+transferring a null across regimes therefore changes the inferred effect size substantially.
+
+An independently initialised-$A$ language-model study instead finds shared directions in
+$B$~\citep{tang2026bspace}; its different architecture, tasks, and protocol preclude a direct comparison.
+
+\subsection{Consequences: attribution rather than a new merge}
+\label{sec:projector}
+\label{sec:merge}
+\label{sec:ranking}
+We rebuild the null-space projector of \citet{qiu2026nufilt} from real and independently
+randomised task vectors (Appendix~\ref{app:projector}). Observed--null basis overlap is $0.8750$
+versus $0.0208$ chance for LoRA and $0.2594$ versus $0.1667$ for full fine-tuning. The corresponding
+basis mass in the top activation subspace is $0.1356$ and $0.2612$ (chance $0.0833$); none of
+these projector statistics has a dedicated positive control. This does not test projector utility.
+A separate cross-term-only compression heuristic loses to the cumulative-update basis at every rank
+(Appendix~\ref{app:merge}). Calibration is also nearly rank-preserving over task pairs
+(Spearman $0.994$--$0.995$); we do not test a retrained mergeability predictor. The contribution
+is therefore inferential: a large effect or useful basis does not by itself establish the
+mechanism invoked to explain it.

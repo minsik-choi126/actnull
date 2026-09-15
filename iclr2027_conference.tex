@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{iclr2027_conference,times}
+\usepackage{amsmath,amssymb,booktabs,graphicx,microtype}
+\usepackage{pifont}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+% cleveref unavailable in this TeX install; \ref used directly
+
+\title{Conditional Nulls and Positive Controls for Task-Vector Subspace Overlap}
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/method}
+\input{sections/validating}
+\input{sections/experiments}
+\input{sections/conclusion}
+\section*{Reproducibility Statement}
+Appendix~\ref{app:repro} records task pools, calibration data, numerical settings, and checks;
+the supplementary artifact provides row-level results, executable analysis, and manifests.
+\section*{Use of Large Language Models}
+Large language models were used for methodology and experiment feedback, code implementation,
+mathematical and numerical checking, result interpretation, figure and artifact preparation, and
+drafting and editing. The authors reviewed and tested the resulting work and take full
+responsibility for the paper's content.
+
+\bibliography{iclr2027_conference}
+\bibliographystyle{iclr2027_conference}
+\appendix
+\input{sections/appendix}
+\end{document}

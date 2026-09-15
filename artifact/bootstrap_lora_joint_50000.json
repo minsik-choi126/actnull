@@ -1,0 +1,230 @@
+{
+  "datasets": [
+    {
+      "input": "results/v7_mc64_b16_8task_q_v_lora-16_loranull.csv",
+      "label": "LoRA16",
+      "metric_keys": {
+        "fraction": "reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_act_raw",
+      "null_kinds": [
+        "lora"
+      ],
+      "one_way_comparison": {
+        "reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.160990517018884,
+          "joint_to_legacy_envelope_width_ratio": 1.160990517018884,
+          "joint_to_task_only_width_ratio": 2.0077200678642426,
+          "joint_width": 9.347583830063087,
+          "layer_only_width": 8.051386891656279,
+          "legacy_envelope_width": 8.051386891656279,
+          "task_only_width": 4.655820290727476
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.1641440511923373,
+          "joint_to_legacy_envelope_width_ratio": 1.1641440511923373,
+          "joint_to_task_only_width_ratio": 2.000809007022249,
+          "joint_width": 0.0714469810283968,
+          "layer_only_width": 0.06137297266194808,
+          "legacy_envelope_width": 0.06137297266194808,
+          "task_only_width": 0.03570904607968027
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "reproduced_fraction_percent": [
+            75.72049668799923,
+            85.06808051806232
+          ],
+          "residual": [
+            0.08367044051478117,
+            0.15511742154317798
+          ]
+        },
+        "layer_only": {
+          "reproduced_fraction_percent": [
+            76.42211467593013,
+            84.47350156758641
+          ],
+          "residual": [
+            0.08755503406270387,
+            0.14892800672465195
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "reproduced_fraction_percent": [
+            76.42211467593013,
+            84.47350156758641
+          ],
+          "residual": [
+            0.08755503406270387,
+            0.14892800672465195
+          ]
+        },
+        "task_only": {
+          "reproduced_fraction_percent": [
+            77.72453989924551,
+            82.38036018997299
+          ],
+          "residual": [
+            0.10243337361801726,
+            0.13814241969769753
+          ]
+        }
+      },
+      "point_estimate": {
+        "reproduced_fraction_percent": 80.31096127422045,
+        "residual": 0.11756588622908264
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 24,
+        "pair_layer_cells": 336,
+        "rows": 672,
+        "task_pairs": 28,
+        "tasks": 8
+      },
+      "sha256": "4e8d8bd77795d574dc08bab353a114f7573853f71bc69fa78774e939d948fe85"
+    },
+    {
+      "input": "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull.csv",
+      "label": "LinearizedLoRA16",
+      "metric_keys": {
+        "fraction": "reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_act_raw",
+      "null_kinds": [
+        "lora"
+      ],
+      "one_way_comparison": {
+        "reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.1982990482132436,
+          "joint_to_legacy_envelope_width_ratio": 1.1982990482132436,
+          "joint_to_task_only_width_ratio": 1.8859328834136062,
+          "joint_width": 8.050910149169894,
+          "layer_only_width": 6.718615158022885,
+          "legacy_envelope_width": 6.718615158022885,
+          "task_only_width": 4.268927181861031
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.2030358686311304,
+          "joint_to_legacy_envelope_width_ratio": 1.2030358686311304,
+          "joint_to_task_only_width_ratio": 1.850556968565764,
+          "joint_width": 0.06937882942082903,
+          "layer_only_width": 0.057669792921279606,
+          "legacy_envelope_width": 0.057669792921279606,
+          "task_only_width": 0.03749078282880405
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "reproduced_fraction_percent": [
+            72.19743197530852,
+            80.24834212447841
+          ],
+          "residual": [
+            0.12253427443223543,
+            0.19191310385306445
+          ]
+        },
+        "layer_only": {
+          "reproduced_fraction_percent": [
+            72.78935605969671,
+            79.5079712177196
+          ],
+          "residual": [
+            0.12834604798538618,
+            0.18601584090666579
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "reproduced_fraction_percent": [
+            72.78935605969671,
+            79.5079712177196
+          ],
+          "residual": [
+            0.12834604798538618,
+            0.18601584090666579
+          ]
+        },
+        "task_only": {
+          "reproduced_fraction_percent": [
+            73.90904423499401,
+            78.17797141685504
+          ],
+          "residual": [
+            0.13866662037553473,
+            0.17615740320433879
+          ]
+        }
+      },
+      "point_estimate": {
+        "reproduced_fraction_percent": 76.07128023018082,
+        "residual": 0.1566075470320703
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 24,
+        "pair_layer_cells": 336,
+        "rows": 672,
+        "task_pairs": 28,
+        "tasks": 8
+      },
+      "sha256": "42d005bf584c976d7ca8a561c81cd3a81f2ace7c4dab0e17d1fe865938b598b9"
+    }
+  ],
+  "method": {
+    "conditioning": "conditions on realised task-pair rows, modules, activation calibration, and selected per-row null values; null_exact is analytic, whereas sampled fitted-null columns are realised Monte Carlo means",
+    "coverage_note": "crossed/joint refers to cluster dimensions, not family-wise simultaneous coverage across the two metrics",
+    "crossed_weight": "C_a*C_b*L_l",
+    "fraction": "100*(mean(null)-mean(isotropic))/(mean(raw)-mean(isotropic))",
+    "interval": "2.5th and 97.5th percentiles (NumPy linear quantiles)",
+    "layer_resampling": "sample L encoder-layer blocks with replacement from the L observed layers; all module types in layer l receive weight L_l",
+    "name": "crossed task-endpoint by encoder-layer pigeonhole bootstrap",
+    "point_and_replicate_aggregation": "weighted rows are averaged before taking the reproduced-fraction ratio",
+    "ratio_denominator_absolute_epsilon": 1e-12,
+    "residual": "mean(raw-null)",
+    "seed_reset_for_each_input": 20260915,
+    "task_resampling": "sample T endpoints with replacement from the T observed tasks; row (a,b) receives endpoint weight C_a*C_b",
+    "valid_replicates_per_scheme": 50000
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "alternative MNIST/Stanford-Cars/SVHN calibration-composition materialization",
+  "execution_observation": {
+    "source": "results/calibration_composition_b16/composition_map.json software field",
+    "imported_versions": {
+      "datasets": "5.0.1",
+      "pillow": "12.3.0"
+    },
+    "full_installed_distribution_freeze_captured": false,
+    "caveat": "The materialization map recorded the two libraries imported by its producer, but the complete installed transitive environment was not retained. This record does not relabel the separate numerical-runtime freeze as that environment."
+  },
+  "numerical_runtime_record": {
+    "path": "runtime-freeze.txt",
+    "python": "3.11.16",
+    "distributions": 35,
+    "includes_optional_data_extra": false
+  },
+  "locked_reconstruction_environment": {
+    "specification": "pyproject.toml",
+    "resolver_lock": "uv.lock",
+    "install_groups": ["data"],
+    "lock_contains": {
+      "datasets": "5.0.1",
+      "dill": "0.4.1",
+      "multiprocess": "0.70.19",
+      "pyarrow": "25.0.1",
+      "requests": "2.34.2",
+      "xxhash": "4.0.1",
+      "pillow": "12.3.0"
+    },
+    "status": "Exact release reconstruction resolution, not a retroactive claim about unrecorded installed transitive packages at materialization time."
+  }
+}

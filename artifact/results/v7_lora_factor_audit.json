@@ -1,0 +1,1796 @@
+{
+  "schema_version": 2,
+  "implementation_sha256": "c4b9105cc544fdb0fe25fce83f220c6d41be690f5f8cecebd1ad396f8eb08bae",
+  "input_pin_record": {
+    "file": "upstream_revisions.json",
+    "sha256": "fb443095532490bb43dafe30a28b2042c930905cdccaba4e58b8cada17a84e57"
+  },
+  "scope": {
+    "backbone": "openai/clip-vit-base-patch16",
+    "tasks": [
+      "dtd",
+      "eurosat",
+      "gtsrb",
+      "mnist",
+      "resisc45",
+      "stanford-cars",
+      "sun397",
+      "svhn"
+    ],
+    "unordered_task_pairs": 28,
+    "k": 8,
+    "ambient_dimension": 768,
+    "primary_all_24_modules": {
+      "layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "projections": [
+        "q_proj",
+        "v_proj"
+      ],
+      "modules": [
+        "encoder.layers.0.self_attn.q_proj",
+        "encoder.layers.0.self_attn.v_proj",
+        "encoder.layers.1.self_attn.q_proj",
+        "encoder.layers.1.self_attn.v_proj",
+        "encoder.layers.2.self_attn.q_proj",
+        "encoder.layers.2.self_attn.v_proj",
+        "encoder.layers.3.self_attn.q_proj",
+        "encoder.layers.3.self_attn.v_proj",
+        "encoder.layers.4.self_attn.q_proj",
+        "encoder.layers.4.self_attn.v_proj",
+        "encoder.layers.5.self_attn.q_proj",
+        "encoder.layers.5.self_attn.v_proj",
+        "encoder.layers.6.self_attn.q_proj",
+        "encoder.layers.6.self_attn.v_proj",
+        "encoder.layers.7.self_attn.q_proj",
+        "encoder.layers.7.self_attn.v_proj",
+        "encoder.layers.8.self_attn.q_proj",
+        "encoder.layers.8.self_attn.v_proj",
+        "encoder.layers.9.self_attn.q_proj",
+        "encoder.layers.9.self_attn.v_proj",
+        "encoder.layers.10.self_attn.q_proj",
+        "encoder.layers.10.self_attn.v_proj",
+        "encoder.layers.11.self_attn.q_proj",
+        "encoder.layers.11.self_attn.v_proj"
+      ],
+      "modules_per_task": 24,
+      "cells_per_family": 672
+    },
+    "secondary_legacy_six_modules": {
+      "status": "secondary provenance diagnostic, not primary",
+      "layers": [
+        2,
+        6,
+        10
+      ],
+      "projections": [
+        "q_proj",
+        "v_proj"
+      ],
+      "modules": [
+        "encoder.layers.2.self_attn.q_proj",
+        "encoder.layers.2.self_attn.v_proj",
+        "encoder.layers.6.self_attn.q_proj",
+        "encoder.layers.6.self_attn.v_proj",
+        "encoder.layers.10.self_attn.q_proj",
+        "encoder.layers.10.self_attn.v_proj"
+      ],
+      "modules_per_task": 6,
+      "cells_per_family": 168
+    }
+  },
+  "definitions": {
+    "overlap": "||Q_i^T Q_j||_F^2 / k for orthonormal top-k bases",
+    "A_right": "top-k right singular subspace of the stored LoRA A factor",
+    "B_left": "top-k left singular subspace of the stored LoRA B factor",
+    "BA_right": "top-k right singular subspace of BA; invariant to the LoRA scalar",
+    "BA_compact_algorithm": "A^T=QR; SVD(BR^T)=USV^T; BA right basis=QV",
+    "primary_aggregation": "unweighted arithmetic mean over 28 task pairs x 24 modules",
+    "secondary_legacy_aggregation": "unweighted arithmetic mean over 28 task pairs x the historical six-module layers-2/6/10 subset",
+    "isotropic_expectation": 0.010416666666666666
+  },
+  "numeric_environment": {
+    "dtype": "float64",
+    "device": "cpu",
+    "torch": "2.14.0",
+    "safetensors": "0.8.0",
+    "torch_threads": 1
+  },
+  "families": [
+    {
+      "family": "rank16_lora",
+      "checkpoint_filename": "adapter_model.safetensors",
+      "factor_shapes": {
+        "A": [
+          16,
+          768
+        ],
+        "B": [
+          768,
+          16
+        ]
+      },
+      "checkpoints": [
+        {
+          "task": "dtd",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_dtd_lora-16@4540b65d257f5ab4e3ecc8f0649b6ce8e2f16301",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "c1d070eaebf3db5ca9ee0f50eff63adee7ceff8595577f6d51866bc9a384d44b"
+        },
+        {
+          "task": "eurosat",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_eurosat_lora-16@686e08726974b85f017804c623f5057cfd4f885c",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "a6a4d54459cd022bd46f05012b0a8021d7760a80f566721068687e750e550421"
+        },
+        {
+          "task": "gtsrb",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_gtsrb_lora-16@1bc88199db87fa7e77de6510ff1ee2b3935afe6e",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "3e7b37188d5875d6409cbfc1d27cf806e6ab308fc49f4306e1158b1bd56f50b5"
+        },
+        {
+          "task": "mnist",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_mnist_lora-16@8679565eaf3f576c9797f10baf6e7a7bff892a04",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "66fa5b161062b9eced7e42995734d2c26fabd37b0a06046f9ab7fe38c5d6cd46"
+        },
+        {
+          "task": "resisc45",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_resisc45_lora-16@efb2f6a407efcb1435e34e9be0b3045c063d7b9c",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "15cc5d41406a65ce41fe62325a851393ec9ccd54127f723bc90fc48a567361ce"
+        },
+        {
+          "task": "stanford-cars",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_stanford-cars_lora-16@ce7faf3254fa0f45f24ceb8876906492e8d1d91b",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "74e666245738052ec9a68f7554532c88140b4461f2922121024b27f531b6f5c8"
+        },
+        {
+          "task": "sun397",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_sun397_lora-16@28cb1138caf8283903a257cfc287dd964aae11bb",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "9f9472ed1f2399b13c3ccc4eec9a7ad3cb26d0d103a303b1d9b7fe01e40eb836"
+        },
+        {
+          "task": "svhn",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_svhn_lora-16@861fa477df01ab5fcbb61948448db46fe7b0f423",
+          "file": "adapter_model.safetensors",
+          "bytes": 2365680,
+          "sha256": "d4f0c48ba0770ea11bfa1d284ec2d077386827aa3b5ef19e6f229c66c6af0c9e"
+        }
+      ],
+      "primary_all_24_modules": {
+        "A_identity_audit": {
+          "bit_identical_across_all_tasks_and_modules": false,
+          "maximum_absolute_element_difference": 0.020185498986393213,
+          "by_module": {
+            "encoder.layers.0.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.008421646431088448
+            },
+            "encoder.layers.0.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.014223499223589897
+            },
+            "encoder.layers.1.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.01131463423371315
+            },
+            "encoder.layers.1.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.015207219868898392
+            },
+            "encoder.layers.2.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.011664354940876365
+            },
+            "encoder.layers.2.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.017077492084354162
+            },
+            "encoder.layers.3.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.012303018942475319
+            },
+            "encoder.layers.3.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.015653729671612382
+            },
+            "encoder.layers.4.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.013149444945156574
+            },
+            "encoder.layers.4.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.014949861448258162
+            },
+            "encoder.layers.5.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.015027547255158424
+            },
+            "encoder.layers.5.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.016052301973104477
+            },
+            "encoder.layers.6.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.016267528757452965
+            },
+            "encoder.layers.6.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.01604552287608385
+            },
+            "encoder.layers.7.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.015293868258595467
+            },
+            "encoder.layers.7.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.017275262624025345
+            },
+            "encoder.layers.8.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.015854816883802414
+            },
+            "encoder.layers.8.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.018961969763040543
+            },
+            "encoder.layers.9.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.018091796897351742
+            },
+            "encoder.layers.9.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.019517249427735806
+            },
+            "encoder.layers.10.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.01869243662804365
+            },
+            "encoder.layers.10.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.019447745755314827
+            },
+            "encoder.layers.11.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.019308146089315414
+            },
+            "encoder.layers.11.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.020185498986393213
+            }
+          }
+        },
+        "aggregate": {
+          "A_right": {
+            "n": 672,
+            "mean": 0.8758931204598783,
+            "paper_rounded_4": "0.8759",
+            "minimum": 0.6837282724410367,
+            "maximum": 0.9963279529144287
+          },
+          "B_left": {
+            "n": 672,
+            "mean": 0.05399135030964878,
+            "paper_rounded_4": "0.0540",
+            "minimum": 0.009472276499517263,
+            "maximum": 0.4127680187460978
+          },
+          "BA_right": {
+            "n": 672,
+            "mean": 0.6075299837546246,
+            "paper_rounded_4": "0.6075",
+            "minimum": 0.4189407409587385,
+            "maximum": 0.9170779439186597
+          }
+        },
+        "released_product_csv_crosscheck": {
+          "file": "v7_mc64_b16_8task_q_v_lora-16_loranull.csv",
+          "sha256": "4e8d8bd77795d574dc08bab353a114f7573853f71bc69fa78774e939d948fe85",
+          "total_rows": 672,
+          "selected_rows": 672,
+          "released_raw_mean": 0.6075300548136944,
+          "released_raw_paper_rounded_4": "0.6075",
+          "factor_recomputation_mean": 0.6075299837546246,
+          "maximum_absolute_cell_difference": 1.4506164071059757e-06,
+          "mean_absolute_cell_difference": 2.088222747472706e-07,
+          "paper_rounding_matches": true
+        }
+      },
+      "secondary_legacy_six_modules": {
+        "status": "historical layers 2/6/10 diagnostic retained for provenance; not the primary factor-audit estimand",
+        "modules": [
+          "encoder.layers.2.self_attn.q_proj",
+          "encoder.layers.2.self_attn.v_proj",
+          "encoder.layers.6.self_attn.q_proj",
+          "encoder.layers.6.self_attn.v_proj",
+          "encoder.layers.10.self_attn.q_proj",
+          "encoder.layers.10.self_attn.v_proj"
+        ],
+        "A_identity_audit": {
+          "bit_identical_across_all_tasks_and_modules": false,
+          "maximum_absolute_element_difference": 0.019447745755314827,
+          "by_module": {
+            "encoder.layers.2.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.011664354940876365
+            },
+            "encoder.layers.2.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.017077492084354162
+            },
+            "encoder.layers.6.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.016267528757452965
+            },
+            "encoder.layers.6.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.01604552287608385
+            },
+            "encoder.layers.10.self_attn.q_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.01869243662804365
+            },
+            "encoder.layers.10.self_attn.v_proj": {
+              "bit_identical_across_tasks": false,
+              "maximum_absolute_element_difference": 0.019447745755314827
+            }
+          }
+        },
+        "aggregate": {
+          "A_right": {
+            "n": 168,
+            "mean": 0.8654598019254119,
+            "paper_rounded_4": "0.8655",
+            "minimum": 0.6837282724410367,
+            "maximum": 0.9957806737977932
+          },
+          "B_left": {
+            "n": 168,
+            "mean": 0.05060554170115027,
+            "paper_rounded_4": "0.0506",
+            "minimum": 0.011644139206538808,
+            "maximum": 0.2687022515414636
+          },
+          "BA_right": {
+            "n": 168,
+            "mean": 0.6099277202948762,
+            "paper_rounded_4": "0.6099",
+            "minimum": 0.45474556882319034,
+            "maximum": 0.840626199243954
+          }
+        },
+        "released_product_csv_crosscheck": {
+          "file": "v7_mc64_b16_8task_q_v_lora-16_loranull.csv",
+          "sha256": "4e8d8bd77795d574dc08bab353a114f7573853f71bc69fa78774e939d948fe85",
+          "total_rows": 672,
+          "selected_rows": 168,
+          "released_raw_mean": 0.6099278300645805,
+          "released_raw_paper_rounded_4": "0.6099",
+          "factor_recomputation_mean": 0.6099277202948762,
+          "maximum_absolute_cell_difference": 1.3848724677023583e-06,
+          "mean_absolute_cell_difference": 2.1255694797064246e-07,
+          "paper_rounding_matches": true
+        }
+      },
+      "by_module": {
+        "encoder.layers.0.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9704835454329409,
+            "paper_rounded_4": "0.9705",
+            "minimum": 0.9204900480005717,
+            "maximum": 0.9963279529144287
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.17130060995334362,
+            "paper_rounded_4": "0.1713",
+            "minimum": 0.09513537239628556,
+            "maximum": 0.26004677102263896
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6726562292813602,
+            "paper_rounded_4": "0.6727",
+            "minimum": 0.5995426067739248,
+            "maximum": 0.7801440011246891
+          }
+        },
+        "encoder.layers.0.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9209463133803162,
+            "paper_rounded_4": "0.9209",
+            "minimum": 0.8674490075006116,
+            "maximum": 0.9765903464831954
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.02629128596056333,
+            "paper_rounded_4": "0.0263",
+            "minimum": 0.01250888667431218,
+            "maximum": 0.09713354083068443
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.7436814322295967,
+            "paper_rounded_4": "0.7437",
+            "minimum": 0.6135873131996137,
+            "maximum": 0.9170779439186597
+          }
+        },
+        "encoder.layers.1.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.962244473922076,
+            "paper_rounded_4": "0.9622",
+            "minimum": 0.9173008218818126,
+            "maximum": 0.9936988242567355
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.17166099648040536,
+            "paper_rounded_4": "0.1717",
+            "minimum": 0.11508329829438033,
+            "maximum": 0.24227818488626673
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6677469715486081,
+            "paper_rounded_4": "0.6677",
+            "minimum": 0.5620996952420357,
+            "maximum": 0.7305034889319295
+          }
+        },
+        "encoder.layers.1.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8582473608440847,
+            "paper_rounded_4": "0.8582",
+            "minimum": 0.7912649090216903,
+            "maximum": 0.9336075095144144
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04068442113140231,
+            "paper_rounded_4": "0.0407",
+            "minimum": 0.020546616015545173,
+            "maximum": 0.12478721084137692
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6836908612423074,
+            "paper_rounded_4": "0.6837",
+            "minimum": 0.5919290326733194,
+            "maximum": 0.8725778242275171
+          }
+        },
+        "encoder.layers.2.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9359095670130817,
+            "paper_rounded_4": "0.9359",
+            "minimum": 0.8664908596257503,
+            "maximum": 0.9957806737977932
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.11328158037802667,
+            "paper_rounded_4": "0.1133",
+            "minimum": 0.07445793232074568,
+            "maximum": 0.18264587563173046
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6879688294864328,
+            "paper_rounded_4": "0.6880",
+            "minimum": 0.5366608379937192,
+            "maximum": 0.7939078526827992
+          }
+        },
+        "encoder.layers.2.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8579143390495844,
+            "paper_rounded_4": "0.8579",
+            "minimum": 0.8001280269333262,
+            "maximum": 0.9549923631430008
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.031370338645853514,
+            "paper_rounded_4": "0.0314",
+            "minimum": 0.017476658848519015,
+            "maximum": 0.1051399213814618
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6952612838065166,
+            "paper_rounded_4": "0.6953",
+            "minimum": 0.5860057907091243,
+            "maximum": 0.840626199243954
+          }
+        },
+        "encoder.layers.3.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.945056513133867,
+            "paper_rounded_4": "0.9451",
+            "minimum": 0.8996821325807751,
+            "maximum": 0.9903534729918965
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.07397773147206847,
+            "paper_rounded_4": "0.0740",
+            "minimum": 0.03743218407789267,
+            "maximum": 0.15646002133577747
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6911731448689703,
+            "paper_rounded_4": "0.6912",
+            "minimum": 0.5895847400862896,
+            "maximum": 0.7999997551971798
+          }
+        },
+        "encoder.layers.3.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8523813964804798,
+            "paper_rounded_4": "0.8524",
+            "minimum": 0.7669387701702723,
+            "maximum": 0.9351779273238559
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.03108151365909844,
+            "paper_rounded_4": "0.0311",
+            "minimum": 0.016872643520061674,
+            "maximum": 0.08402414489416622
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6311986451771955,
+            "paper_rounded_4": "0.6312",
+            "minimum": 0.4944453407000976,
+            "maximum": 0.799318965933479
+          }
+        },
+        "encoder.layers.4.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9198290196842356,
+            "paper_rounded_4": "0.9198",
+            "minimum": 0.8726510244454591,
+            "maximum": 0.9756529980060613
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.05567848976857208,
+            "paper_rounded_4": "0.0557",
+            "minimum": 0.024735001663578,
+            "maximum": 0.11732174347852967
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6534107359483681,
+            "paper_rounded_4": "0.6534",
+            "minimum": 0.5607176670565094,
+            "maximum": 0.7659455177641834
+          }
+        },
+        "encoder.layers.4.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8452489593647787,
+            "paper_rounded_4": "0.8452",
+            "minimum": 0.7804104154599573,
+            "maximum": 0.9041697489109866
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.02815137224747668,
+            "paper_rounded_4": "0.0282",
+            "minimum": 0.014005389703136065,
+            "maximum": 0.07197049301423188
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6010720482160591,
+            "paper_rounded_4": "0.6011",
+            "minimum": 0.5167097415315252,
+            "maximum": 0.7523736201139708
+          }
+        },
+        "encoder.layers.5.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8725215663816526,
+            "paper_rounded_4": "0.8725",
+            "minimum": 0.8353425748734895,
+            "maximum": 0.9365012367213057
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.051334977465166125,
+            "paper_rounded_4": "0.0513",
+            "minimum": 0.02070435246309471,
+            "maximum": 0.12118061737816867
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.593662094478368,
+            "paper_rounded_4": "0.5937",
+            "minimum": 0.4376973829994042,
+            "maximum": 0.7398034095379543
+          }
+        },
+        "encoder.layers.5.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8615756817884931,
+            "paper_rounded_4": "0.8616",
+            "minimum": 0.7917437831744578,
+            "maximum": 0.9207573251426997
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.029966448646677968,
+            "paper_rounded_4": "0.0300",
+            "minimum": 0.01165008456116895,
+            "maximum": 0.07423258202962864
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.605615286484961,
+            "paper_rounded_4": "0.6056",
+            "minimum": 0.5332788452617634,
+            "maximum": 0.684951708677568
+          }
+        },
+        "encoder.layers.6.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8823697629026018,
+            "paper_rounded_4": "0.8824",
+            "minimum": 0.7922234040294915,
+            "maximum": 0.9656754779611504
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04908267775868846,
+            "paper_rounded_4": "0.0491",
+            "minimum": 0.018990252581019565,
+            "maximum": 0.11342182531605385
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5898178912204087,
+            "paper_rounded_4": "0.5898",
+            "minimum": 0.5051087421662555,
+            "maximum": 0.7069290100617531
+          }
+        },
+        "encoder.layers.6.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8829014499168597,
+            "paper_rounded_4": "0.8829",
+            "minimum": 0.8225766455055716,
+            "maximum": 0.9461814029191888
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.026315248348794236,
+            "paper_rounded_4": "0.0263",
+            "minimum": 0.013026248831873824,
+            "maximum": 0.0927824226961588
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5689794358798819,
+            "paper_rounded_4": "0.5690",
+            "minimum": 0.45474556882319034,
+            "maximum": 0.6528947495143467
+          }
+        },
+        "encoder.layers.7.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9062331687401877,
+            "paper_rounded_4": "0.9062",
+            "minimum": 0.8319532115134602,
+            "maximum": 0.9588975961996512
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.047794137113016055,
+            "paper_rounded_4": "0.0478",
+            "minimum": 0.01664040739946316,
+            "maximum": 0.16247668026866835
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5639344741176153,
+            "paper_rounded_4": "0.5639",
+            "minimum": 0.4780948878815954,
+            "maximum": 0.6543177083774699
+          }
+        },
+        "encoder.layers.7.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8733071714586004,
+            "paper_rounded_4": "0.8733",
+            "minimum": 0.7722981248830696,
+            "maximum": 0.9325677290966325
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.02773860218432006,
+            "paper_rounded_4": "0.0277",
+            "minimum": 0.011308929906005566,
+            "maximum": 0.11868053970720585
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.552311705902036,
+            "paper_rounded_4": "0.5523",
+            "minimum": 0.47868681236191934,
+            "maximum": 0.6472973347024553
+          }
+        },
+        "encoder.layers.8.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8803630690383211,
+            "paper_rounded_4": "0.8804",
+            "minimum": 0.8092756994280175,
+            "maximum": 0.9467134275725301
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04965504314783634,
+            "paper_rounded_4": "0.0497",
+            "minimum": 0.018610314859427192,
+            "maximum": 0.1487643467050922
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.538982406961522,
+            "paper_rounded_4": "0.5390",
+            "minimum": 0.4726900423353847,
+            "maximum": 0.6483803106051484
+          }
+        },
+        "encoder.layers.8.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8580440011431942,
+            "paper_rounded_4": "0.8580",
+            "minimum": 0.7196580414858398,
+            "maximum": 0.9605593211970334
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.025831711209264002,
+            "paper_rounded_4": "0.0258",
+            "minimum": 0.010975089752119666,
+            "maximum": 0.14546538658456049
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5208810173766781,
+            "paper_rounded_4": "0.5209",
+            "minimum": 0.4189407409587385,
+            "maximum": 0.6660504449401534
+          }
+        },
+        "encoder.layers.9.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8618373731451615,
+            "paper_rounded_4": "0.8618",
+            "minimum": 0.7822477643629174,
+            "maximum": 0.9252512091826445
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.03761861728526551,
+            "paper_rounded_4": "0.0376",
+            "minimum": 0.013249084240531922,
+            "maximum": 0.13613001967987517
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5493488371294105,
+            "paper_rounded_4": "0.5493",
+            "minimum": 0.4677963875549772,
+            "maximum": 0.66310958806807
+          }
+        },
+        "encoder.layers.9.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8122200079179207,
+            "paper_rounded_4": "0.8122",
+            "minimum": 0.7561350453525642,
+            "maximum": 0.9167879654688138
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.024440134112822226,
+            "paper_rounded_4": "0.0244",
+            "minimum": 0.009472276499517263,
+            "maximum": 0.15362032473880177
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5896772187087626,
+            "paper_rounded_4": "0.5897",
+            "minimum": 0.4679819750587983,
+            "maximum": 0.7506329902420432
+          }
+        },
+        "encoder.layers.10.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8593931997030693,
+            "paper_rounded_4": "0.8594",
+            "minimum": 0.77723455060411,
+            "maximum": 0.9541201479537065
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04852149287690678,
+            "paper_rounded_4": "0.0485",
+            "minimum": 0.0181056448711262,
+            "maximum": 0.19897129774018357
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5548862190051868,
+            "paper_rounded_4": "0.5549",
+            "minimum": 0.47587490799850773,
+            "maximum": 0.6907087704895539
+          }
+        },
+        "encoder.layers.10.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.7742704929672743,
+            "paper_rounded_4": "0.7743",
+            "minimum": 0.6837282724410367,
+            "maximum": 0.8778471953585923
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.03506191219863193,
+            "paper_rounded_4": "0.0351",
+            "minimum": 0.011644139206538808,
+            "maximum": 0.2687022515414636
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5626526623708307,
+            "paper_rounded_4": "0.5627",
+            "minimum": 0.4615353427099155,
+            "maximum": 0.7457943215680494
+          }
+        },
+        "encoder.layers.11.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.8644454239538423,
+            "paper_rounded_4": "0.8644",
+            "minimum": 0.7941841957352,
+            "maximum": 0.9510831992467446
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.045299882717916906,
+            "paper_rounded_4": "0.0453",
+            "minimum": 0.021700426516577134,
+            "maximum": 0.1308507046100335
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5241890246190527,
+            "paper_rounded_4": "0.5242",
+            "minimum": 0.426929273753949,
+            "maximum": 0.6615627304158667
+          }
+        },
+        "encoder.layers.11.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.763691033674454,
+            "paper_rounded_4": "0.7637",
+            "minimum": 0.6948851868884149,
+            "maximum": 0.947012562356367
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.05365318266945367,
+            "paper_rounded_4": "0.0537",
+            "minimum": 0.018644340845180882,
+            "maximum": 0.4127680187460978
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5379211540508633,
+            "paper_rounded_4": "0.5379",
+            "minimum": 0.4511635155777721,
+            "maximum": 0.6318713965407438
+          }
+        }
+      }
+    },
+    {
+      "family": "rank16_linearized_lora",
+      "checkpoint_filename": "linearized_adapter_model.safetensors",
+      "factor_shapes": {
+        "A": [
+          16,
+          768
+        ],
+        "B": [
+          768,
+          16
+        ]
+      },
+      "checkpoints": [
+        {
+          "task": "dtd",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_dtd_l-lora-16@a24ff6915e6988e78b5fb555d26864773caad280",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "9b92a46652119ffc614aecdbd4b6d2bfdabc29137568384ca32adba01820c6f4"
+        },
+        {
+          "task": "eurosat",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_eurosat_l-lora-16@1c44e71f0c1abb0f189093e242f4359dd74d80e0",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "c79e82ff131cbc274b30603d27e9d2b29b98a062293d38335619e3e29154a2f8"
+        },
+        {
+          "task": "gtsrb",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_gtsrb_l-lora-16@7b315e45d39149f3f91ac97c4b555e6f98c91cd9",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "879e5d6dff4f8429b49882c675b012372ed5cfe57a830ba17f279d40a9893f25"
+        },
+        {
+          "task": "mnist",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_mnist_l-lora-16@1005cabdb618e0898ba51afaa4d15e9ddac6473b",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "4f8032eb24018c4b45c383c93fb56b69e52afff3724017e360ece02b2cab6c69"
+        },
+        {
+          "task": "resisc45",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_resisc45_l-lora-16@461d134bd88fa1af0ed4e93d15e30b9fab3fe64d",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "dacda6de639b45a05088e17b5093b052614b05333501cbef74aba9ceb990eb2d"
+        },
+        {
+          "task": "stanford-cars",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_stanford-cars_l-lora-16@f09575c87b9a01d587a6f9b086a7f18c04e7e162",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "a69564577354ff38daea1a11cf7799d2f3caec3ce899dab942e78a5f12ba0b7f"
+        },
+        {
+          "task": "sun397",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_sun397_l-lora-16@ee2ef3c03b2b60ec11e8701aeda0c2be37c25f28",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "bd6e6cf821694d3cad39dff99362989be698aa5c1512fcf6bc74227e1862a309"
+        },
+        {
+          "task": "svhn",
+          "repository_at_revision": "tanganke/clip-vit-base-patch16_svhn_l-lora-16@5221efd45a3f0ffe548934629d4d2b96e62a0584",
+          "file": "linearized_adapter_model.safetensors",
+          "bytes": 4732152,
+          "sha256": "117da1580cff4e5fa1f8d3fc905fda1c69433689d8543408402578dde22da000"
+        }
+      ],
+      "primary_all_24_modules": {
+        "A_identity_audit": {
+          "bit_identical_across_all_tasks_and_modules": true,
+          "maximum_absolute_element_difference": 0.0,
+          "by_module": {
+            "encoder.layers.0.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.0.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.1.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.1.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.2.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.2.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.3.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.3.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.4.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.4.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.5.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.5.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.6.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.6.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.7.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.7.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.8.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.8.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.9.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.9.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.10.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.10.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.11.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.11.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            }
+          }
+        },
+        "aggregate": {
+          "A_right": {
+            "n": 672,
+            "mean": 0.9999999999999998,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999988,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 672,
+            "mean": 0.057049144648505606,
+            "paper_rounded_4": "0.0570",
+            "minimum": 0.008130101766814805,
+            "maximum": 0.46529255605550507
+          },
+          "BA_right": {
+            "n": 672,
+            "mean": 0.6648918856110606,
+            "paper_rounded_4": "0.6649",
+            "minimum": 0.45850318411961005,
+            "maximum": 0.9380808145044464
+          }
+        },
+        "released_product_csv_crosscheck": {
+          "file": "v7_mc64_b16_8task_q_v_l-lora-16_loranull.csv",
+          "sha256": "42d005bf584c976d7ca8a561c81cd3a81f2ace7c4dab0e17d1fe865938b598b9",
+          "total_rows": 672,
+          "selected_rows": 672,
+          "released_raw_mean": 0.6648919103844535,
+          "released_raw_paper_rounded_4": "0.6649",
+          "factor_recomputation_mean": 0.6648918856110606,
+          "maximum_absolute_cell_difference": 2.015243814823542e-06,
+          "mean_absolute_cell_difference": 2.0648240850917017e-07,
+          "paper_rounding_matches": true
+        }
+      },
+      "secondary_legacy_six_modules": {
+        "status": "historical layers 2/6/10 diagnostic retained for provenance; not the primary factor-audit estimand",
+        "modules": [
+          "encoder.layers.2.self_attn.q_proj",
+          "encoder.layers.2.self_attn.v_proj",
+          "encoder.layers.6.self_attn.q_proj",
+          "encoder.layers.6.self_attn.v_proj",
+          "encoder.layers.10.self_attn.q_proj",
+          "encoder.layers.10.self_attn.v_proj"
+        ],
+        "A_identity_audit": {
+          "bit_identical_across_all_tasks_and_modules": true,
+          "maximum_absolute_element_difference": 0.0,
+          "by_module": {
+            "encoder.layers.2.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.2.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.6.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.6.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.10.self_attn.q_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            },
+            "encoder.layers.10.self_attn.v_proj": {
+              "bit_identical_across_tasks": true,
+              "maximum_absolute_element_difference": 0.0
+            }
+          }
+        },
+        "aggregate": {
+          "A_right": {
+            "n": 168,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999998,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 168,
+            "mean": 0.05540208975336029,
+            "paper_rounded_4": "0.0554",
+            "minimum": 0.01155063827561115,
+            "maximum": 0.29451582076965743
+          },
+          "BA_right": {
+            "n": 168,
+            "mean": 0.6681961592252419,
+            "paper_rounded_4": "0.6682",
+            "minimum": 0.5156484930254934,
+            "maximum": 0.8630391310895191
+          }
+        },
+        "released_product_csv_crosscheck": {
+          "file": "v7_mc64_b16_8task_q_v_l-lora-16_loranull.csv",
+          "sha256": "42d005bf584c976d7ca8a561c81cd3a81f2ace7c4dab0e17d1fe865938b598b9",
+          "total_rows": 672,
+          "selected_rows": 168,
+          "released_raw_mean": 0.6681961527182942,
+          "released_raw_paper_rounded_4": "0.6682",
+          "factor_recomputation_mean": 0.6681961592252419,
+          "maximum_absolute_cell_difference": 7.691523262742805e-07,
+          "mean_absolute_cell_difference": 1.8241377222550344e-07,
+          "paper_rounding_matches": true
+        }
+      },
+      "by_module": {
+        "encoder.layers.0.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.1728564405630276,
+            "paper_rounded_4": "0.1729",
+            "minimum": 0.09997616262714293,
+            "maximum": 0.2504325355997156
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6954939248971038,
+            "paper_rounded_4": "0.6955",
+            "minimum": 0.5977761700384752,
+            "maximum": 0.7680282662834289
+          }
+        },
+        "encoder.layers.0.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.027059996958251707,
+            "paper_rounded_4": "0.0271",
+            "minimum": 0.013434030899163426,
+            "maximum": 0.08766760146114493
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.8087136742780219,
+            "paper_rounded_4": "0.8087",
+            "minimum": 0.7215820020421143,
+            "maximum": 0.9344699266655621
+          }
+        },
+        "encoder.layers.1.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999999,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999999,
+            "maximum": 0.9999999999999999
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.16906602824230937,
+            "paper_rounded_4": "0.1691",
+            "minimum": 0.12724669664176305,
+            "maximum": 0.20808836366215583
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6760243659995355,
+            "paper_rounded_4": "0.6760",
+            "minimum": 0.6062976857119446,
+            "maximum": 0.7307727893283729
+          }
+        },
+        "encoder.layers.1.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999992,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999992,
+            "maximum": 0.9999999999999992
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.0398167067282719,
+            "paper_rounded_4": "0.0398",
+            "minimum": 0.02014556725733073,
+            "maximum": 0.11309889008211749
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.7524180830173702,
+            "paper_rounded_4": "0.7524",
+            "minimum": 0.6352990354543568,
+            "maximum": 0.9380808145044464
+          }
+        },
+        "encoder.layers.2.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.11471549298289453,
+            "paper_rounded_4": "0.1147",
+            "minimum": 0.07041565322746579,
+            "maximum": 0.22365098771224767
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.7121506789356875,
+            "paper_rounded_4": "0.7122",
+            "minimum": 0.58180520448025,
+            "maximum": 0.7960292729401848
+          }
+        },
+        "encoder.layers.2.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.034127681126677474,
+            "paper_rounded_4": "0.0341",
+            "minimum": 0.017028240149025667,
+            "maximum": 0.10487036057071616
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.7586995438439479,
+            "paper_rounded_4": "0.7587",
+            "minimum": 0.648661790151934,
+            "maximum": 0.8630391310895191
+          }
+        },
+        "encoder.layers.3.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.08006471776908695,
+            "paper_rounded_4": "0.0801",
+            "minimum": 0.03570177898952931,
+            "maximum": 0.19385432884586865
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.7382978264799309,
+            "paper_rounded_4": "0.7383",
+            "minimum": 0.635233932039312,
+            "maximum": 0.8490463844338372
+          }
+        },
+        "encoder.layers.3.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.03259426263202354,
+            "paper_rounded_4": "0.0326",
+            "minimum": 0.016967805852031025,
+            "maximum": 0.10801278517494675
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6937488511714353,
+            "paper_rounded_4": "0.6937",
+            "minimum": 0.5491533471690078,
+            "maximum": 0.8492190067365097
+          }
+        },
+        "encoder.layers.4.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.061090427098907364,
+            "paper_rounded_4": "0.0611",
+            "minimum": 0.025233828221382128,
+            "maximum": 0.12150820687737596
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6932104421301927,
+            "paper_rounded_4": "0.6932",
+            "minimum": 0.6223754793019632,
+            "maximum": 0.7772871889511646
+          }
+        },
+        "encoder.layers.4.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.02810526726381094,
+            "paper_rounded_4": "0.0281",
+            "minimum": 0.013186630315157554,
+            "maximum": 0.08742661063173623
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6569173364792805,
+            "paper_rounded_4": "0.6569",
+            "minimum": 0.6007726147820873,
+            "maximum": 0.7897621139081396
+          }
+        },
+        "encoder.layers.5.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.05335125714439059,
+            "paper_rounded_4": "0.0534",
+            "minimum": 0.02077756634153577,
+            "maximum": 0.11755200278139184
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6519003202193058,
+            "paper_rounded_4": "0.6519",
+            "minimum": 0.5732450083163246,
+            "maximum": 0.7563079821168035
+          }
+        },
+        "encoder.layers.5.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999993,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999993,
+            "maximum": 0.9999999999999993
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.030032442444924725,
+            "paper_rounded_4": "0.0300",
+            "minimum": 0.013621801835706788,
+            "maximum": 0.08600057179210652
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6618989253820653,
+            "paper_rounded_4": "0.6619",
+            "minimum": 0.5752203936002449,
+            "maximum": 0.7273561087599804
+          }
+        },
+        "encoder.layers.6.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.055939511618103836,
+            "paper_rounded_4": "0.0559",
+            "minimum": 0.020138352882198632,
+            "maximum": 0.13191778589929487
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6381258791984509,
+            "paper_rounded_4": "0.6381",
+            "minimum": 0.5371691136304771,
+            "maximum": 0.7384991750749966
+          }
+        },
+        "encoder.layers.6.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.027554077745876905,
+            "paper_rounded_4": "0.0276",
+            "minimum": 0.01155063827561115,
+            "maximum": 0.10463425348596933
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.636654777890347,
+            "paper_rounded_4": "0.6367",
+            "minimum": 0.5276046060223155,
+            "maximum": 0.6983787856152475
+          }
+        },
+        "encoder.layers.7.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999988,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999988,
+            "maximum": 0.9999999999999988
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04936969798643744,
+            "paper_rounded_4": "0.0494",
+            "minimum": 0.018510636025967024,
+            "maximum": 0.15418514391387578
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5941632273871456,
+            "paper_rounded_4": "0.5942",
+            "minimum": 0.45850318411961005,
+            "maximum": 0.688604634714372
+          }
+        },
+        "encoder.layers.7.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.03167534597710681,
+            "paper_rounded_4": "0.0317",
+            "minimum": 0.008130101766814805,
+            "maximum": 0.13749666524421
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.629712824427917,
+            "paper_rounded_4": "0.6297",
+            "minimum": 0.556049433814814,
+            "maximum": 0.7525676161767269
+          }
+        },
+        "encoder.layers.8.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.05459244790600012,
+            "paper_rounded_4": "0.0546",
+            "minimum": 0.020369134836248574,
+            "maximum": 0.1528859715758813
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5857161938937914,
+            "paper_rounded_4": "0.5857",
+            "minimum": 0.495043809865,
+            "maximum": 0.6663254638899239
+          }
+        },
+        "encoder.layers.8.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.028836954515829943,
+            "paper_rounded_4": "0.0288",
+            "minimum": 0.0131667237148187,
+            "maximum": 0.19059693145213163
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.5850615212265013,
+            "paper_rounded_4": "0.5851",
+            "minimum": 0.4899085751325276,
+            "maximum": 0.7135761250701917
+          }
+        },
+        "encoder.layers.9.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999997,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999997,
+            "maximum": 0.9999999999999997
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04048199853817084,
+            "paper_rounded_4": "0.0405",
+            "minimum": 0.016325067444829956,
+            "maximum": 0.1459724297243189
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6055912021065007,
+            "paper_rounded_4": "0.6056",
+            "minimum": 0.5214989305188567,
+            "maximum": 0.7027576883671882
+          }
+        },
+        "encoder.layers.9.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.02624663124172986,
+            "paper_rounded_4": "0.0262",
+            "minimum": 0.010828296645966773,
+            "maximum": 0.1657922152171645
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6673099404607188,
+            "paper_rounded_4": "0.6673",
+            "minimum": 0.5611627965304594,
+            "maximum": 0.7958549098676827
+          }
+        },
+        "encoder.layers.10.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999998,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999998,
+            "maximum": 0.9999999999999998
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.059642881907568876,
+            "paper_rounded_4": "0.0596",
+            "minimum": 0.01605312791082957,
+            "maximum": 0.28450178838526485
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6070359809409348,
+            "paper_rounded_4": "0.6070",
+            "minimum": 0.5156484930254934,
+            "maximum": 0.7307042479534633
+          }
+        },
+        "encoder.layers.10.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.04043289313904014,
+            "paper_rounded_4": "0.0404",
+            "minimum": 0.013887666370331418,
+            "maximum": 0.29451582076965743
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6565100945420833,
+            "paper_rounded_4": "0.6565",
+            "minimum": 0.5434560396381833,
+            "maximum": 0.7450517316162979
+          }
+        },
+        "encoder.layers.11.self_attn.q_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 0.9999999999999989,
+            "paper_rounded_4": "1.0000",
+            "minimum": 0.9999999999999989,
+            "maximum": 0.9999999999999989
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.051151388191104985,
+            "paper_rounded_4": "0.0512",
+            "minimum": 0.018925235915432742,
+            "maximum": 0.1545834828475769
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6235417800575319,
+            "paper_rounded_4": "0.6235",
+            "minimum": 0.49928620051476635,
+            "maximum": 0.7358172243062735
+          }
+        },
+        "encoder.layers.11.self_attn.v_proj": {
+          "A_right": {
+            "n": 28,
+            "mean": 1.0,
+            "paper_rounded_4": "1.0000",
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "B_left": {
+            "n": 28,
+            "mean": 0.06037492184258809,
+            "paper_rounded_4": "0.0604",
+            "minimum": 0.026328523981157627,
+            "maximum": 0.46529255605550507
+          },
+          "BA_right": {
+            "n": 28,
+            "mean": 0.6285078596996545,
+            "paper_rounded_4": "0.6285",
+            "minimum": 0.5364485146810041,
+            "maximum": 0.7198849800255831
+          }
+        }
+      }
+    }
+  ],
+  "path_policy": "No local paths are recorded; inputs are identified by public repository@revision labels, basenames, byte sizes, and SHA-256 hashes."
+}

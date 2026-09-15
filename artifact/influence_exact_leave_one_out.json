@@ -1,0 +1,927 @@
+{
+  "arms": {
+    "B16": {
+      "leave_one_layer_out": {
+        "fraction_percent": {
+          "maximum": 28.410921819800134,
+          "maximum_omitted": 0,
+          "minimum": 24.359070564800735,
+          "minimum_omitted": 3
+        },
+        "n_units": 12,
+        "residual": {
+          "maximum": 0.07470527780914477,
+          "maximum_omitted": 9,
+          "minimum": 0.05916791926339859,
+          "minimum_omitted": 0
+        },
+        "values": [
+          {
+            "fraction_percent": 28.410921819800134,
+            "omitted": 0,
+            "residual": 0.05916791926339859,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.150657027458415,
+            "omitted": 1,
+            "residual": 0.06976110766489066,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 24.424109689351624,
+            "omitted": 2,
+            "residual": 0.06855100523764233,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 24.359070564800735,
+            "omitted": 3,
+            "residual": 0.07007397015503235,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 24.5975476924855,
+            "omitted": 4,
+            "residual": 0.0707437203680217,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 24.748045456406253,
+            "omitted": 5,
+            "residual": 0.07167712477658815,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 24.899001054680344,
+            "omitted": 6,
+            "residual": 0.07307830660917541,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.165199476234417,
+            "omitted": 7,
+            "residual": 0.07408154224223235,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.552334234047734,
+            "omitted": 8,
+            "residual": 0.07436691726213242,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.49197955639811,
+            "omitted": 9,
+            "residual": 0.07470527780914477,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.85148986794917,
+            "omitted": 10,
+            "residual": 0.0743062455716541,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 25.75959268210658,
+            "omitted": 11,
+            "residual": 0.07466510357000901,
+            "retained_rows": 12540
+          }
+        ]
+      },
+      "leave_one_task_out": {
+        "fraction_percent": {
+          "maximum": 25.896165286218555,
+          "maximum_omitted": "mnist",
+          "minimum": 24.685101425348464,
+          "minimum_omitted": "eurosat"
+        },
+        "n_units": 20,
+        "residual": {
+          "maximum": 0.0760529459292123,
+          "maximum_omitted": "rendered-sst2",
+          "minimum": 0.06810214309014137,
+          "minimum_omitted": "cifar100"
+        },
+        "values": [
+          {
+            "fraction_percent": 25.541858508093643,
+            "omitted": "cifar10",
+            "residual": 0.06837267665677049,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.455614022910094,
+            "omitted": "cifar100",
+            "residual": 0.06810214309014137,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.059636156311072,
+            "omitted": "dtd",
+            "residual": 0.07232335891102112,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.83485658255582,
+            "omitted": "emnist_letters",
+            "residual": 0.0694591319919489,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 24.685101425348464,
+            "omitted": "eurosat",
+            "residual": 0.07209981949608217,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.584594799794054,
+            "omitted": "fashion_mnist",
+            "residual": 0.06995136258745029,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.456139729763848,
+            "omitted": "fer2013",
+            "residual": 0.07074599657261785,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.30939804377026,
+            "omitted": "food101",
+            "residual": 0.07217576109339408,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.254328116711225,
+            "omitted": "gtsrb",
+            "residual": 0.0707939399236987,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.695846483855505,
+            "omitted": "kmnist",
+            "residual": 0.07003172903727971,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.896165286218555,
+            "omitted": "mnist",
+            "residual": 0.06929324694018052,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.58749515026267,
+            "omitted": "oxford-iiit-pet",
+            "residual": 0.0712310676062766,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.188779650411835,
+            "omitted": "oxford_flowers102",
+            "residual": 0.07234246980155921,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.237508034527085,
+            "omitted": "pcam",
+            "residual": 0.07326843983998216,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.240379919961146,
+            "omitted": "rendered-sst2",
+            "residual": 0.0760529459292123,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 24.88736746550121,
+            "omitted": "resisc45",
+            "residual": 0.0728984978114825,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.062315386070118,
+            "omitted": "stanford-cars",
+            "residual": 0.07290653318070917,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.61806994249588,
+            "omitted": "stl10",
+            "residual": 0.07033006433361269,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 24.947537424845684,
+            "omitted": "sun397",
+            "residual": 0.07236044683559241,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 25.437119952957396,
+            "omitted": "svhn",
+            "residual": 0.07055743591085752,
+            "retained_rows": 12312
+          }
+        ]
+      },
+      "source": "results/v7_exact_clip-vit-base-patch16.csv.gz"
+    },
+    "B32": {
+      "leave_one_layer_out": {
+        "fraction_percent": {
+          "maximum": 26.392326105246973,
+          "maximum_omitted": 0,
+          "minimum": 21.27168910450965,
+          "minimum_omitted": 5
+        },
+        "n_units": 12,
+        "residual": {
+          "maximum": 0.07041025738267695,
+          "maximum_omitted": 11,
+          "minimum": 0.05392569391106703,
+          "minimum_omitted": 0
+        },
+        "values": [
+          {
+            "fraction_percent": 26.392326105246973,
+            "omitted": 0,
+            "residual": 0.05392569391106703,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 21.7622769862018,
+            "omitted": 1,
+            "residual": 0.06659281912324566,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.012666570494407,
+            "omitted": 2,
+            "residual": 0.06649133741425423,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 21.85836336309154,
+            "omitted": 3,
+            "residual": 0.06536401272503378,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 21.571237047471733,
+            "omitted": 4,
+            "residual": 0.06591169391559484,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 21.27168910450965,
+            "omitted": 5,
+            "residual": 0.06739264547965973,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 21.506451330627307,
+            "omitted": 6,
+            "residual": 0.06865694497175741,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.062134649505445,
+            "omitted": 7,
+            "residual": 0.06917336464133496,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.511532125588577,
+            "omitted": 8,
+            "residual": 0.0695470304060506,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.716722096266736,
+            "omitted": 9,
+            "residual": 0.0696696155824526,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.917371604203918,
+            "omitted": 10,
+            "residual": 0.06958149642586639,
+            "retained_rows": 12540
+          },
+          {
+            "fraction_percent": 22.676644777580783,
+            "omitted": 11,
+            "residual": 0.07041025738267695,
+            "retained_rows": 12540
+          }
+        ]
+      },
+      "leave_one_task_out": {
+        "fraction_percent": {
+          "maximum": 22.93905911538925,
+          "maximum_omitted": "mnist",
+          "minimum": 21.85618475562889,
+          "minimum_omitted": "eurosat"
+        },
+        "n_units": 20,
+        "residual": {
+          "maximum": 0.07138261466427695,
+          "maximum_omitted": "rendered-sst2",
+          "minimum": 0.06367368762062112,
+          "minimum_omitted": "cifar100"
+        },
+        "values": [
+          {
+            "fraction_percent": 22.679533436775095,
+            "omitted": "cifar10",
+            "residual": 0.06395259524056725,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.580811780896912,
+            "omitted": "cifar100",
+            "residual": 0.06367368762062112,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.05447460166696,
+            "omitted": "dtd",
+            "residual": 0.06750562838297038,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.770964956041677,
+            "omitted": "emnist_letters",
+            "residual": 0.06599171893624045,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 21.85618475562889,
+            "omitted": "eurosat",
+            "residual": 0.06777587066181537,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.642010972221197,
+            "omitted": "fashion_mnist",
+            "residual": 0.06612907460708954,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.574806797860184,
+            "omitted": "fer2013",
+            "residual": 0.06674104016871961,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.283950447201835,
+            "omitted": "food101",
+            "residual": 0.0677603450674595,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.415843516011027,
+            "omitted": "gtsrb",
+            "residual": 0.06653309176094677,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.57445446656979,
+            "omitted": "kmnist",
+            "residual": 0.06660437287202252,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.93905911538925,
+            "omitted": "mnist",
+            "residual": 0.06559340512669477,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.47559456624377,
+            "omitted": "oxford-iiit-pet",
+            "residual": 0.06665992246915028,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.173499168522895,
+            "omitted": "oxford_flowers102",
+            "residual": 0.06766763962949082,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.286028565360397,
+            "omitted": "pcam",
+            "residual": 0.06897910399512133,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.259187561667655,
+            "omitted": "rendered-sst2",
+            "residual": 0.07138261466427695,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 21.915132908790746,
+            "omitted": "resisc45",
+            "residual": 0.06750956149208785,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.207497365209807,
+            "omitted": "stanford-cars",
+            "residual": 0.06819196308022026,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.64916470944299,
+            "omitted": "stl10",
+            "residual": 0.06551496834176644,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.02720410435467,
+            "omitted": "sun397",
+            "residual": 0.06736576219563839,
+            "retained_rows": 12312
+          },
+          {
+            "fraction_percent": 22.62044699357013,
+            "omitted": "svhn",
+            "residual": 0.06632915365209074,
+            "retained_rows": 12312
+          }
+        ]
+      },
+      "source": "results/v7_exact_clip-vit-base-patch32.csv.gz"
+    },
+    "FT8": {
+      "leave_one_layer_out": {
+        "fraction_percent": {
+          "maximum": 20.645872799518568,
+          "maximum_omitted": 0,
+          "minimum": 14.899105154587286,
+          "minimum_omitted": 3
+        },
+        "n_units": 12,
+        "residual": {
+          "maximum": 0.06976312659902942,
+          "maximum_omitted": 8,
+          "minimum": 0.05004944500343732,
+          "minimum_omitted": 0
+        },
+        "values": [
+          {
+            "fraction_percent": 20.645872799518568,
+            "omitted": 0,
+            "residual": 0.05004944500343732,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.42187736384284,
+            "omitted": 1,
+            "residual": 0.06522064572504332,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 15.111937383392133,
+            "omitted": 2,
+            "residual": 0.06606595639318204,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 14.899105154587286,
+            "omitted": 3,
+            "residual": 0.06766660295042984,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 15.25740818987995,
+            "omitted": 4,
+            "residual": 0.0672341766040711,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 15.501950705802928,
+            "omitted": 5,
+            "residual": 0.06838921180047847,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 15.890545799560954,
+            "omitted": 6,
+            "residual": 0.06902771874025083,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.18719050356569,
+            "omitted": 7,
+            "residual": 0.0696708685554162,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.084185446769055,
+            "omitted": 8,
+            "residual": 0.06976312659902942,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.261273214039104,
+            "omitted": 9,
+            "residual": 0.06900521287942663,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.631036389636154,
+            "omitted": 10,
+            "residual": 0.06823029049076887,
+            "retained_rows": 616
+          },
+          {
+            "fraction_percent": 16.917116929992897,
+            "omitted": 11,
+            "residual": 0.06884628473054205,
+            "retained_rows": 616
+          }
+        ]
+      },
+      "leave_one_task_out": {
+        "fraction_percent": {
+          "maximum": 17.495189587457844,
+          "maximum_omitted": "svhn",
+          "minimum": 15.154265640753342,
+          "minimum_omitted": "eurosat"
+        },
+        "n_units": 8,
+        "residual": {
+          "maximum": 0.072569976306378,
+          "maximum_omitted": "stanford-cars",
+          "minimum": 0.05914847436070349,
+          "minimum_omitted": "svhn"
+        },
+        "values": [
+          {
+            "fraction_percent": 16.26641153083059,
+            "omitted": "dtd",
+            "residual": 0.06997210582194867,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 15.154265640753342,
+            "omitted": "eurosat",
+            "residual": 0.06602060665995808,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 15.924670154229364,
+            "omitted": "gtsrb",
+            "residual": 0.06550178689574648,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 17.48842294362409,
+            "omitted": "mnist",
+            "residual": 0.06192118077297931,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 15.934398033655397,
+            "omitted": "resisc45",
+            "residual": 0.06740540246331439,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 15.993974920566588,
+            "omitted": "stanford-cars",
+            "residual": 0.072569976306378,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 15.89837120138388,
+            "omitted": "sun397",
+            "residual": 0.07024016036702231,
+            "retained_rows": 504
+          },
+          {
+            "fraction_percent": 17.495189587457844,
+            "omitted": "svhn",
+            "residual": 0.05914847436070349,
+            "retained_rows": 504
+          }
+        ]
+      },
+      "source": "results/v7_exact_b16_8task_q_v_fullft.csv.gz"
+    },
+    "L14": {
+      "leave_one_layer_out": {
+        "fraction_percent": {
+          "maximum": 13.586602705433357,
+          "maximum_omitted": 0,
+          "minimum": 10.955445435206894,
+          "minimum_omitted": 6
+        },
+        "n_units": 24,
+        "residual": {
+          "maximum": 0.05762295463428671,
+          "maximum_omitted": 23,
+          "minimum": 0.04873275807394987,
+          "minimum_omitted": 0
+        },
+        "values": [
+          {
+            "fraction_percent": 13.586602705433357,
+            "omitted": 0,
+            "residual": 0.04873275807394987,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 12.538366847208696,
+            "omitted": 1,
+            "residual": 0.05202540424306614,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 12.094858858885793,
+            "omitted": 2,
+            "residual": 0.05465160272394251,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.928713130279839,
+            "omitted": 3,
+            "residual": 0.05466647741459389,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.900681828890976,
+            "omitted": 4,
+            "residual": 0.05568969023267151,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.534147566216669,
+            "omitted": 5,
+            "residual": 0.05540947819602299,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 10.955445435206894,
+            "omitted": 6,
+            "residual": 0.05488354680485452,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.551715317195528,
+            "omitted": 7,
+            "residual": 0.05589009481580237,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.642407387231334,
+            "omitted": 8,
+            "residual": 0.05603838994136285,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.546827417999296,
+            "omitted": 9,
+            "residual": 0.05610828538004724,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.648991876614813,
+            "omitted": 10,
+            "residual": 0.056403812253088034,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.82169614492271,
+            "omitted": 11,
+            "residual": 0.05690902332340202,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.887383870988582,
+            "omitted": 12,
+            "residual": 0.05720919329528887,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.864463840259914,
+            "omitted": 13,
+            "residual": 0.05726140764849243,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.88666834467811,
+            "omitted": 14,
+            "residual": 0.057432481502095165,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.914575567331765,
+            "omitted": 15,
+            "residual": 0.057534213586730956,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.915454637366176,
+            "omitted": 16,
+            "residual": 0.05754012227864605,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.924821792358873,
+            "omitted": 17,
+            "residual": 0.057552632518836216,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.9406367976232,
+            "omitted": 18,
+            "residual": 0.05742530557243568,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.934566796438691,
+            "omitted": 19,
+            "residual": 0.057564055590645875,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.936320018930699,
+            "omitted": 20,
+            "residual": 0.05758737139100237,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 11.67530504857112,
+            "omitted": 21,
+            "residual": 0.05739128638712032,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 12.07715339675331,
+            "omitted": 22,
+            "residual": 0.05505632769555501,
+            "retained_rows": 8740
+          },
+          {
+            "fraction_percent": 12.001661453139064,
+            "omitted": 23,
+            "residual": 0.05762295463428671,
+            "retained_rows": 8740
+          }
+        ]
+      },
+      "leave_one_task_out": {
+        "fraction_percent": {
+          "maximum": 12.165059370276001,
+          "maximum_omitted": "oxford-iiit-pet",
+          "minimum": 11.310184910716574,
+          "minimum_omitted": "eurosat"
+        },
+        "n_units": 20,
+        "residual": {
+          "maximum": 0.05988927334035782,
+          "maximum_omitted": "rendered-sst2",
+          "minimum": 0.05270605051059643,
+          "minimum_omitted": "cifar100"
+        },
+        "values": [
+          {
+            "fraction_percent": 11.882237063476211,
+            "omitted": "cifar10",
+            "residual": 0.05295402815373143,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.815953118011453,
+            "omitted": "cifar100",
+            "residual": 0.05270605051059643,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.779940977491131,
+            "omitted": "dtd",
+            "residual": 0.05712455621329588,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.156999027853022,
+            "omitted": "emnist_letters",
+            "residual": 0.05426794758364241,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.310184910716574,
+            "omitted": "eurosat",
+            "residual": 0.05535779092791688,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.962314958956854,
+            "omitted": "fashion_mnist",
+            "residual": 0.05441989373365607,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.806111944992464,
+            "omitted": "fer2013",
+            "residual": 0.05599222667663339,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.930876941365693,
+            "omitted": "food101",
+            "residual": 0.05782559531562199,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.756714859796782,
+            "omitted": "gtsrb",
+            "residual": 0.055810988648516066,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.141616931632225,
+            "omitted": "kmnist",
+            "residual": 0.05480642335911785,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.128387557643256,
+            "omitted": "mnist",
+            "residual": 0.05549950253071362,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.165059370276001,
+            "omitted": "oxford-iiit-pet",
+            "residual": 0.05674608285873292,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.95419569647288,
+            "omitted": "oxford_flowers102",
+            "residual": 0.05759125414407784,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.841207319724058,
+            "omitted": "pcam",
+            "residual": 0.05726835932768076,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.047751338740783,
+            "omitted": "rendered-sst2",
+            "residual": 0.05988927334035782,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.514581847517732,
+            "omitted": "resisc45",
+            "residual": 0.0568396851402846,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.861190948490771,
+            "omitted": "stanford-cars",
+            "residual": 0.057987356047522844,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 12.123605162772678,
+            "omitted": "stl10",
+            "residual": 0.05557936451622553,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.759987299299686,
+            "omitted": "sun397",
+            "residual": 0.05743434151373465,
+            "retained_rows": 8208
+          },
+          {
+            "fraction_percent": 11.979228202619286,
+            "omitted": "svhn",
+            "residual": 0.05438754237789068,
+            "retained_rows": 8208
+          }
+        ]
+      },
+      "source": "results/v7_exact_clip-vit-large-patch14.csv.gz"
+    }
+  },
+  "estimand": {
+    "fraction_percent": "100 * (mean(null_exact) - mean(null_iso)) / (mean(raw) - mean(null_iso))",
+    "layer_omission": "remove every module row from the encoder-layer index",
+    "residual": "mean(raw) - mean(null_exact)",
+    "task_omission": "remove every row whose unordered endpoint pair contains the task"
+  },
+  "schema_version": 1
+}

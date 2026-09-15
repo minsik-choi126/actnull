@@ -1,0 +1,242 @@
+{
+  "arms": {
+    "Linearized-LoRA-16": {
+      "batch_files": [
+        {
+          "path": "results/v7_legacy16_b16_8task_q_v_l-lora-16_loranull.csv.gz",
+          "seed": 0,
+          "sha256": "c37951b7ae16ee337822e65f4c66814bb1535ba50ed1b028ac2d066885e3b1e0"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull_seed1000003.csv.gz",
+          "seed": 1000003,
+          "sha256": "7a6ca986e6d06eb46b23c3e9bbacdb9f71c04621939965826ee60eaaaf02b684"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull_seed2000003.csv.gz",
+          "seed": 2000003,
+          "sha256": "96328835b0d88112441aa38bc6ee05595ddecf4e17406b813924e20777012529"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull_seed3000017.csv.gz",
+          "seed": 3000017,
+          "sha256": "ba94e294dfdd3faad10e5da9d0229f04bb7400c2825d3136da9f9253ad9611e4"
+        }
+      ],
+      "batch_mc_diagnostic": {
+        "fraction_pooled_mc_se_percentage_points": 0.005408878744425034,
+        "fraction_sample_sd_percentage_points": 0.010817757488850069,
+        "null_mean_pooled_mc_se": 3.539977234497717e-05,
+        "null_mean_sample_sd": 7.079954468995434e-05,
+        "residual_pooled_mc_se": 3.539977234497717e-05,
+        "residual_sample_sd": 7.079954468995434e-05,
+        "rowwise_cond_null_pooled_mc_se": {
+          "max": 0.014021959023119089,
+          "median": 0.004608946071260269,
+          "min": 0.00035638809107184523,
+          "p95": 0.00875861013896552
+        },
+        "rowwise_raw_null_pooled_mc_se": {
+          "max": 0.013683546003480514,
+          "median": 0.004653691021072804,
+          "min": 0.00041726337009928,
+          "p95": 0.008781030016188768
+        }
+      },
+      "batch_point_estimates": [
+        {
+          "cond": 0.6657298619282388,
+          "null_act_cond": 0.5091374942899815,
+          "null_act_raw": 0.5083449223727387,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6648919103844535,
+          "reproduced_fraction_percent": 76.08053329527942,
+          "residual": 0.15654698801171485,
+          "seed": 0
+        },
+        {
+          "cond": 0.6657298619282388,
+          "null_act_cond": 0.5090717466359603,
+          "null_act_raw": 0.5081831047732738,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6648919103844535,
+          "reproduced_fraction_percent": 76.05580850988561,
+          "residual": 0.15670880561117972,
+          "seed": 1000003
+        },
+        {
+          "cond": 0.6657298619282388,
+          "null_act_cond": 0.5091572492272549,
+          "null_act_raw": 0.5083167298857699,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6648919103844535,
+          "reproduced_fraction_percent": 76.07622564770385,
+          "residual": 0.15657518049868357,
+          "seed": 2000003
+        },
+        {
+          "cond": 0.6657298619282388,
+          "null_act_cond": 0.509078526309514,
+          "null_act_raw": 0.5082926963777503,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6648919103844535,
+          "reproduced_fraction_percent": 76.07255346785438,
+          "residual": 0.15659921400670318,
+          "seed": 3000017
+        }
+      ],
+      "difference_from_legacy_16_draw": {
+        "null_act_raw": -6.055902035551064e-05,
+        "reproduced_fraction_percent": -0.009253065098619118,
+        "residual": 6.055902035551064e-05
+      },
+      "legacy_16_draw_file": {
+        "identical_to_seed0": true,
+        "path": "results/v7_legacy16_b16_8task_q_v_l-lora-16_loranull.csv.gz",
+        "sha256": "c37951b7ae16ee337822e65f4c66814bb1535ba50ed1b028ac2d066885e3b1e0"
+      },
+      "pooled_64_draw_file": {
+        "path": "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull.csv",
+        "rows": 672,
+        "sha256": "42d005bf584c976d7ca8a561c81cd3a81f2ace7c4dab0e17d1fe865938b598b9"
+      },
+      "pooled_point_estimate": {
+        "cond": 0.6657298619282388,
+        "null_act_cond": 0.5091112541156777,
+        "null_act_raw": 0.5082843633523831,
+        "null_iso": 0.010416666666666666,
+        "raw": 0.6648919103844535,
+        "reproduced_fraction_percent": 76.0712802301808,
+        "residual": 0.15660754703207036
+      }
+    },
+    "LoRA-16": {
+      "batch_files": [
+        {
+          "path": "results/v7_legacy16_b16_8task_q_v_lora-16_loranull.csv.gz",
+          "seed": 0,
+          "sha256": "54f17e568956b9dc64252b5a5b3bdd2ffd6565be889b59eaa9fbbc374ab52d86"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_lora-16_loranull_seed1000003.csv.gz",
+          "seed": 1000003,
+          "sha256": "90662e9c7e977df3afc781e64d62a7086b23dd97c3141fab7ad6b15d4fe51b28"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_lora-16_loranull_seed2000003.csv.gz",
+          "seed": 2000003,
+          "sha256": "3192a47afd5dcef802d2c59d60a7e0ea71457dcda109d3abec1c520a978d4c89"
+        },
+        {
+          "path": "results/v7_mc64_b16_8task_q_v_lora-16_loranull_seed3000017.csv.gz",
+          "seed": 3000017,
+          "sha256": "65895c69f50de8696a8c37424054edbaabb85af8bcd92e88deaf58572d05b231"
+        }
+      ],
+      "batch_mc_diagnostic": {
+        "fraction_pooled_mc_se_percentage_points": 0.006677953086135277,
+        "fraction_sample_sd_percentage_points": 0.013355906172270554,
+        "null_mean_pooled_mc_se": 3.98749519314778e-05,
+        "null_mean_sample_sd": 7.97499038629556e-05,
+        "residual_pooled_mc_se": 3.98749519314778e-05,
+        "residual_sample_sd": 7.97499038629556e-05,
+        "rowwise_cond_null_pooled_mc_se": {
+          "max": 0.013134748643325533,
+          "median": 0.004549739320607107,
+          "min": 0.00040607519307340084,
+          "p95": 0.008204851270533628
+        },
+        "rowwise_raw_null_pooled_mc_se": {
+          "max": 0.013019320152684153,
+          "median": 0.004500879312911555,
+          "min": 0.0007266672160132432,
+          "p95": 0.008224727168873552
+        }
+      },
+      "batch_point_estimates": [
+        {
+          "cond": 0.6068816373036021,
+          "null_act_cond": 0.4902793804898725,
+          "null_act_raw": 0.49002905831383986,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6075300548136944,
+          "reproduced_fraction_percent": 80.32182851158545,
+          "residual": 0.11750099649985452,
+          "seed": 0
+        },
+        {
+          "cond": 0.6068816373036021,
+          "null_act_cond": 0.49033202555230154,
+          "null_act_raw": 0.4900309774980304,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6075300548136944,
+          "reproduced_fraction_percent": 80.3221499219287,
+          "residual": 0.117499077315664,
+          "seed": 1000003
+        },
+        {
+          "cond": 0.6068816373036021,
+          "null_act_cond": 0.4900497814302244,
+          "null_act_raw": 0.48986887637459275,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6075300548136944,
+          "reproduced_fraction_percent": 80.29500246105185,
+          "residual": 0.11766117843910162,
+          "seed": 2000003
+        },
+        {
+          "cond": 0.6068816373036021,
+          "null_act_cond": 0.49009733766018015,
+          "null_act_raw": 0.4899277621519841,
+          "null_iso": 0.010416666666666666,
+          "raw": 0.6075300548136944,
+          "reproduced_fraction_percent": 80.30486420231578,
+          "residual": 0.1176022926617103,
+          "seed": 3000017
+        }
+      ],
+      "difference_from_legacy_16_draw": {
+        "null_act_raw": -6.488972922807923e-05,
+        "reproduced_fraction_percent": -0.010867237365005167,
+        "residual": 6.488972922807923e-05
+      },
+      "legacy_16_draw_file": {
+        "identical_to_seed0": true,
+        "path": "results/v7_legacy16_b16_8task_q_v_lora-16_loranull.csv.gz",
+        "sha256": "54f17e568956b9dc64252b5a5b3bdd2ffd6565be889b59eaa9fbbc374ab52d86"
+      },
+      "pooled_64_draw_file": {
+        "path": "results/v7_mc64_b16_8task_q_v_lora-16_loranull.csv",
+        "rows": 672,
+        "sha256": "4e8d8bd77795d574dc08bab353a114f7573853f71bc69fa78774e939d948fe85"
+      },
+      "pooled_point_estimate": {
+        "cond": 0.6068816373036021,
+        "null_act_cond": 0.49018963128314463,
+        "null_act_raw": 0.4899641685846118,
+        "null_iso": 0.010416666666666666,
+        "raw": 0.6075300548136944,
+        "reproduced_fraction_percent": 80.31096127422045,
+        "residual": 0.1175658862290826
+      }
+    }
+  },
+  "design": {
+    "all_batch_row_files_included": true,
+    "batch_seeds": [
+      0,
+      1000003,
+      2000003,
+      3000017
+    ],
+    "draws_per_batch": 16,
+    "execution": "fully offline, CPU; canonical repo/actnull/null.py",
+    "independent_batches": 4,
+    "sha256_scope": "batch and pooled-file SHA-256 values hash the decompressed CSV bytes",
+    "mc_se": "sample SD of four independent batch estimates divided by sqrt(4); df=3",
+    "null": "corrected-Haar observed-A and B-spectrum-conditioned LoRA factor null",
+    "pooling": "arithmetic mean of four independent per-row 16-draw null means",
+    "total_draws_per_row": 64
+  },
+  "schema_version": 1
+}

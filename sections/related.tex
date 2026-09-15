@@ -1,0 +1,69 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Subspace overlap in model merging.}
+Merging grew from weight averaging~\citep{wortsman2022soups,ilharco2022patching,matena2022fisher}
+through task arithmetic~\citep{ilharco2023editing,ortizjimenez2023tangent} to interference
+resolved coordinate by coordinate~\citep{yadav2023ties,yu2024dare} and then in
+subspaces~\citep{stoica2025knots,tang2023concrete,lee2025star}, which is where overlap became a
+reported quantity.
+\citet{cheng2025wudi} relate linear-layer task vectors to their corresponding inputs and
+\citet{qiu2026nufilt} give an approximate subspace-alignment result. These works motivate
+activation-aware conditioning; they do not imply exact containment in a frozen-base subspace
+under feature drift and adaptive optimisation. The overlap measurement is established by
+\citet{gargiulo2025task}, \citet{demystify2026} and \citet{marczak2025iso}, none of which states a
+conditional reference distribution for it. Our contribution is that conditional baseline and a
+protocol for checking how much coupling it actually randomises.
+
+\paragraph{Activation statistics as machinery.}
+Activation second moments are long-standing, and continual learning has used them longest.
+\citet{saha2021gpm} build gradient subspace bases by SVD of stored input activations and
+\citet{wang2021nullspace} project updates into the null space of the uncentered input feature
+covariance, the same object as our $C_H$. Both use it to constrain training.
+Inside merging the pattern repeats: RegMean~\citep{jin2023dataless} merges with per-model input
+Gram matrices computed on each fine-tuned model's own data, and two data-free methods estimate
+the covariance from the parameter differences~\citep{actmat2026,acemerging2026}.
+More directly, \citet{an2025pave} compute pre-linear-layer covariances from each task's training
+examples and fine-tuned model to construct a knowledge-aware SVD for pruning task vectors.
+All target a task-conditioned object, $\mathbb{E}_{x \sim \mathcal{D}_t}[xx^\top]$. We instead
+choose the frozen base under a recorded calibration mixture as a common, task-agnostic coordinate
+system; this is part of our estimand rather than a uniquely necessary null.
+Using $\Delta W^\top\Delta W$ itself as a reference would also be circular: exact inverse-square-root
+whitening equalises the nonzero singular values and makes a top-$k$ choice non-identifiable rather
+than supplying an independent calibration geometry. What none supplies is a statement of what an uninformative task vector looks like, and the
+difference bites: RegMean's published shrinkage returns $2.3\times$ chance on independent task
+vectors when repurposed as an evidential baseline
+(Appendix~\ref{app:calibration}).
+
+\paragraph{Null models for similarity claims.}
+\citet{cui2022deconfounded} show that representation-similarity metrics such as RSA and
+CKA~\citep{kornblith2019similarity,raghu2017svcca} are confounded by the population structure
+of the input data, giving ``spuriously high similarity for
+even completely random neural networks''.
+Our conditional analysis is the weight-space analogue: there the shared object is population
+structure in the input distribution, while here the conditioned object is occupancy of a common
+activation geometry and the measured quantity is task-vector subspace overlap.
+\citet{ding2021grounding} make the complementary point for the measures themselves, arguing
+that a similarity metric must be judged on sensitivity to changes that matter and specificity
+against changes that do not, which is the pairing \S\ref{sec:validate} imports for nulls.
+The general form is older. \citet{elsayed2017structure} formalise whether population-level
+structure exceeds what already-known primary features predict, by comparing against surrogate
+data that preserves those features and is otherwise maximally random.
+The null of \S\ref{sec:method} is that construction applied to weights, and \S\ref{sec:validate}
+is the part of the surrogate-data tradition this literature has not imported: checking what the
+surrogate actually destroys.
+
+\paragraph{Low-rank adapters.}
+How a shared adapter basis should be read is what \S\ref{sec:exp} bears on, and several
+methods construct or exploit one~\citep{stoica2025knots,panariello2025corespace,zeng2026tvbases}.
+The geometric result has a functional counterpart already known.
+\citet{zhu2024asymmetry} show that in $\Delta W = BA$ the two factors are not interchangeable:
+fine-tuning $B$ is substantially more effective than fine-tuning $A$, and a random untrained $A$
+performs nearly as well as a trained one.
+If $A$ need not be trained to work, it is unsurprising that it carries little task-specific
+information.
+\citet{ban2026rethinking} reach the qualitative conclusion directly, reporting that the
+similarity between $A$ matrices across adapters is attributable to the identical
+initialisation and not to shared knowledge. That conclusion is theirs.
+We add the geometric constraint, $\mathrm{row}(\Delta W) \subseteq \mathrm{row}(A)$, and a
+factor-conditioned null whose reproduced fraction we report with its measured response and scope.

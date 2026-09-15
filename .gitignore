@@ -1,6 +1,20 @@
-work/
-*.pt
+# Build and environment residue.  Running a build or test from inside
+# artifact/code/ writes these next to the shipped sources and makes
+# analysis/check_manuscript.py fail its manifest-coverage check.
+.venv/
+artifact/code/uv.lock
 __pycache__/
 *.pyc
-.venv/
-hf_cache/
+.pytest_cache/
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+.DS_Store

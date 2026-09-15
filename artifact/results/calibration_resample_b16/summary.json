@@ -1,0 +1,337 @@
+{
+  "analysis": {
+    "aggregation": "sum(null_activation-null_isotropic) / sum(raw-null_isotropic)",
+    "architecture": "openai/clip-vit-base-patch16@5ef227a78de3f75873f373246dac80def63b0003",
+    "block_z": 2,
+    "k": 8,
+    "m": 64,
+    "null": "exact analytic Haar expectation over resolvable activation eigenspace blocks plus complement",
+    "scope": "20 tasks x 190 unordered task pairs x 72 modules = 13,680 cells"
+  },
+  "bootstrap_refits": {
+    "seed_20260916": {
+      "conditional_crossed_task_layer_percentile_95_interval": {
+        "exact_reproduced_fraction_percent": [
+          19.169601007907367,
+          31.538477332599527
+        ],
+        "residual": [
+          0.04546998877077615,
+          0.10591661894124046
+        ]
+      },
+      "covariance": {
+        "folds": [
+          {
+            "fold": "f0",
+            "image_list_sha256": "6013c435d77fd86efa4344da8038b0f75e154e69df87f8ca0f8038722204eb6f",
+            "n_items": 126,
+            "n_rows_per_module": 24822
+          },
+          {
+            "fold": "f1",
+            "image_list_sha256": "3a63f83275a122e709f612d073184488f56658544e7b5c148d6860420f8fb412",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f2",
+            "image_list_sha256": "be8bf964a5d8b2d3cb5e29f85aa221083dc83c541f3de392d5a5c7a1ad3883ed",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f3",
+            "image_list_sha256": "2e70e507640e08f8cd533ba234eb5364fa188c8ad342e57e6e487a7a28dc3097",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f4",
+            "image_list_sha256": "9a8d33afd588ebf5e0904ad01715515965b4de7018b3c0a7cdfbef4d0b87ce12",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f5",
+            "image_list_sha256": "ba3169b5861db28cdeecb47d3b8194355206544d3890c06796533efc61adba8f",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f6",
+            "image_list_sha256": "408492fbe68174b4215c3fb1e28df1dca435fb5d72bf1c5aeae1bc66cd81bb68",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f7",
+            "image_list_sha256": "8dd4ec50ee07d10c5c8d4e741410c3f3363c313863cfb79ee2e1dcc9ce03d511",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          }
+        ],
+        "full": {
+          "exact_covariance": true,
+          "image_list_sha256": "0b8594393593acdb9f48ea3a07fc0cd109a6a932bab84de89cba22905d05c452",
+          "n_items": 1001,
+          "n_modules": 72,
+          "n_rows_per_module": 197197,
+          "participation_ratio": {
+            "max": 138.11143493652344,
+            "median": 23.910590171813965,
+            "min": 1.858419418334961,
+            "modules_below_64": 67
+          },
+          "stored_eigendirections": 64,
+          "tail_energy_fraction": {
+            "max": 0.5942078828811646,
+            "median": 0.34534114599227905
+          },
+          "tokens_per_image": 197
+        }
+      },
+      "duplicate_occurrences_per_source": {
+        "cifar10": 51,
+        "dtd": 53,
+        "eurosat": 54,
+        "gtsrb": 58,
+        "resisc45": 55,
+        "stl10": 57,
+        "sun397": 50
+      },
+      "headline": {
+        "activation_explained_fraction": 0.25101935891911586,
+        "activation_explained_percent": 25.10193589191159,
+        "mean_null_activation": 0.033076656600594764,
+        "mean_null_isotropic": 0.009114583333333334,
+        "mean_raw": 0.10457364820564787,
+        "mean_residual": 0.0714969916050531,
+        "modules": 72,
+        "n_blocks": {
+          "max": 47,
+          "median": 26.0,
+          "min": 8
+        },
+        "rows": 13680,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "seed": 20260916,
+      "selected_occurrences_sha256": "bb7fe70cb42e26ec28ba32af14fb91c2ca84c0bc04421bccf3ebb3fedcae79cc",
+      "unique_targets_per_source": {
+        "cifar10": 92,
+        "dtd": 90,
+        "eurosat": 89,
+        "gtsrb": 85,
+        "resisc45": 88,
+        "stl10": 86,
+        "sun397": 93
+      }
+    },
+    "seed_20260917": {
+      "conditional_crossed_task_layer_percentile_95_interval": {
+        "exact_reproduced_fraction_percent": [
+          19.305410540628895,
+          31.75874509305432
+        ],
+        "residual": [
+          0.045349028814769606,
+          0.1056358413116072
+        ]
+      },
+      "covariance": {
+        "folds": [
+          {
+            "fold": "f0",
+            "image_list_sha256": "84c088d14574bc316c3146c7468b649e993b6fda1fd299a4dad31b955be93df8",
+            "n_items": 126,
+            "n_rows_per_module": 24822
+          },
+          {
+            "fold": "f1",
+            "image_list_sha256": "0eaebe26fdab37d458c6c4f553c60a3bd3b01665a2ec0ce5b7d2d173c1620041",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f2",
+            "image_list_sha256": "4f2ac884d45b6100cd17d4c4db091615707dc0dfe4fe1b45992ea9e25b4e0689",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f3",
+            "image_list_sha256": "dfae56d6e4329d0319840883bfc6663d0e85f77a784ea159327e6686f9d37a39",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f4",
+            "image_list_sha256": "e49623f762f07022382486781613e1a9ae06e171b5d0e646b11a79cbe1a9361f",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f5",
+            "image_list_sha256": "2fad299133e5fbfecd516bbe02450cd5d41b191a5183df6d34f85d38d57365ea",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f6",
+            "image_list_sha256": "7d5d9cf983dadc5f305b1733dc4c9a3864ead5c769f3b5216bb4738820ae0508",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          },
+          {
+            "fold": "f7",
+            "image_list_sha256": "0806e6f1488cfcc4ec8f9a73b25a347aaefd2df8e843b50bf3b7960795f914b8",
+            "n_items": 125,
+            "n_rows_per_module": 24625
+          }
+        ],
+        "full": {
+          "exact_covariance": true,
+          "image_list_sha256": "8b38e6d9a95cae182de220a0b20eb457e33f2796afba4468d4977896afa055a5",
+          "n_items": 1001,
+          "n_modules": 72,
+          "n_rows_per_module": 197197,
+          "participation_ratio": {
+            "max": 136.31243896484375,
+            "median": 24.07929229736328,
+            "min": 1.8682607412338257,
+            "modules_below_64": 67
+          },
+          "stored_eigendirections": 64,
+          "tail_energy_fraction": {
+            "max": 0.5925148725509644,
+            "median": 0.3461005687713623
+          },
+          "tokens_per_image": 197
+        }
+      },
+      "duplicate_occurrences_per_source": {
+        "cifar10": 48,
+        "dtd": 48,
+        "eurosat": 55,
+        "gtsrb": 52,
+        "resisc45": 48,
+        "stl10": 52,
+        "sun397": 52
+      },
+      "headline": {
+        "activation_explained_fraction": 0.25301724892609667,
+        "activation_explained_percent": 25.30172489260967,
+        "mean_null_activation": 0.03326737331237889,
+        "mean_null_isotropic": 0.009114583333333334,
+        "mean_raw": 0.10457364820564787,
+        "mean_residual": 0.07130627489326898,
+        "modules": 72,
+        "n_blocks": {
+          "max": 51,
+          "median": 33.0,
+          "min": 9
+        },
+        "rows": 13680,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "seed": 20260917,
+      "selected_occurrences_sha256": "c773c5f3a3a0804191315fa46731bb9e3be5b6f0aa9842503c541253a93d4639",
+      "unique_targets_per_source": {
+        "cifar10": 95,
+        "dtd": 95,
+        "eurosat": 88,
+        "gtsrb": 91,
+        "resisc45": 95,
+        "stl10": 91,
+        "sun397": 91
+      }
+    }
+  },
+  "calibration_resampling": {
+    "draws_per_source_with_replacement": 143,
+    "fold_rule": "ordinal=(draw_index*7+source_index); fold=ordinal mod 8",
+    "folds": 8,
+    "rng": "Python random.Random (MT19937) with SHA256-derived source-specific seeds",
+    "seeds": [
+      20260916,
+      20260917
+    ],
+    "source_pool_size": 143,
+    "sources": [
+      "cifar10",
+      "dtd",
+      "eurosat",
+      "gtsrb",
+      "resisc45",
+      "stl10",
+      "sun397"
+    ],
+    "total_images_per_draw": 1001
+  },
+  "conditional_interval": {
+    "method": "50,000-draw crossed task-by-layer cluster bootstrap",
+    "seed": 20260918,
+    "warning": "This is not a calibration-resampling confidence interval."
+  },
+  "experiment": "B/16 source-stratified calibration nonparametric bootstrap robustness",
+  "interpretation": "The two values are independent deterministic refits conditional on two calibration bootstrap draws. Their min-max is an observed robustness range, not a calibrated confidence interval. The reported percentile intervals separately resample task and layer clusters while holding each fitted calibration covariance fixed.",
+  "observed_robustness": {
+    "activation_explained_percent_max": 25.30172489260967,
+    "activation_explained_percent_min": 25.10193589191159,
+    "maximum_absolute_change_from_reference_percentage_points": 0.24318091515982587,
+    "mean_across_two_refits_percent": 25.201830392260632,
+    "range_width_percentage_points": 0.19978900069807892
+  },
+  "provenance": {
+    "artifact_root": "results/calibration_resample_b16",
+    "artifact_sha256": {
+      "refit_seed20260916.csv.gz": "6613f029c877f777cf021fb574c12ecba1b28cfe108b95dd704a3e98604691b7",
+      "resample_map_seed20260916.json": "31abd9e5cd5117492a0c4ae1641677d1afd17e7622072b282d1aed7248c58d3d",
+      "refit_seed20260917.csv.gz": "309097efc96297621968d3971d60ab6d8fb4c8592f317f960901c41eb36e9b03",
+      "resample_map_seed20260917.json": "4d9a58083f56cb3df205d839aabec9c217024710ad7e46d8257d932714f2b839"
+    },
+    "artifact_sha256_scope": "CSV hashes use decompressed bytes; JSON map hashes use stored bytes",
+    "expert_specs": {
+      "cifar10": "tanganke/clip-vit-base-patch16_cifar10@4c5a15dd4b97045c656bbbf33fefdd4d57508bcc",
+      "cifar100": "tanganke/clip-vit-base-patch16_cifar100@cb08472d93c428fc828fa217658ed6d3c9ff0436",
+      "dtd": "tanganke/clip-vit-base-patch16_dtd@5d2d508b4bba668b6c1e9fefd53f5f9b4ad9de08",
+      "emnist_letters": "tanganke/clip-vit-base-patch16_emnist_letters@aa2a64460e5a97d1c342af0eb97403c6119e8dfb",
+      "eurosat": "tanganke/clip-vit-base-patch16_eurosat@0ed49e2fb92fe2f5427b76089b58ec2a1da5d368",
+      "fashion_mnist": "tanganke/clip-vit-base-patch16_fashion_mnist@f06e3a4bd71130da6fc3d308d6cf9aca5f66f5c2",
+      "fer2013": "tanganke/clip-vit-base-patch16_fer2013@b9233bea4130f962cbfbe8bfa839eace4e138901",
+      "food101": "tanganke/clip-vit-base-patch16_food101@6f1d0c4f7fef15b896b8b3f5d23deb2ad7566dd6",
+      "gtsrb": "tanganke/clip-vit-base-patch16_gtsrb@3eafe17e05610ded0b0ba3c4ebe5bdca4c2069f3",
+      "kmnist": "tanganke/clip-vit-base-patch16_kmnist@6dd3f4198fcdf6550062c2d9dbc24200eddc7df5",
+      "mnist": "tanganke/clip-vit-base-patch16_mnist@5e4477bff96ba83228f4ae224ba256f09acc8acd",
+      "oxford-iiit-pet": "tanganke/clip-vit-base-patch16_oxford-iiit-pet@30565881fe35cc7ceffc1254bb8f088fba2fb67a",
+      "oxford_flowers102": "tanganke/clip-vit-base-patch16_oxford_flowers102@7d4dbfb87a248683591e025690fdbd74edb81652",
+      "pcam": "tanganke/clip-vit-base-patch16_pcam@8cf37119c98f9a565e676099e01cb0dbbd38f8ce",
+      "rendered-sst2": "tanganke/clip-vit-base-patch16_rendered-sst2@06a39517d31a4c34e3aa99d1a56ffb5b7769a75e",
+      "resisc45": "tanganke/clip-vit-base-patch16_resisc45@bc31922d873e49c6f7fbbb0a3931707d394261a8",
+      "stanford-cars": "tanganke/clip-vit-base-patch16_stanford-cars@3e2ee0d52f465d512597e1619e880201612ef69b",
+      "stl10": "tanganke/clip-vit-base-patch16_stl10@6c1fb54f274a6babf79b094c938bcea8542084bc",
+      "sun397": "tanganke/clip-vit-base-patch16_sun397@4af3b59da7ced7b079a73c4c283f166241eed400",
+      "svhn": "tanganke/clip-vit-base-patch16_svhn@ccbcd6cec834a3d014bab1857e9968badd27618c"
+    },
+    "implementations_sha256": {
+      "actnull/covariance.py": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
+      "actnull/null.py": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
+      "calibration_resample.py": "d8c1fa51899b055c9daaef8b33d3f3bfe8431d0173d8f826404634a178447bd8",
+      "run_resample_exact.py": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d",
+      "scripts/bootstrap_overlap.py": "7865380f4f61488f40936b22fe4471b961fceb7945cc9844451105c33c9efe7b",
+      "scripts/exact_overlap.py": "49175cb0204039c60992ba2dbc176cb9b502f37ff92727680ff2a60d36157dab"
+    },
+    "path_sanitized": true
+  },
+  "reference": {
+    "activation_explained_percent": 25.345116807071417,
+    "logical_path": "results/v7_exact_clip-vit-base-patch16.csv.gz",
+    "sha256_scope": "decompressed CSV bytes",
+    "sha256": "d1235d81cfb726842edeca5d91d1994e03bec3c046acac82e49f956cce5be9c8"
+  },
+  "schema_version": 1,
+  "status": "complete"
+}

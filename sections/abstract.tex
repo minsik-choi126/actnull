@@ -1,0 +1,14 @@
+\begin{abstract}
+Task-vector subspace overlap is often interpreted as shared learned structure because it exceeds
+an isotropic baseline, although linear-layer updates depend on the activations they read. We
+introduce a conditional randomisation that preserves each update's spectrum and blockwise
+occupancy in frozen-base activation geometry while randomising cross-task directional agreement;
+its expected overlap has a closed form. We pair this null with a positive control that plants
+shared directions and measures recovery of the delivered signal, exposing consequential
+under-randomisation in our initial implementation. In complete ViT-B measurements, the corrected
+activation null reproduces $22$--$25\%$ of above-isotropic overlap, with positive residual
+alignment across all fully fine-tuned pools. For shared-start LoRA, a regime-specific factor null
+reproduces about $80\%$, showing that the reference must match the training regime. The resulting
+decomposition is conditional rather than causal; the protocol makes structural claims auditable
+by requiring explicit conditioning assumptions and validation against planted alternatives.
+\end{abstract}

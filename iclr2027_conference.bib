@@ -1,0 +1,344 @@
+% Each entry was checked against the source in its comment on the date given. Titles keep the
+% capitalisation of the source, protected with braces where BibTeX would lower-case it. Author
+% lists are complete and in the published order.
+%
+% ⛔ One correction on record: an earlier version of this file asserted that the arXiv v1 of
+% qiu2026nufilt was titled "Preserving Transparency, Promoting Fidelity". Checking the arXiv
+% page directly, v1 and v2 carry the same title. The claim came from a summary, not the source.
+
+% --- the containment mechanism, which this paper does not claim ----------------------------
+% proceedings.mlr.press/v267/cheng25h.html  [verified 2026-09-09]
+% ⚠️ PMLR's listing lower-cases "interference"; arXiv, the PDF and the official repository all
+% capitalise it. The title is stored as the source has it; the ICLR .bst then renders titles in
+% sentence case, which is the style's convention and applies uniformly. Braces here protect only
+% proper nouns and acronyms (ACE, SVD, KnOTS, LoRA, IEEE/CVF, I, B), never ordinary words --
+% protecting one ordinary word makes it the only capital in a lower-cased title.
+@inproceedings{cheng2025wudi,
+  title     = {Whoever Started the Interference Should End It: Guiding Data-Free Model Merging via Task Vectors},
+  author    = {Cheng, Runxi and Xiong, Feng and Wei, Yongxian and Zhu, Wanyun and Yuan, Chun},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research}, volume = {267},
+  pages     = {10121--10143}, year = {2025},
+  url       = {https://proceedings.mlr.press/v267/cheng25h.html}}
+
+% arxiv.org/abs/2509.21413, accepted at ICLR 2026  [verified 2026-09-09]
+@inproceedings{qiu2026nufilt,
+  title     = {Null-Space Filtering for Data-Free Continual Model Merging: Preserving Stability, Promoting Plasticity},
+  author    = {Qiu, Zihuan and Wang, Lei and Cao, Yang and Zhang, Runtong and Su, Bing and
+               Xu, Yi and Meng, Fanman and Xu, Linfeng and Wu, Qingbo and Li, Hongliang},
+  booktitle = {International Conference on Learning Representations}, year = {2026},
+  eprint    = {2509.21413}, archivePrefix = {arXiv}}
+
+% --- the measurement, which this paper also does not claim ---------------------------------
+% arxiv.org/abs/2412.00081, CVPR 2025  [verified 2026-09-09]
+@inproceedings{gargiulo2025task,
+  title     = {Task Singular Vectors: Reducing Task Interference in Model Merging},
+  author    = {Gargiulo, Antonio Andrea and Crisostomi, Donato and Bucarelli, Maria Sofia and
+               Scardapane, Simone and Silvestri, Fabrizio and Rodol{\`a}, Emanuele},
+  booktitle = {Proceedings of the {IEEE/CVF} Conference on Computer Vision and Pattern Recognition},
+  year      = {2025}, eprint = {2412.00081}, archivePrefix = {arXiv}}
+
+% arxiv.org/abs/2601.22285. Sec. 3.3 defines Right Subspace Overlap over 190 pairs of CLIP
+% ViT-B/16 checkpoints at k=10, with no null model anywhere.  [verified 2026-09-09]
+@article{demystify2026,
+  title   = {Demystifying Mergeability: Interpretable Properties to Predict Model Merging Success},
+  author  = {Zhou, Luca and Zhao, Bo and Yu, Rose and Rodol{\`a}, Emanuele},
+  journal = {arXiv preprint arXiv:2601.22285}, year = {2026}}
+
+% proceedings.mlr.press/v267/marczak25a.html  [verified 2026-09-09]
+@inproceedings{marczak2025iso,
+  title     = {No Task Left Behind: Isotropic Model Merging with Common and Task-Specific Subspaces},
+  author    = {Marczak, Daniel and Magistri, Simone and Cygert, Sebastian and
+               Twardowski, Bart{\l}omiej and Bagdanov, Andrew D. and van de Weijer, Joost},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research}, volume = {267},
+  pages     = {43177--43199}, year = {2025},
+  url       = {https://proceedings.mlr.press/v267/marczak25a.html}}
+
+% --- activation statistics as machinery, never as a reference distribution -----------------
+@inproceedings{jin2023dataless,
+  title     = {Dataless Knowledge Fusion by Merging Weights of Language Models},
+  author    = {Jin, Xisen and Ren, Xiang and Preotiuc-Pietro, Daniel and Cheng, Pengxiang},
+  booktitle = {International Conference on Learning Representations}, year = {2023},
+  eprint    = {2212.09849}, archivePrefix = {arXiv}}
+
+% arxiv.org/abs/2604.01329  [verified 2026-09-02]
+@article{actmat2026,
+  title   = {Model Merging via Data-Free Covariance Estimation},
+  author  = {Abdel Hameed, Marawan Gamal and Tam, Derek and Tikeng Notsawo, Pascal Jr and
+             Raffel, Colin and Rabusseau, Guillaume},
+  journal = {arXiv preprint arXiv:2604.01329}, year = {2026}}
+
+% arxiv.org/abs/2603.02945  [verified 2026-09-02]
+@article{acemerging2026,
+  title   = {{ACE}-Merging: Data-Free Model Merging with Adaptive Covariance Estimation},
+  author  = {Xu, Bo and Wu, Haotian and Lin, Hehai and Huang, Weiquan and Zhu, Beier and
+             Shu, Yao and Qin, Chengwei},
+  journal = {arXiv preprint arXiv:2603.02945}, year = {2026}}
+
+% --- shared bases across adapters -----------------------------------------------------------
+% arxiv.org/abs/2410.19735, ICLR 2025, openreview.net/forum?id=67X93aZHII  [verified 2026-09-09]
+@inproceedings{stoica2025knots,
+  title     = {Model merging with {SVD} to tie the {K}nots},
+  author    = {Stoica, George and Ramesh, Pratik and Ecsedi, Boglarka and Choshen, Leshem and
+               Hoffman, Judy},
+  booktitle = {International Conference on Learning Representations}, year = {2025},
+  eprint    = {2410.19735}, archivePrefix = {arXiv}}
+
+% arxiv.org/abs/2509.17786, NeurIPS 2025  [verified 2026-09-02]
+@inproceedings{panariello2025corespace,
+  title     = {Accurate and Efficient Low-Rank Model Merging in Core Space},
+  author    = {Panariello, Aniello and Marczak, Daniel and Magistri, Simone and Porrello, Angelo and
+               Twardowski, Bart{\l}omiej and Bagdanov, Andrew D. and Calderara, Simone and
+               van de Weijer, Joost},
+  booktitle = {Advances in Neural Information Processing Systems}, year = {2025},
+  eprint    = {2509.17786}, archivePrefix = {arXiv}}
+
+% arxiv.org/abs/2502.01015, TMLR  [verified 2026-09-02]
+@article{zeng2026tvbases,
+  title   = {Task Vector Bases: A Unified and Scalable Framework for Compressed Task Arithmetic},
+  author  = {Zeng, Siqi and He, Yifei and Liu, Meitong and You, Weiqiu and Hao, Yifan and
+             Tsai, Yao-Hung Hubert and Yamada, Makoto and Zhao, Han},
+  journal = {Transactions on Machine Learning Research}, year = {2026}}
+
+% arxiv.org/abs/2604.16826, submitted 2026-04-18. Their method is Pico. They report the
+% OPPOSITE factor pattern to ours on independently initialised language adapters: B repeatedly
+% uses a small set of shared directions while A stays task-specific.  [verified 2026-09-09]
+@article{tang2026bspace,
+  title   = {Crowded in {B}-Space: Calibrating Shared Directions for {L}o{RA} Merging},
+  author  = {Tang, Yixuan and Yang, Yi},
+  journal = {arXiv preprint arXiv:2604.16826}, year = {2026}}
+
+% --- independent functional confirmation that A carries little task information -------------
+% arxiv.org/abs/2402.16842, proceedings.mlr.press/v235/zhu24c.html, ICML 2024
+% "a random untrained A should perform nearly as well as a fine-tuned one"  [verified 2026-09-09]
+@inproceedings{zhu2024asymmetry,
+  title     = {Asymmetry in Low-Rank Adapters of Foundation Models},
+  author    = {Zhu, Jiacheng and Greenewald, Kristjan and Nadjahi, Kimia and
+               Sáez de Ocáriz Borde, Haitz and Gabrielsson, Rickard Brüel and
+               Choshen, Leshem and Ghassemi, Marzyeh and Yurochkin, Mikhail and Solomon, Justin},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research}, volume = {235}, year = {2024},
+  url       = {https://proceedings.mlr.press/v235/zhu24c.html}}
+
+% --- the same confound, one space over ------------------------------------------------------
+% arxiv.org/abs/2202.00095. Representation-similarity metrics are confounded by the population
+% structure of the input data, giving "spuriously high similarity for even completely random
+% neural networks".  [verified 2026-09-09]
+@inproceedings{cui2022deconfounded,
+  title     = {Deconfounded Representation Similarity for Comparison of Neural Networks},
+  author    = {Cui, Tianyu and Kumar, Yogesh and Marttinen, Pekka and Kaski, Samuel},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {35}, year = {2022}, note = {arXiv:2202.00095}}
+
+% --- the surrogate-data tradition this null belongs to --------------------------------------
+% nature.com/articles/nn.4617  [verified 2026-09-09]
+@article{elsayed2017structure,
+  title   = {Structure in neural population recordings: an expected byproduct of simpler phenomena?},
+  author  = {Elsayed, Gamaleldin F. and Cunningham, John P.},
+  journal = {Nature Neuroscience}, volume = {20}, number = {9}, pages = {1310--1318},
+  year    = {2017}, doi = {10.1038/nn.4617}}
+
+% --- benchmark -------------------------------------------------------------------------------
+@inproceedings{ilharco2023editing,
+  title     = {Editing Models with Task Arithmetic},
+  author    = {Ilharco, Gabriel and Ribeiro, Marco Tulio and Wortsman, Mitchell and
+               Gururangan, Suchin and Schmidt, Ludwig and Hajishirzi, Hannaneh and
+               Farhadi, Ali},
+  booktitle = {International Conference on Learning Representations}, year = {2023},
+  eprint    = {2212.04089}, archivePrefix = {arXiv}}
+
+% --- added after review round 3 ---------------------------------------------
+% arxiv.org/abs/2509.25414  [verified 2026-09-13]  ACL 2026 Findings, v1 2025-09-29
+@inproceedings{ban2026rethinking,
+  title     = {Rethinking Parameter Sharing for {LLM} Fine-Tuning with Multiple {L}o{RA}s},
+  author    = {Ban, Hao and Ji, Kaiyi},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2026},
+  year      = {2026},
+  note      = {arXiv:2509.25414},
+}
+
+% arxiv.org/abs/2103.09762  [verified 2026-09-13]
+@inproceedings{saha2021gpm,
+  title     = {Gradient Projection Memory for Continual Learning},
+  author    = {Saha, Gobinda and Garg, Isha and Roy, Kaushik},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2021},
+}
+
+% arxiv.org/abs/2103.07113, CVPR 2021 pp. 184-193  [verified 2026-09-13]
+@inproceedings{wang2021nullspace,
+  title     = {Training Networks in Null Space of Feature Covariance for Continual Learning},
+  author    = {Wang, Shipeng and Li, Xiaorong and Sun, Jian and Xu, Zongben},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages     = {184--193},
+  year      = {2021},
+}
+
+% arxiv.org/abs/2108.01661  [verified 2026-09-13]
+@inproceedings{ding2021grounding,
+  title     = {Grounding Representation Similarity with Statistical Testing},
+  author    = {Ding, Frances and Denain, Jean-Stanislas and Steinhardt, Jacob},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2021},
+}
+
+% arxiv.org/abs/2106.09685  [verified 2026-09-13]  ICLR 2022
+@inproceedings{hu2022lora,
+  title     = {{L}o{RA}: Low-Rank Adaptation of Large Language Models},
+  author    = {Hu, Edward J. and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and
+               Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2022},
+}
+
+% arxiv.org/abs/2310.04742  [verified 2026-09-13]  ICLR 2024
+@inproceedings{tang2024linearization,
+  title     = {Parameter Efficient Multi-task Model Fusion with Partial Linearization},
+  author    = {Tang, Anke and Shen, Li and Luo, Yong and Zhan, Yibing and Hu, Han and Du, Bo and
+               Chen, Yixin and Tao, Dacheng},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2024},
+}
+
+% --- added 2026-09-14, each checked against the source page listed ------------
+% arxiv.org/abs/2306.01708, NeurIPS 2023  [verified 2026-09-14]
+@inproceedings{yadav2023ties,
+  title     = {{TIES}-Merging: Resolving Interference When Merging Models},
+  author    = {Yadav, Prateek and Tam, Derek and Choshen, Leshem and Raffel, Colin and
+               Bansal, Mohit},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2023},
+}
+
+% arxiv.org/abs/2311.03099, ICML 2024  [verified 2026-09-14]
+@inproceedings{yu2024dare,
+  title     = {Language Models are Super Mario: Absorbing Abilities from Homologous Models as a
+               Free Lunch},
+  author    = {Yu, Le and Yu, Bowen and Yu, Haiyang and Huang, Fei and Li, Yongbin},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  year      = {2024},
+}
+
+% arxiv.org/abs/2305.12827, NeurIPS 2023 (oral)  [verified 2026-09-14]
+@inproceedings{ortizjimenez2023tangent,
+  title     = {Task Arithmetic in the Tangent Space: Improved Editing of Pre-Trained Models},
+  author    = {Ortiz-Jimenez, Guillermo and Favero, Alessandro and Frossard, Pascal},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2023},
+}
+
+% arxiv.org/abs/2405.07813, ICML 2024  [verified 2026-09-14]
+% ⚠️ This, not ilharco2023editing, is the source of the twenty-task vision benchmark.
+@inproceedings{wang2024localizing,
+  title     = {Localizing Task Information for Improved Model Merging and Compression},
+  author    = {Wang, Ke and Dimitriadis, Nikolaos and Ortiz-Jimenez, Guillermo and
+               Fleuret, Fran\c{c}ois and Frossard, Pascal},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  year      = {2024},
+}
+
+% proceedings.mlr.press/v162/wortsman22a.html  [verified 2026-09-14]
+@inproceedings{wortsman2022soups,
+  title     = {Model soups: averaging weights of multiple fine-tuned models improves accuracy
+               without increasing inference time},
+  author    = {Wortsman, Mitchell and Ilharco, Gabriel and Gadre, Samir Ya and
+               Roelofs, Rebecca and Gontijo-Lopes, Raphael and Morcos, Ari S and
+               Namkoong, Hongseok and Farhadi, Ali and Carmon, Yair and Kornblith, Simon and
+               Schmidt, Ludwig},
+  booktitle = {Proceedings of the 39th International Conference on Machine Learning},
+  volume    = {162},
+  pages     = {23965--23998},
+  year      = {2022},
+}
+
+% papers.nips.cc/.../70c26937fbf3d4600b69a129031b66ec, NeurIPS 2022  [verified 2026-09-14]
+@inproceedings{matena2022fisher,
+  title     = {Merging Models with Fisher-Weighted Averaging},
+  author    = {Matena, Michael S and Raffel, Colin A},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {35},
+  pages     = {17703--17716},
+  year      = {2022},
+}
+
+% proceedings.mlr.press/v97/kornblith19a.html  [verified 2026-09-14]
+@inproceedings{kornblith2019similarity,
+  title     = {Similarity of Neural Network Representations Revisited},
+  author    = {Kornblith, Simon and Norouzi, Mohammad and Lee, Honglak and Hinton, Geoffrey},
+  booktitle = {Proceedings of the 36th International Conference on Machine Learning},
+  volume    = {97},
+  pages     = {3519--3529},
+  year      = {2019},
+}
+
+% proceedings.neurips.cc/paper/2017/hash/dc6a7e655d7e5840e66733e9ee67cc69, NIPS 2017
+% pp. 6076-6085  [verified 2026-09-14]
+@inproceedings{raghu2017svcca,
+  title     = {{SVCCA}: Singular Vector Canonical Correlation Analysis for Deep Learning
+               Dynamics and Interpretability},
+  author    = {Raghu, Maithra and Gilmer, Justin and Yosinski, Jason and Sohl-Dickstein, Jascha},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  pages     = {6076--6085},
+  year      = {2017},
+}
+
+% arxiv.org/abs/2312.06173  [verified 2026-09-14]
+@article{tang2023concrete,
+  title     = {Concrete Subspace Learning based Interference Elimination for Multi-task
+               Model Fusion},
+  author    = {Tang, Anke and Luo, Xianglin and Shen, Li and Luo, Yong and Ding, Liang and
+               Hu, Han and Du, Bo and Tao, Dacheng},
+  journal   = {arXiv preprint arXiv:2312.06173},
+  year      = {2023},
+}
+
+% arxiv.org/abs/2502.10339, NAACL 2025  [verified 2026-09-14]
+@inproceedings{lee2025star,
+  title     = {{STAR}: Spectral Truncation and Rescale for Model Merging},
+  author    = {Lee, Yu-Ang and Ko, Ching-Yun and Pedapati, Tejaswini and Chung, I-Hsin and
+               Yeh, Mi-Yen and Chen, Pin-Yu},
+  booktitle = {Proceedings of the 2025 Conference of the North American Chapter of the
+               Association for Computational Linguistics},
+  year      = {2025},
+}
+
+% proceedings.neurips.cc/.../bc6cddcd5d325e1c0f826066c1ad0215, NeurIPS 2022  [verified 2026-09-14]
+@inproceedings{ilharco2022patching,
+  title     = {Patching open-vocabulary models by interpolating weights},
+  author    = {Ilharco, Gabriel and Wortsman, Mitchell and Gadre, Samir Yitzhak and
+               Song, Shuran and Hajishirzi, Hannaneh and Kornblith, Simon and Farhadi, Ali and
+               Schmidt, Ludwig},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {35}, year = {2022},
+}
+
+% proceedings.mlr.press/v119/frankle20a, ICML 2020  [verified 2026-09-14]
+@inproceedings{frankle2020linear,
+  title     = {Linear Mode Connectivity and the Lottery Ticket Hypothesis},
+  author    = {Frankle, Jonathan and Dziugaite, Gintare Karolina and Roy, Daniel M. and
+               Carbin, Michael},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning},
+  volume    = {119}, year = {2020},
+}
+
+% arxiv.org/abs/2209.04836, ICLR 2023 (oral)  [verified 2026-09-14]
+@inproceedings{ainsworth2023rebasin,
+  title     = {Git Re-Basin: Merging Models modulo Permutation Symmetries},
+  author    = {Ainsworth, Samuel K. and Hayase, Jonathan and Srinivasa, Siddhartha},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2023},
+}
+
+% arxiv.org/abs/2510.14697  [verified 2026-09-15]
+@article{an2025pave,
+  title         = {Purifying Task Vectors in Knowledge-Aware Subspace for Model Merging},
+  author        = {An, Bang and Yang, Yibo and Torr, Philip and Ghanem, Bernard},
+  journal       = {arXiv preprint arXiv:2510.14697},
+  year          = {2025},
+  eprint        = {2510.14697},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  doi           = {10.48550/arXiv.2510.14697},
+}

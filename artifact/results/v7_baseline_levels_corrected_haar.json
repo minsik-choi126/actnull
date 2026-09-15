@@ -1,0 +1,71 @@
+{
+ "arch": "clip-vit-base-patch16",
+ "modules": [
+  "encoder.layers.0.mlp.fc1",
+  "encoder.layers.1.self_attn.out_proj",
+  "encoder.layers.11.mlp.fc1",
+  "encoder.layers.2.self_attn.out_proj",
+  "encoder.layers.4.mlp.fc1",
+  "encoder.layers.5.self_attn.out_proj",
+  "encoder.layers.7.mlp.fc1",
+  "encoder.layers.8.self_attn.out_proj"
+ ],
+ "k": 8,
+ "iso": 0.010416666666666666,
+ "n": 160,
+ "level": {
+  "orthogonality": 0.027510759243159554,
+  "isotropic": 0.01709409257649289,
+  "regmean": 0.052185766534724586,
+  "tikhonov": 0.05540781267530595,
+  "generative": -0.8959326509298989,
+  "permutation": -2.843444235622883e-09,
+  "ours": -0.000676566400215961
+ },
+ "metadata": {
+  "schema_version": 3,
+  "labels": {
+   "orthogonality": "exact orthogonality",
+   "isotropic": "isotropic $k/d$",
+   "regmean": "whitened at participation ratio",
+   "tikhonov": "whitened, all stored",
+   "generative": "generative null",
+   "permutation": "coordinate permutation",
+   "ours": "activation-conditioned (ours, circular here)"
+  },
+  "level_definitions": {
+   "orthogonality": "mean raw overlap; the native center is zero",
+   "isotropic": "mean raw overlap minus k/d",
+   "regmean": "mean participation-ratio-whitened overlap minus k/d",
+   "tikhonov": "mean all-stored-whitened overlap minus k/d",
+   "generative": "mean raw overlap minus mean generative-null overlap",
+   "permutation": "mean raw overlap minus mean common-permutation overlap",
+   "ours": "mean raw overlap minus mean rerandomized corrected-null overlap"
+  },
+  "raw_null_pair_overlap": 0.027510759243159554,
+  "isotropic_chance": 0.010416666666666666,
+  "raw_overlap_over_isotropic_chance": 2.641032887343317,
+  "ratio_definition": "raw_null_pair_overlap / isotropic_chance",
+  "expert_names": [
+   "dtd",
+   "eurosat",
+   "gtsrb",
+   "mnist",
+   "resisc45",
+   "stanford-cars",
+   "sun397",
+   "svhn"
+  ],
+  "draws_per_module": 20,
+  "seed": 0,
+  "device": "cpu",
+  "module_stride": 9,
+  "block_z": 2.0,
+  "null_implementation": "actnull.null.coupling_destroying_null",
+  "skipped_missing_modules": [],
+  "skipped_degenerate_draws": 0,
+  "fold_counts": [
+   8
+  ]
+ }
+}

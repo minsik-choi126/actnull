@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "implementation_sha256": "4fbbe84c2e9902d7a97c83a7370a0e744c4dee8d61ea3b058c3483cf40777201",
+  "definition": {
+    "group": "number of unordered task-pair endpoints in calibration_source_tasks",
+    "aggregation": "equal row weights within group; average raw, isotropic, and activation-null values before residual and ratio",
+    "residual": "mean(raw) - mean(activation_null)",
+    "reproduced_fraction_percent": "100 * (mean(activation_null) - mean(isotropic)) / (mean(raw) - mean(isotropic))"
+  },
+  "calibration_source_tasks": [
+    "cifar10",
+    "dtd",
+    "eurosat",
+    "gtsrb",
+    "resisc45",
+    "stl10",
+    "sun397"
+  ],
+  "architectures": {
+    "ViT-B/16": {
+      "source_row_file": "v7_exact_clip-vit-base-patch16.csv.gz",
+      "all_tasks": [
+        "cifar10",
+        "cifar100",
+        "dtd",
+        "emnist_letters",
+        "eurosat",
+        "fashion_mnist",
+        "fer2013",
+        "food101",
+        "gtsrb",
+        "kmnist",
+        "mnist",
+        "oxford-iiit-pet",
+        "oxford_flowers102",
+        "pcam",
+        "rendered-sst2",
+        "resisc45",
+        "stanford-cars",
+        "stl10",
+        "sun397",
+        "svhn"
+      ],
+      "groups": {
+        "0": {
+          "rows": 5616,
+          "unique_task_pairs": 78,
+          "modules": 72,
+          "mean_raw": 0.10436450969436116,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.031078496089725335,
+          "residual_raw_minus_null": 0.07328601360463582,
+          "reproduced_fraction_percent": 23.059243818353952
+        },
+        "1": {
+          "rows": 6552,
+          "unique_task_pairs": 91,
+          "modules": 72,
+          "mean_raw": 0.10227076867966309,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.033860365958449094,
+          "residual_raw_minus_null": 0.06841040272121399,
+          "reproduced_fraction_percent": 26.563756913314517
+        },
+        "2": {
+          "rows": 1512,
+          "unique_task_pairs": 21,
+          "modules": 72,
+          "mean_raw": 0.11532959300302777,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.0392026200062804,
+          "residual_raw_minus_null": 0.07612697299674737,
+          "reproduced_fraction_percent": 28.3274809902238
+        }
+      }
+    },
+    "ViT-B/32": {
+      "source_row_file": "v7_exact_clip-vit-base-patch32.csv.gz",
+      "all_tasks": [
+        "cifar10",
+        "cifar100",
+        "dtd",
+        "emnist_letters",
+        "eurosat",
+        "fashion_mnist",
+        "fer2013",
+        "food101",
+        "gtsrb",
+        "kmnist",
+        "mnist",
+        "oxford-iiit-pet",
+        "oxford_flowers102",
+        "pcam",
+        "rendered-sst2",
+        "resisc45",
+        "stanford-cars",
+        "stl10",
+        "sun397",
+        "svhn"
+      ],
+      "groups": {
+        "0": {
+          "rows": 5616,
+          "unique_task_pairs": 78,
+          "modules": 72,
+          "mean_raw": 0.09146137963929028,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.02589857557454215,
+          "residual_raw_minus_null": 0.06556280406474813,
+          "reproduced_fraction_percent": 20.382082842480493
+        },
+        "1": {
+          "rows": 6552,
+          "unique_task_pairs": 91,
+          "modules": 72,
+          "mean_raw": 0.09434318811920106,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.029104626377192713,
+          "residual_raw_minus_null": 0.06523856174200834,
+          "reproduced_fraction_percent": 23.454617254480798
+        },
+        "2": {
+          "rows": 1512,
+          "unique_task_pairs": 21,
+          "modules": 72,
+          "mean_raw": 0.11381836147257003,
+          "mean_isotropic": 0.009114583333333334,
+          "mean_activation_null": 0.03481471365855604,
+          "residual_raw_minus_null": 0.07900364781401399,
+          "reproduced_fraction_percent": 24.545561566122547
+        }
+      }
+    },
+    "ViT-L/14 q/v": {
+      "source_row_file": "v7_exact_clip-vit-large-patch14.csv.gz",
+      "all_tasks": [
+        "cifar10",
+        "cifar100",
+        "dtd",
+        "emnist_letters",
+        "eurosat",
+        "fashion_mnist",
+        "fer2013",
+        "food101",
+        "gtsrb",
+        "kmnist",
+        "mnist",
+        "oxford-iiit-pet",
+        "oxford_flowers102",
+        "pcam",
+        "rendered-sst2",
+        "resisc45",
+        "stanford-cars",
+        "stl10",
+        "sun397",
+        "svhn"
+      ],
+      "groups": {
+        "0": {
+          "rows": 3744,
+          "unique_task_pairs": 78,
+          "modules": 48,
+          "mean_raw": 0.07041895071498036,
+          "mean_isotropic": 0.0078125,
+          "mean_activation_null": 0.014196590477128871,
+          "residual_raw_minus_null": 0.05622236023785149,
+          "reproduced_fraction_percent": 10.197176815202043
+        },
+        "1": {
+          "rows": 4368,
+          "unique_task_pairs": 91,
+          "modules": 48,
+          "mean_raw": 0.06925231088335573,
+          "mean_isotropic": 0.0078125,
+          "mean_activation_null": 0.015578152216969789,
+          "residual_raw_minus_null": 0.053674158666385946,
+          "reproduced_fraction_percent": 12.639446810331139
+        },
+        "2": {
+          "rows": 1008,
+          "unique_task_pairs": 21,
+          "modules": 48,
+          "mean_raw": 0.0843645499451899,
+          "mean_isotropic": 0.0078125,
+          "mean_activation_null": 0.018890932776333497,
+          "residual_raw_minus_null": 0.0654736171688564,
+          "reproduced_fraction_percent": 14.471765007293058
+        }
+      }
+    }
+  },
+  "path_policy": "Only artifact-relative row filenames are recorded; no local paths."
+}

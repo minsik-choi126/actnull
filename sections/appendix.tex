@@ -1,0 +1,590 @@
+\section{Limitations and future work}
+\label{app:limits}
+
+All quantitative conclusions concern CLIP vision encoders. The headline uses $k=8$, $m_C=64$,
+and the $2\sigma$ resolution convention; we sweep $k$, $m_C$, and the resolution multiplier below.
+ViT-L/14 covers only \texttt{q} and \texttt{v}, and $C_H$ is estimated from seven of the twenty
+benchmark datasets under one recorded mixture. One deliberately different composition is tested
+below; broader calibration compositions and language models remain open.
+The reported finite-pool stability intervals hold the calibration draw, fold partition, block
+rule, and $m_C$ fixed; they do not incorporate uncertainty from estimating or selecting the null.
+They are not superpopulation coverage statements: each task contributes one checkpoint/training
+realisation, so training-run and checkpoint variation are unmeasured.
+Scalar activation-null values use Eq.~\ref{eq:null-expectation} exactly; adapter intervals hold
+their pooled $64$-draw realised Monte Carlo null values fixed. We draw $50{,}000$ crossed
+task--layer resampling replicates. Independent multinomial endpoint counts $C_t$ and layer counts $L_\ell$
+give each row weight $C_aC_bL_\ell$; all module types within a selected layer remain grouped.
+Each replicate takes the ratio after weighted averaging. The pseudorandom seed is $20260915$.
+As a finite-pool influence check for the exact activation arms, leave-one-task-out reproduced
+fractions range $24.685$--$25.896\%$, $21.856$--$22.939\%$, and $11.310$--$12.165\%$ for
+ViT-B/16, ViT-B/32, and ViT-L/14; the corresponding leave-one-layer-out ranges are
+$24.359$--$28.411\%$, $21.272$--$26.392\%$, and $10.955$--$13.587\%$. Every residual remains positive.
+
+The raw outer-product gradient identity involves activations along each fine-tuning trajectory
+and, under scalar-step gradient descent, constrains the update to their span. Our null instead
+conditions on the frozen base's second moment. Feature drift, adaptive coordinatewise
+preconditioning, and weight decay break an exact passage between those statements. Consequently,
+the activation-conditioned decomposition is descriptive: its post-fine-tuning occupancy profile
+can include learned structure, and identifying its origin would require an intervention or an
+additional stability assumption that we do not test.
+
+The LoRA result is limited to rank $16$, one shared-start protocol, eight tasks, and the reported
+attention modules. Its factor null preserves $A$ and the singular spectrum of $B$, not the
+product spectrum of $BA$. In a four-module, six-task stress test the attainable plant delivers
+$37.4$--$57.0\%$ of its nominal increment, and the null recovers $100.7$--$101.1\%$ of that
+delivered signal. This establishes level and response only for that planting operator; the
+$87.5\%$ projector-basis fraction has no dedicated positive control. A controlled
+shared-versus-independent-$A_0$ experiment is absent, and $B$ remains about five times above
+isotropic chance. Finally, calibration is nearly rank-preserving and the cross-term basis does
+not improve compressed-merge accuracy; the evidence supports measurement and attribution claims,
+not a better merging algorithm.
+
+\section{Invariants of the overlap statistic}
+\label{app:invariants}
+
+Every numerical property below is checked directly in the analysis; these checks should accompany
+the released measurement code rather than be inferred from library defaults.
+
+Beyond the scalar occupancies and energies in \S\ref{sec:null}, the group action fixes
+$\Delta W_iP_b\Delta W_i^\top$ and the eigenvalues of
+$V_i^{(k)\top}P_bV_i^{(k)}$ for every block. The former contains output-side block Gram geometry
+and the latter its principal-angle spectrum. A looser null conditioning only on $t_{ib}$ could
+therefore give a different attribution.
+
+\paragraph{Why Eq.~\ref{eq:null-expectation} is exact.}
+Haar averaging within block $b$ gives
+$\mathbb E[Q_i^\top\Pi_iQ_i]=\sum_b(t_{ib}/d_b)P_b$, where
+$d_b=\operatorname{rank}(P_b)$. For independent task-wise draws, linearity and
+$P_bP_c=\mathbf 1\{b=c\}P_b$ give
+$\mathbb E\operatorname{tr}(Q_i^\top\Pi_iQ_iQ_j^\top\Pi_jQ_j)
+=\sum_b t_{ib}t_{jb}/d_b$; division by $k$ yields Eq.~\ref{eq:null-expectation}.
+
+\begin{itemize}
+\item \textbf{Orientation.} \texttt{top\_right} returns the right singular vectors, of shape
+$(d_{\mathrm{in}}, k)$, matching an explicit SVD on a rectangular matrix where a transpose would
+be silent. The convention $\Delta W = U S V^\top$ puts $V$ on the input side; swapping it
+reverses every conclusion in this paper.
+\item \textbf{Normalisation.} $\mathcal{O}(A,A)=1$ to $10^{-6}$, and two independent uniformly
+random $k$-subspaces average $0.03995$ against $k/d = 0.04000$ over $300$ draws. We confirm the
+same identity at $(d,k) \in \{(200,8),(200,32),(400,8),(3584,8),(100,10)\}$.
+\item \textbf{Degenerate inputs are refused.} The SVD of a zero matrix returns an arbitrary
+orthonormal basis, and returns the \emph{same} one each time, so two zero task vectors score
+$\mathcal{O}=1.0000$. In a LoRA checkpoint every module the adapter does not target is exactly
+zero, so an unguarded run over an adapter pool fills its averages with the maximum possible
+value taken from modules that did not change. \texttt{top\_right} raises on such an input and
+the caller drops and counts those cells.
+\item \textbf{Checkpoint reads.} Weights are read by matching module paths to checkpoint keys by
+suffix, since \texttt{CLIPVisionModel.named\_modules()} yields \texttt{encoder.layers.0...}\ while
+the checkpoint stores \texttt{vision\_model.encoder.layers.0...}. A suffix matching more than one key is refused: the full CLIP checkpoint holds both
+\texttt{text\_model.*} and \texttt{vision\_model.*} under identical suffixes, and picking either
+silently would build task vectors from the text tower and compare them against a vision
+covariance. Tensors returned this way are bit-identical to a \texttt{state\_dict} load.
+\end{itemize}
+
+\section{Calibration choices for whitening and activation blocks}
+\label{app:calibration}
+
+\paragraph{Block-error rule.}
+Partition the calibration set into eight disjoint folds and compute the ordered covariance
+eigenvalues $\lambda_j^{(f)}$ independently on each fold. With their mean $\bar\lambda_j^{F}$,
+the implementation uses the split-sample standard error
+$\sigma_j=[\sum_{f=1}^{8}(\lambda_j^{(f)}-\bar\lambda_j^{F})^2/(8\cdot7)]^{1/2}$.
+The blocks are the transitive consecutive components induced by overlap of adjacent
+$\widehat\lambda_j\mathbin{\pm}2\sigma_j$ intervals, where $\widehat\lambda_j$ is the eigenvalue
+from the full calibration pool. This is an operational coarsening, not a confidence interval for
+eigenspace identifiability.
+
+\paragraph{Finite calibration refits.}
+Holding the seven source counts and extraction procedure fixed, two source-stratified bootstrap
+refits (seeds $20260916$ and $20260917$) give full ViT-B/16 exact reproduced fractions
+$25.102\%$ and $25.302\%$, versus the $25.345\%$ headline, for a maximum $0.243$-percentage-point
+shift. This is the observed range of two refits, not a calibration confidence interval, and does
+not test a different source composition.
+
+\paragraph{Composition stress control.}
+Separately, we sample without replacement from deterministic test splits to balance $334$ MNIST,
+$334$ Stanford Cars, and $333$ SVHN images (seed $20260919$). This deliberately different
+calibration gives exact ViT-B/16 null $0.029621$, residual $0.074953$, and reproduced fraction
+$21.482\%$, or $3.863$ percentage points below the seven-source headline. Holding this covariance
+fixed, the crossed finite-pool stability intervals are $[16.8975,26.2690]\%$ for the fraction and
+$[+0.048606,+0.109015]$ for the residual. The median participation ratio is $12.691$, with
+$71/72$ modules below $64$, so both composition and spectral effective rank have changed. This is
+a stress control, not an estimate of calibration uncertainty or an interval over possible compositions.
+
+A complementary post-hoc stratification asks whether zero, one, or both endpoints of a task pair
+belong to the seven calibration sources ($78/91/21$ pairs). The reproduced fractions rise from
+$23.06/26.56/28.33\%$ for ViT-B/16, $20.38/23.45/24.55\%$ for ViT-B/32, and
+$10.20/12.64/14.47\%$ for ViT-L/14; the residual remains positive in every cell. This gradient is
+consistent with composition sensitivity, but it does not isolate calibration membership from task
+identity and is not used for inference.
+
+\paragraph{Truncation.} Whitening two task vectors by a shared $C_H$ manufactures overlap when
+it is aggressive. On independent task vectors whose true overlap is chance ($0.0400$), a
+Tikhonov ridge at $\lambda = 10^{-4}\bar{w}$ returns $0.7199$ and RegMean's published
+off-diagonal shrinkage $\alpha = 0.9$ returns $0.0931$. The mechanism is that $C_H^{-1/2}$
+amplifies small eigendirections and drives both task vectors onto the same few of them: at
+$\lambda = 10^{-4}\bar{w}$, $96.5\%$ of the whitened read mass lands on the twenty smallest
+stored eigendirections. Whitening only the top $m_{\rm white}$ directions keeps reference overlap
+near chance ($0.0394$, $0.0405$, $0.0422$ at $m_{\rm white}=8,32,64$).
+
+We set $m_{\rm white}$ per module from that module's participation ratio
+$(\sum_i w_i)^2 / \sum_i w_i^2$, used here as an operational effective-rank truncation. In our
+calibration refits, directions beyond this cutoff were unstable; the participation ratio is not
+an identifiability threshold. The ratio must be computed from the full spectrum:
+taken over only the $m_C$ retained eigenvalues it is bounded above by
+$m_C$ by Cauchy--Schwarz, which understates it and makes any gate comparing
+the two a tautology.
+
+\paragraph{Why a block count was rejected.} \S\ref{sec:method} sets the rotation blocks from
+what the calibration data can resolve. We record here what the alternative looked like, because
+the alternative is what a reader would reach for first.
+
+Fixing a block count and complement rotation rank leaves two choices that no invariant selects,
+and the answer moves with them: sweeping the rotation rank of the complement from $32$
+to $512$ moved the reproduced fraction from $48\%$ to $23\%$ under the null as it then stood.
+Subtracting that null's offset on a constructed reference did not stabilise it. The
+resolution-based construction eliminates those two outcome-sensitive choices, since the
+complement is a single unresolved block and is rotated in full. It does not eliminate design
+choices: the uncertainty multiplier, fold-SE scheme, calibration sample, and stored dimension
+remain part of the null specification.
+
+The sweep is also where the defect of \S\ref{sec:defects} hid in plain sight. A rotation rank
+that changes the answer by a factor of two is a rotation rank that is destroying different
+amounts of structure, and the endpoint the construction actually calls for, rotating the whole
+complement, lies outside the range that was swept.
+
+\paragraph{Block structure is a function of the calibration budget.}
+Blocks are the groups of eigendirections that our operational interval rule treats as unresolved.
+They tend to sharpen as the calibration set grows: estimated eigenvalue errors contract, so fewer
+adjacent intervals overlap and blocks split. This behavior does not make interval overlap a
+confidence theorem for eigenspace identifiability.
+The first three columns below are measured on nested subsets of one image pool. At each budget we
+partition images into eight disjoint folds and compute the eight foldwise eigenvalue replicates
+used by the split-sample rule in \S\ref{sec:method}. The remainder scales the measured standard errors,
+the pool having stopped at $1001$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lrrrcrrr@{}}
+\toprule
+& \multicolumn{3}{c}{measured} & & \multicolumn{3}{c}{extrapolated} \\
+\cmidrule(r){2-4}\cmidrule(l){6-8}
+calibration images & $224$ & $500$ & $1001$ & & $2000$ & $5000$ & $\infty$ \\
+\midrule
+ViT-B/16 & $16$ & $25$ & $37$ & & $46$ & $55$ & $64$ \\
+ViT-B/32 & $15$ & $21$ & $37$ & & $44$ & $55$ & $64$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This is a resource-resolution trade-off that the method makes visible. Too few images and the blocks are coarse, the
+null rotates across gaps that are in fact resolved, and its constructed-reference offset grows.
+As the budget grows, the rule tends to split blocks. Under a simple population spectrum and fixed
+$m_C=64$, its retained-region limit is $\{\pm1\}^{64}$ while the unresolved complement remains
+$O(d_{\rm in}-64)$. Thus the limit is not the identity: signs randomise off-diagonal terms within
+the retained region, and the complement is fully rotated. It has no power against agreement
+expressed only as shared retained-axis occupancy, while retaining power against sign-sensitive or
+complement orientation alignment. The $\infty$ column extrapolates the retained block count only;
+it is not a measured power result.
+
+The budget matters for a reason that is visible in the block counts themselves. A run at $224$
+images drawn independently of the pool above resolved $13$ and $11$ blocks where the nested $224$
+subset resolves $16$ and $15$, so at that budget the block structure is not stable across draws
+of the calibration set, let alone across architectures. At $1001$ the two architectures happen
+to agree at a median of $37$ blocks and the same median largest block. This is a useful
+cross-architecture check, not proof of sampling stability. The calibration budget is part of the
+measurement specification and must be fixed and reported.
+
+The reproduced fraction is not reported against the budget, since the two budgets were measured
+under nulls that differ by more than the budget: the $224$-image run predates the corrections
+of \S\ref{sec:defects}, so comparing them would charge the calibration set for a change that
+belongs to the null.
+
+\paragraph{Where the blocked region ends.}
+The activation-null stored dimension $m_C$ divides the space the null treats two ways: inside
+$\mathrm{span}(V)$ it rotates within resolvable blocks, outside it rotates in full. We sweep
+$k\in\{4,8,16,32\}$, $m_C\in\{16,32,64\}$, and uncertainty multiplier
+$z\in\{1,2,3\}$ on each reported pool:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+pool & $k=8$, all $(m_C,z)$ & full $(k,m_C,z)$ grid \\
+\midrule
+ViT-B/16 & $20.22$--$25.61\%$ & $13.28$--$30.37\%$ \\
+ViT-B/32 & $17.94$--$22.55\%$ & $13.31$--$28.51\%$ \\
+ViT-L/14 $q/v$ & $5.84$--$12.00\%$ & $5.36$--$19.01\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At fixed $(k,m_C)$, the largest observed change from varying $z$ is $0.754$ percentage points; most of
+the fixed-$k$ range comes from $m_C$. This is variation in the conditional estimand---storing more
+directions changes what the null holds fixed---rather than numerical instability of its exact
+estimator. We pre-specify the headline at $m_C=64,z=2$; $m_C$ remains distinct from the per-module
+whitening truncation $m_{\rm white}$ above.
+
+\paragraph{The calibration must use the observed spectrum.} The reference offset is not a property
+of the null alone; it depends strongly on the spectrum of the task vectors the null is
+calibrated against. Substituting a synthetic exponential spectrum for the observed one raises
+the realised reference offset at eight blocks from $+0.0041$ to $+0.0254$, a factor of six.
+This sensitivity is another reason not to transfer that diagnostic into the estimand.
+The reason is that real task
+vectors have rapidly decaying spectra, which makes the top-$k$ subspace well determined and the
+block rotation effective, whereas a flat spectrum leaves that subspace ill-determined and the
+block structure dominates. A null calibrated against a spectrum the data does not have
+calibrates the wrong quantity.
+
+\section{LoRA factor audit}
+\label{app:lora-factors}
+
+\begin{table}[h]
+\centering
+\caption{ViT-B/16, eight tasks, $28$ pairs, all $24$ targeted attention modules; all entries use top-$8$ singular
+subspaces. $B$ is initialised at zero and is therefore entirely learned; $A$ is not.
+\texttt{lin-LoRA} is the partial linearization of \citet{tang2024linearization}, which leaves
+$A$ bit-identical across tasks.}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+& $A$ right & $B$ left & $\Delta W$ right \\
+\midrule
+LoRA-16   & $0.8759$ & $0.0540$ & $0.6075$ \\
+lin-LoRA  & $1.0000$ & $0.0570$ & $0.6649$ \\
+isotropic & $0.0104$ & $0.0104$ & $0.0104$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At the $k=8$ boundary, the relative singular gap
+$(s_8-s_9)/s_8$ is above $10^{-3}$ for every observed $A$ and $BA$ cell in both
+eight-task, $24$-module adapter pools.  Across $24{,}576$ factor-null $BA$ redraws, only four
+fall below $10^{-3}$ and none below $10^{-4}$; the median gap is about $0.099$ in each arm.
+Thus exact or numerical cutoff ties do not drive the aggregate factor-null result, although the
+finite-$k$ choice remains part of the estimand.
+
+\section{Power of the LoRA null}
+\label{app:lora-power}
+
+\begin{table}[h]
+\centering
+\caption{A rank-$16$ LoRA stress test, ViT-B/16, four attention modules, six tasks. The fitted
+factor null has pre-planting overlap $\mathcal O_0=0.4825$. From an unconstrained plant $P_s$ we
+form the attainable $P_s^\star=P_sA^+A=(\alpha/r)B_sA$, where
+$B_s=(r/\alpha)P_sA^+$. Both raw and null terms score $P_s^\star$. Delivery divides
+$\Delta\mathrm{raw}$ by $(s/k)(1-\mathcal O_0)$; recovery is level-centred as in
+Eq.~\ref{eq:recovery}.}
+\label{tab:lora-power}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+planted & raw & delivery & initial $X_s$ & corrected $X_s$ & recovery \\
+\midrule
+$0/8$ & $0.4825$ & ---        & $-0.1485$ & $-0.0073$ & --- \\
+$1/8$ & $0.5067$ & $37.386\%$ & $-0.1243$ & $+0.0172$ & $101.117\%$ \\
+$2/8$ & $0.5469$ & $49.790\%$ & $-0.0840$ & $+0.0579$ & $101.078\%$ \\
+$4/8$ & $0.6301$ & $57.043\%$ & $-0.0009$ & $+0.1414$ & $100.701\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The initial norm-matched generator also has approximately $100\%$ level-centred response, but a
+large $s=0$ error. Spectrum matching changes that level from $-0.1485$ to $-0.0073$ while
+retaining near-full response. The correction therefore fixes level; it is not evidence that the
+initial null had low power or upward bias. Values just above $100\%$ reflect finite draws.
+
+\section{Merged accuracy by rank budget}
+\label{app:merge}
+
+\begin{table}[h]
+\centering
+\caption{Merged accuracy averaged over the eight tasks, ViT-B/32, $500$ test images per task,
+update compressed to rank $r$. Zero-shot is $38.9\%$ and uncompressed task arithmetic is
+$59.5\%$.}
+\label{tab:merge}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+rank $r$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$ \\
+\midrule
+$\tau$ basis        & $45.9$ & $49.9$ & $52.8$ & $55.7$ & $57.6$ & $59.0$ \\
+cross-term basis    & $45.3$ & $48.8$ & $51.4$ & $53.5$ & $54.8$ & $55.7$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The separate cross-term-only heuristic uses
+$\sum_{t\ne s}\Delta W_t^\top\Delta W_s=\tau^\top\tau-
+\sum_t\Delta W_t^\top\Delta W_t$. This does not improve compressed-merge accuracy: the
+$\tau$ basis wins at every tested budget, the gap widens with
+$r$, and at $r=256$ it wins on all eight tasks separately. Concentrating empirical cross-task
+coupling is therefore insufficient for better compressed-merge accuracy in this experiment.
+
+Calibration is close to rank-preserving. Across the $190$ ViT-B/32 pairs, raw and calibrated
+overlap have Spearman $0.995$ and share $17$ of the top $20$ pairs; ViT-B/16 gives $0.994$ and
+shares $19$ of the top $20$. Thus an ordering-only consumer receives nearly the same ordering on these pools,
+although we do not retrain the mergeability predictor of \citet{demystify2026}.
+
+\section{Estimating $C_H$}
+\label{app:cov}
+
+$C_H$ is $d_{\mathrm{in}} \times d_{\mathrm{in}}$, which is $1.4$ GB per module at
+$d_{\mathrm{in}} = 18944$ and infeasible to store across a network.
+For the vision encoders studied here the exact matrix is affordable ($594$ MB across all $72$
+modules of ViT-B/32) and we use it.
+For larger models we provide a two-pass estimator: a Frequent Directions sketch locates the
+subspace, and a second pass accumulates the exact $m_C \times m_C$ second moment inside it.
+The second pass is necessary. Frequent Directions biases eigenvalues
+downward by construction, and whitening applies $C_H^{-1/2}$, so an understated eigenvalue is an
+over-amplified direction; on synthetic data at sketch size $128$ the eigenvalue error falls from
+$0.49$ to $0.0016$ between the two passes while the top-$8$ subspace agreement is $0.998$
+either way.
+
+\paragraph{The calibration set is part of the measurement.}
+$C_H$ is an expectation over some input distribution, and the answer depends on which.
+We draw it from a mixture across several of the benchmark's own datasets, since a single one
+would make $C_H$ the base geometry \emph{on that task's inputs} and
+reintroduce the conditioning the test exists to remove.
+A separate rebuilding record lists all image identifiers, per-source counts, hashes, and fold
+memberships, while each covariance manifest records its item count and a basename--byte-size
+hash. We verified that the two records enumerate the same $1001$ basenames; the release links
+them explicitly rather than implying that source labels are embedded in each flattened
+covariance manifest. The covariances themselves come to $26$ GB and need not be distributed; a
+reproducibility artifact must include this rebuilding record and the extraction commands.
+
+\section{Reproducibility record}
+\label{app:repro}
+
+\paragraph{Checkpoints and task pools.}
+The frozen bases are \texttt{openai/clip-vit-base-patch16},
+\texttt{openai/clip-vit-base-patch32}, and \texttt{openai/clip-vit-large-patch14}. Full-fine-tuned
+specialists follow \texttt{tanganke/<architecture>\_<task>}. The $20$ task labels are
+\texttt{cifar10}, \texttt{cifar100}, \texttt{dtd}, \texttt{emnist\_letters}, \texttt{eurosat},
+\texttt{fashion\_mnist}, \texttt{fer2013}, \texttt{food101}, \texttt{gtsrb}, \texttt{kmnist},
+\texttt{mnist}, \texttt{oxford-iiit-pet}, \texttt{oxford\_flowers102}, \texttt{pcam},
+\texttt{rendered-sst2}, \texttt{resisc45}, \texttt{stanford-cars}, \texttt{stl10},
+\texttt{sun397}, and \texttt{svhn}. The matched eight-task comparison uses \texttt{dtd},
+\texttt{eurosat}, \texttt{gtsrb}, \texttt{mnist}, \texttt{resisc45}, \texttt{stanford-cars},
+\texttt{sun397}, and \texttt{svhn}; its adapter repositories append \texttt{\_lora-16} or
+\texttt{\_l-lora-16}. Rank and scale are read from each \texttt{adapter\_config.json}, and
+untargeted modules are dropped rather than treated as zero subspaces.
+
+\paragraph{Calibration and numerical settings.}
+The rebuilding record contains $143$ images from each of \texttt{cifar10}, \texttt{dtd},
+\texttt{eurosat}, \texttt{gtsrb}, \texttt{resisc45}, \texttt{stl10}, and \texttt{sun397}; fold
+sizes are $126,125,125,125,125,125,125,125$. Images are the first valid examples encountered in
+the streaming training split of each \texttt{tanganke/<source>} dataset, converted to RGB.
+Extraction uses each model's \texttt{CLIPImageProcessor}, all sequence tokens (class and patch), exact uncentred
+$\sum h h^\top/n$ accumulation in float32, $m_C=64$, and CPU execution. The extractor-input
+basename/size hash common to the three covariance manifests has prefix \texttt{8f88002f7557}; the separate logical image/fold
+record has identifier-list-hash prefix \texttt{73797f525986}. Full digests are in the artifact.
+
+\paragraph{Randomisation and verification.}
+The activation-null scalar results are the exact expectation in Eq.~\ref{eq:null-expectation};
+they use no random draws. On the matched full-fine-tuning pool, a sampled check gives null
+$0.02330$ versus exact $0.02333$. External-reference diagnostics use finite draws, the two
+factor-null adapter arms use four independent $16$-draw batches (seeds $0$, $1000003$,
+$2000003$, and $3000017$), pooled row-wise to $64$ draws, and projector rebuilds use six.
+The batch-based pooled Monte Carlo standard errors (sample SD divided by $\sqrt 4$, three degrees
+of freedom) are $0.0067$ and $0.0054$ percentage points for LoRA-16 and linearized LoRA-16;
+pooling changes their seed-$0$ $16$-draw fractions by $-0.0109$ and $-0.0093$ points.
+The common-reference baseline uses $20$ pairs for each of eight fixed modules at seed $0$.
+\texttt{analysis/check\_paper\_numbers.py} recomputes point estimates from row-level CSVs, and
+\texttt{analysis/overlap\_bootstrap.py} reproduces the $50{,}000$ crossed-resampling stability intervals.
+The artifact pins immutable revisions for all bases, specialists, adapters, and calibration
+datasets, together with a locked runtime environment. The original B/16 covariance manifest
+omitted its base-revision label; its two candidate revisions are tensor-identical in all $400$
+tensors, with content hashes recorded, so the numerical weights are unambiguous. Large model
+weights, covariance tensors, and calibration images are not bundled.
+
+\section{How the three defects were fixed}
+\label{app:defects}
+
+\paragraph{The complement was rotated inside a fixed frame.}
+$\Delta W$ splits into a part inside $\mathrm{span}(V)$ and a residual $R$ whose rows lie in the
+complement. The first version drew a random $128$-dimensional frame of that complement and
+rotated $R$ inside it, leaving the remainder bit-identical between two task vectors. The
+complement is $d_{\mathrm{in}} - m_C$ dimensional, so this covered $18\%$ of it at
+$d_{\mathrm{in}}=768$ and $4\%$ at $d_{\mathrm{in}}=3072$, while about three quarters of the real
+read mass lives there. The fix needs no square Haar matrix: $R$ has rank at most
+$\min(d_{\mathrm{out}}, d_{\mathrm{in}}-m_C)$, so a Haar map on the complement carries its right
+singular vectors to a uniform frame of that rank, which one thin SVD and one QR deliver exactly.
+
+\paragraph{Singleton blocks were skipped.}
+Blocks of size one were left alone on the grounds that a one-dimensional space cannot be rotated.
+Its orthogonal group is $\{+1,-1\}$, whose Haar measure is a fair coin. Independent flips preserve
+diagonal coordinate masses and randomise off-diagonal cross-coordinate signs, which cancel in
+expectation, while leaving $\Delta W\Delta W^\top$ and hence the spectrum untouched. On ViT-B/16 the singletons
+carry $71\%$ of the stored eigenvalue mass, so skipping them retained substantial coupling.
+
+\paragraph{The LoRA generator matched a norm where a factor spectrum was required.}
+The factor-conditioned null of \S\ref{sec:lora-null} preserves $A$ and the singular values of
+$B$; it does not generally preserve the product spectrum of $BA$. Its first implementation
+redrew $B$ as an i.i.d. Gaussian at matched Frobenius norm, leaving even the factor spectrum
+uncontrolled: a Gaussian is nearly Marchenko--Pastur where trained $B$ decays. On fitted-reference
+pools with shared $A$ and independent $B$, the flat-spectrum generator reports $+0.33$ when $B$
+has no decay and $-0.16$ when it does. Drawing $B$ at its observed singular values holds the
+reference offset within $+0.008$ across the same sweep. This removes the observed factor-spectrum
+mismatch; it is not a claim of exact product-spectrum preservation.
+Indeed the nonzero squared singular values of the redraw are the eigenvalues of
+$\operatorname{diag}(S_B)W^\top(AA^\top)W\operatorname{diag}(S_B)$, which depend on $W$ unless
+$AA^\top$ is isotropic. A uniform product-spectrum-preserving rotation inside
+$\mathrm{row}(A)$ fails differently: it discards this anisotropy and has constructed-reference
+offset $+0.2023$. Rotating only to $BQ$ retains a learned singular
+frame and changes the product singular values by $19.7\%$.
+
+\section{Projector rebuild}
+\label{app:projector}
+
+\begin{table}[h]
+\centering
+\caption{Projector-basis overlap after independent draws from each fitted conditional null, and
+the observed basis's mass in the top-$64$ activation subspace. ViT-B/16, eight tasks, $r_p=128$
+over $12$ full-fine-tuning modules and $r_p=16$ over $24$ adapter modules.}
+\label{tab:projector}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+pool & observed--null & chance & in activation & chance \\
+\midrule
+full fine-tuning & $0.2594$ & $0.1667$ & $0.2612$ & $0.0833$ \\
+LoRA-16          & $0.8750$ & $0.0208$ & $0.1356$ & $0.0833$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\citet{qiu2026nufilt} filter an incoming task vector with $P=I-VV^\top$, where $V$ contains the
+top-$r_p$ right singular vectors of the cumulative update $\tau$. We build this basis once from
+the observations and once after independently applying the regime-specific null to every task.
+The activation null preserves full-update spectra and occupancies; the LoRA null preserves its
+factor-level invariants. The second column reports overlap of the resulting bases, while the
+fourth is a separate concentration statistic. Neither identifies how that structure arose, tests
+accuracy, or contradicts the gains reported for the projector. A basis reproducible
+under a conditional null cannot, without further evidence, identify the cross-task mechanism used
+to justify it. The LoRA value has no projector-level positive control; the factor-null overlap
+stress test covers only one different, narrow intervention.
+
+\section{Which correction did the work}
+\label{app:ablation}
+
+The two corrections to the activation null can be switched independently. Scoring the same
+planted pairs at $s=2$ with each combination separates them.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llr@{}}
+\toprule
+full complement & singleton flip & level-centred recovery \\
+\midrule
+        &        & $49.0\%$ \\
+        & \ding{51} & $77.7\%$ \\
+\ding{51} &        & $89.2\%$ \\
+\ding{51} & \ding{51} & $99.3\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each arm is centred by its own $s=0$ level and divided by the same delivered increment as in
+Eq.~\ref{eq:recovery}. The singleton flip alone raises recovery from $49.0\%$ to $77.7\%$, the
+full complement alone to $89.2\%$, and both to $99.3\%$; the effects overlap.
+The singleton flip is not a token gesture. On ViT-B/16 the singletons hold $71\%$ of the stored
+eigenvalue mass, and leaving them fixed exempted most of $\mathrm{span}(V)$.
+
+\section{Planted-structure recovery, by level}
+\label{app:power}
+
+\paragraph{Planting operator.}
+Let $P_0=U_0\operatorname{diag}(\sigma_1,\ldots,\sigma_\rho)V_0^\top$ be a thin SVD with
+descending singular values, and let $S=V_A[:,1{:}s]$ contain the source task's first $s$ right
+singular vectors. We set the first $s$ columns of $\widehat V$ to $S$. In order, we project
+$V_0[:,s{+}1{:}\rho]$ onto $S^\perp$ and apply QR/Gram--Schmidt against all columns already
+accepted; any algebraic or numerical rank deficiency is filled by a Haar frame in the remaining
+complement. We then set
+$P_s=U_0\operatorname{diag}(\sigma_1,\ldots,\sigma_\rho)\widehat V^\top$. Hence
+$\widehat V^\top\widehat V=I$ and every singular value and left singular vector of $P_0$ is
+retained. Away from a tie at the relevant singular-value boundary, the first $s$ leading right
+directions match the source exactly. The same planted matrices are scored by every candidate null.
+
+\begin{table}[h]
+\centering
+\caption{Positive-control response on ViT-B/16, four modules, six tasks. \texttt{initial} is
+the first activation null and \texttt{corrected} is \S\ref{sec:null}. Both score the same planted
+pairs. \emph{delivered} is
+$(\texttt{raw}(s)-\texttt{raw}(0))/[(s/k)(1-\mathcal O_0)]$. Recovery is the
+level-centred excess increment divided by the delivered overlap increment, Eq.~\ref{eq:recovery};
+it is therefore comparable across planting levels and is not the uncentred excess divided by
+$s/k$.}
+\label{tab:power}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+planted & \texttt{raw} & delivered & initial recovery & corrected recovery \\
+\midrule
+$0/8$ & $0.02771$ & --- & $X_0=+0.00004$ & $X_0=-0.000623$ \\
+$1/8$ & $0.14129$ & $93.45\%$ & $45.6\%$ & $99.6\%$ \\
+$2/8$ & $0.26235$ & $96.53\%$ & $49.5\%$ & $99.4\%$ \\
+$4/8$ & $0.50557$ & $98.30\%$ & $51.7\%$ & $99.3\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Overlap decomposition, in full}
+\label{app:main}
+
+\begin{table}[h]
+\centering
+\caption{Cross-task read-subspace overlap and its scalar decomposition. Complete encoder pools
+use all $190$ task pairs; the matched eight-task row uses all $28$ pairs. \texttt{raw} is
+Eq.~\ref{eq:overlap}, \texttt{iso} is $k/d$, and \texttt{null} is the exact expectation in
+Eq.~\ref{eq:null-expectation}. Terms are averaged before computing the reproduced fraction. No
+Monte Carlo draw enters these scalar results. ViT-L/14 is run on \texttt{q} and \texttt{v} only.}
+\label{tab:main}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& modules & \texttt{raw} & \texttt{iso} & \texttt{null} & residual & reproduced \\
+\midrule
+ViT-B/16 & $72$ & $0.104574$ & $0.009115$ & $0.033309$ & $0.071265$ & $25.3451\%$ \\
+ViT-B/32 & $72$ & $0.095313$ & $0.009115$ & $0.028420$ & $0.066893$ & $22.3961\%$ \\
+ViT-L/14 $q/v$ & $48$ & $0.071402$ & $0.007813$ & $0.015377$ & $0.056024$ & $11.8961\%$ \\
+matched FT8 $q/v$ & $24$ & $0.089930$ & $0.010417$ & $0.023333$ & $0.066597$ & $16.2440\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the exploratory ViT-B/16 role grouping in Figure~\ref{fig:main}, the same unadjusted ratio is
+$16.5568\%$ for residual-reading modules (\texttt{q}, \texttt{k}, \texttt{v}, \texttt{fc1}) and
+$38.9609\%$ for block-internal readers (\texttt{out\_proj}, \texttt{fc2}).
+
+On the matched FT8 pool, a sampled-matrix validation gives mean null $0.02330$, versus the exact
+$0.02333$. Sampled matrices remain necessary for projector and positive-control experiments.
+
+\begin{table}[h]
+\centering
+\caption{External-reference \texttt{H0} stress diagnostics. These activation-generated references
+are not the exact Haar self-orbit, whose population \texttt{H0}$=0$ by identity. The finite-draw
+offsets can mix reference mismatch and over-destruction and are never added to an estimate.}
+\begin{tabular}{@{}lr@{}}
+\toprule
+pool and candidate action & realised external \texttt{H0} \\
+\midrule
+matched FT8, activation null & $-0.00040$ \\
+LoRA-16, activation null & $-0.00037$ \\
+lin-LoRA, activation null & $-0.00037$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The generative null and why it fails}
+\label{app:generative}
+
+The obvious construction is generative: draw a random update whose input-side covariance is
+proportional to the base activation covariance, adding an isotropic draw in the unresolved
+complement. It does not work because it must invent the relationship between the trained update
+and $C_H$. Independent draws then concentrate on the same high-variance activation directions
+even when observed updates have a different occupancy profile. On the explicitly scoped
+eight-task, eight-module common-reference diagnostic in Table~\ref{tab:baselines}, this
+complement-aware generator reports native raw-minus-null excess $-0.8959$, whereas the
+observed-profile-preserving null reports $-0.0007$. These are baseline-specific stress levels,
+not estimates of the headline conditional fraction. An earlier exploratory generator omitted
+the unresolved complement entirely; we discard its quantitative output rather than using a
+known-defective construction. The comparison locates the requirement precisely: a conditional
+null here must retain the observed update--activation occupancy rather than generate that
+relationship from an unverified model.

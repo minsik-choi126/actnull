@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "release_scope": "fingerprints for large calibration intermediates omitted from compact bundle",
+  "n_items": 1001,
+  "sources": [
+    "cifar10", "dtd", "eurosat", "gtsrb", "resisc45", "stl10", "sun397"
+  ],
+  "per_source": {
+    "cifar10": 143,
+    "dtd": 143,
+    "eurosat": 143,
+    "gtsrb": 143,
+    "resisc45": 143,
+    "stl10": 143,
+    "sun397": 143
+  },
+  "fold_sizes": [126, 125, 125, 125, 125, 125, 125, 125],
+  "fold_membership_sha256": {
+    "f0": "57633b7e42c6131d953114994c78498c5110cc18cd625ef5af798866091aeb4b",
+    "f1": "db5ef75bb9ebcbd574c46d3cec4b0a75ae2e7eae9f4e13648814ad847cd2e9a5",
+    "f2": "7c342b4df87f3f29e3ceafb9dbc05d52827170ee5d8feba394f19ad7cdaa2015",
+    "f3": "c4f2506c4db3540850ee3208409ed06adbe71ec763220af03ab5772e7e4aa598",
+    "f4": "2825e132d545c52cf06e32ee7b1ea96bce02be460f1774177e2e297d7e5be3da",
+    "f5": "164b4586cd587b95a050815ffda039c0ca335ab3085de2087cd93692c02a4297",
+    "f6": "730c9c9d9d5fda00a3ee39c488a6d562acbbc0a5cb9bab853fcdeae4ce76b83b",
+    "f7": "5e5b75581785a46f606cc93b03b8377db75c57e01ec6366615f0008b73474ac6"
+  },
+  "logical_record_sha256": "c6bb3b81cec4fd5ac9a9f906e84dae50b7e813adedfd8c63725574490a0b3535",
+  "logical_identifier_list_sha256": "73797f525986603bfc6af85b7bce8b913877eeb34558aee2ac5cc6af1cd3c5a1",
+  "covariance_manifest_sha256": {
+    "clip-vit-base-patch16": "4c10f16cbbf154ee2a74b62d9cbb262b5a4daf01c2e8c4c71ba942a3e950ec2f",
+    "clip-vit-base-patch32": "96c9a3bb20a439513f03f6f3043fb887be2d350c5640056f67db4ac4f328794b",
+    "clip-vit-large-patch14": "4b375997e0a3d81a26d813ad9829806148fa8a9ccd839f6d451baf5d85df5822"
+  },
+  "extractor_basename_size_sha256": "8f88002f75579f97d9c536e366aa5085550e091e06a113481b52fd3722abe1c2",
+  "content_set_sha256": "e6c2d5e30af1b82d40fb149c266c94162b53d7525c01fd66e07d0dfc67bb21ae",
+  "content_set_hash_algorithm": "For files sorted by basename, update SHA-256 with basename, NUL, byte length, NUL, hex SHA-256(file bytes), newline.",
+  "verification": "The logical fold record and flattened extractor input contained the same 1001 basenames; source counts were recomputed from those basenames.",
+  "omitted_from_compact_bundle": [
+    "calibration logical record and fold membership file",
+    "three covariance manifests",
+    "full and fold covariance tensors"
+  ]
+}

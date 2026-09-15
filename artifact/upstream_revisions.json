@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "bundle_version": "v7",
+  "purpose": "Immutable upstream repository revisions for every base, full-finetuning specialist, adapter, and calibration/evaluation dataset used by the shipped v7 numerical results and B/32 merge evaluation.",
+  "resolution_evidence": {
+    "method": "Recovered from locally materialized Hugging Face snapshot directories and cross-checked against the repository identifiers in run metadata.",
+    "revision_format": "40-character Git commit",
+    "remote_availability_revalidated": false,
+    "all_listed_snapshots_materialized_locally": true,
+    "local_paths_included": false
+  },
+  "counts": {
+    "base_repositories": 3,
+    "full_finetuning_specialist_repositories": 60,
+    "adapter_repositories": 16,
+    "calibration_dataset_repositories": 10,
+    "primary_calibration_dataset_repositories": 7,
+    "composition_control_dataset_repositories": 3
+  },
+  "base_models": {
+    "openai/clip-vit-base-patch16": {
+      "task_vector_weights_revision": "5ef227a78de3f75873f373246dac80def63b0003",
+      "legacy_config_preprocessor_weights_revision": "57c216476eefef5ab752ec549e440a49ae4ae5f3",
+      "files": {
+        "task_vector_model.safetensors": "sha256:846bf12e84b91c2a65b44833a915241443b39356f1000ac1345c61d7bf8a209e",
+        "legacy_pytorch_model.bin": "sha256:ec89c7b09c749a60aae3c9cd910516f24b58214a7df060b48962d14c469cfbf0",
+        "config.json": "sha256:eaf1c9089a8553c913d27ea66407f8bfc2be9989c80c9f331ddb3d63d4c5e8ad",
+        "preprocessor_config.json": "sha256:910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd"
+      },
+      "split_snapshot_audit": {
+        "compared_tensors": 400,
+        "key_sets_equal": true,
+        "all_tensors_exactly_equal": true,
+        "maximum_absolute_difference": 0.0
+      },
+      "activation_covariance_revision_status": "The archived B16 covariance manifest retained the repository identifier but not its snapshot commit. The two locally retained candidate base-weight snapshots above are tensor-for-tensor identical, so the numerical base weights are unambiguous even though the historical snapshot label cannot be assigned uniquely."
+    },
+    "openai/clip-vit-base-patch32": {
+      "task_vector_weights_revision": "c237dc49a33fc61debc9276459120b7eac67e7ef",
+      "activation_covariance_config_preprocessor_weights_revision": "3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268",
+      "files": {
+        "task_vector_model.safetensors": "sha256:99d28a652e6ec46629ab7047a0ac82c69b1fe11e0ce672c43af65d3a9a3fc05d",
+        "covariance_pytorch_model.bin": "sha256:a63082132ba4f97a80bea76823f544493bffa8082296d62d71581a4feff1576f",
+        "config.json": "sha256:b575ef3c36f2a057fa19e221650105052d61cc9c1a972ec15019c6261ec98770",
+        "preprocessor_config.json": "sha256:910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd"
+      },
+      "split_snapshot_audit": {
+        "compared_tensors": 400,
+        "key_sets_equal": true,
+        "all_tensors_exactly_equal": true,
+        "maximum_absolute_difference": 0.0
+      }
+    },
+    "openai/clip-vit-large-patch14": {
+      "task_vector_activation_covariance_config_preprocessor_revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+      "files": {
+        "model.safetensors": "sha256:a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+        "config.json": "sha256:8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+        "preprocessor_config.json": "sha256:910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd"
+      }
+    }
+  },
+  "full_finetuning_specialists": {
+    "clip-vit-base-patch16": {
+      "repository_template": "tanganke/clip-vit-base-patch16_{task}",
+      "revision_by_task": {
+        "cifar10": "4c5a15dd4b97045c656bbbf33fefdd4d57508bcc",
+        "cifar100": "cb08472d93c428fc828fa217658ed6d3c9ff0436",
+        "dtd": "5d2d508b4bba668b6c1e9fefd53f5f9b4ad9de08",
+        "emnist_letters": "aa2a64460e5a97d1c342af0eb97403c6119e8dfb",
+        "eurosat": "0ed49e2fb92fe2f5427b76089b58ec2a1da5d368",
+        "fashion_mnist": "f06e3a4bd71130da6fc3d308d6cf9aca5f66f5c2",
+        "fer2013": "b9233bea4130f962cbfbe8bfa839eace4e138901",
+        "food101": "6f1d0c4f7fef15b896b8b3f5d23deb2ad7566dd6",
+        "gtsrb": "3eafe17e05610ded0b0ba3c4ebe5bdca4c2069f3",
+        "kmnist": "6dd3f4198fcdf6550062c2d9dbc24200eddc7df5",
+        "mnist": "5e4477bff96ba83228f4ae224ba256f09acc8acd",
+        "oxford-iiit-pet": "30565881fe35cc7ceffc1254bb8f088fba2fb67a",
+        "oxford_flowers102": "7d4dbfb87a248683591e025690fdbd74edb81652",
+        "pcam": "8cf37119c98f9a565e676099e01cb0dbbd38f8ce",
+        "rendered-sst2": "06a39517d31a4c34e3aa99d1a56ffb5b7769a75e",
+        "resisc45": "bc31922d873e49c6f7fbbb0a3931707d394261a8",
+        "stanford-cars": "3e2ee0d52f465d512597e1619e880201612ef69b",
+        "stl10": "6c1fb54f274a6babf79b094c938bcea8542084bc",
+        "sun397": "4af3b59da7ced7b079a73c4c283f166241eed400",
+        "svhn": "ccbcd6cec834a3d014bab1857e9968badd27618c"
+      }
+    },
+    "clip-vit-base-patch32": {
+      "repository_template": "tanganke/clip-vit-base-patch32_{task}",
+      "revision_by_task": {
+        "cifar10": "1a596838cb54a5d34b68380dbf60891847e229b1",
+        "cifar100": "73a39ad39bac23369aa89e67de15557cbe1566f4",
+        "dtd": "2ce76d4ca9ae563f45f526d4f2d222478083784c",
+        "emnist_letters": "10912f0366771096edd02b4c67010c70d4999b87",
+        "eurosat": "7c114f53697b7acca1147a0d1e8b7c769979b57b",
+        "fashion_mnist": "4f2fd0b5cac7935b05efe10069a336baae9d8f13",
+        "fer2013": "4da71bfb3f3c48dc4f365f0e5120b33a9f7688de",
+        "food101": "88b8cf34d34992b48dc879d7435c3e55c6d83ab1",
+        "gtsrb": "7b11ced426cc9cd0430650be19d75748f3bd64d0",
+        "kmnist": "67490f5ce6d970f4ad8c50fdb1cb48774eb6a70e",
+        "mnist": "28dca299b68f294bb368533172496dbde3901f3e",
+        "oxford-iiit-pet": "2a201cdffd947427612c5f59307718ea199090d9",
+        "oxford_flowers102": "5d71ad86a3d249d405399f6ee0730df1e266b4f7",
+        "pcam": "b6468ec00d7de31c7700d9c5b97dac11ee3d6520",
+        "rendered-sst2": "79153226ad0b9494294e0c6d7295b1bc174e49f0",
+        "resisc45": "24dc3a3a4f1eda0090829d399edcda9963f462a2",
+        "stanford-cars": "0fa3456c60f15e5cec5275c5b88851c1dca503a8",
+        "stl10": "108786bc7aa86cc8e8535ab4a7127c6aa00fd9e0",
+        "sun397": "4628de77c6c97ba178c65a0bdf5ce8f5c3045d63",
+        "svhn": "7da249d42c97bb5117832d37d6e54acc50dec7e0"
+      }
+    },
+    "clip-vit-large-patch14": {
+      "repository_template": "tanganke/clip-vit-large-patch14_{task}",
+      "revision_by_task": {
+        "cifar10": "f458ee0a998853a059758c38a1d8a7b5ec50871d",
+        "cifar100": "f83850e1a716169392a832e47b3eba4a971ef5a3",
+        "dtd": "c55d192f53fe864a1955168593b7f03ab474daa4",
+        "emnist_letters": "a2ae8f15fdb7b2860693cb99a2293c7ebb414d5d",
+        "eurosat": "61f5f8b50e9804c9f2b6482fd421d44fba7ffb66",
+        "fashion_mnist": "ce18903aa9a7f01003d0743e15709081dcaab20d",
+        "fer2013": "e5d741efe23976006a49a5ef52c03735915664e4",
+        "food101": "03f16ff386c928d9965e671259900a8071ad0b7c",
+        "gtsrb": "6eacfe7af7432984b5352a676735d00e5a1ae9c4",
+        "kmnist": "6f1242fb657160b4303958fbdb5f5eea585f8efe",
+        "mnist": "721ec5961afb977071c4124d43cf7f5fa4ba76af",
+        "oxford-iiit-pet": "ab4278b23ed2627c8a0db89da5c6fbab2d369fd2",
+        "oxford_flowers102": "969822913a1f795bb3aaa19dc13b4aeeff346fa2",
+        "pcam": "a492b75365161d63f0a0d4791d9e9afc5d45d819",
+        "rendered-sst2": "b38816b9f2aa42af8fe1790403d160bba3b0db30",
+        "resisc45": "18076dfd48e5a590057ded82835288bfa3f27ff9",
+        "stanford-cars": "e863c1cb4999e1f630868d349de346db775e8242",
+        "stl10": "2383fa221ea1815d4652c1b5bcad2fb63c195bcb",
+        "sun397": "3b814ef1bd89d1f4044018d41a09bf468a5e4d34",
+        "svhn": "c43d85753b6aecd2435acca76bcc8aae8f8061b2"
+      }
+    }
+  },
+  "adapters": {
+    "rank16_lora": {
+      "repository_template": "tanganke/clip-vit-base-patch16_{task}_lora-16",
+      "revision_by_task": {
+        "dtd": "4540b65d257f5ab4e3ecc8f0649b6ce8e2f16301",
+        "eurosat": "686e08726974b85f017804c623f5057cfd4f885c",
+        "gtsrb": "1bc88199db87fa7e77de6510ff1ee2b3935afe6e",
+        "mnist": "8679565eaf3f576c9797f10baf6e7a7bff892a04",
+        "resisc45": "efb2f6a407efcb1435e34e9be0b3045c063d7b9c",
+        "stanford-cars": "ce7faf3254fa0f45f24ceb8876906492e8d1d91b",
+        "sun397": "28cb1138caf8283903a257cfc287dd964aae11bb",
+        "svhn": "861fa477df01ab5fcbb61948448db46fe7b0f423"
+      }
+    },
+    "rank16_linearized_lora": {
+      "repository_template": "tanganke/clip-vit-base-patch16_{task}_l-lora-16",
+      "revision_by_task": {
+        "dtd": "a24ff6915e6988e78b5fb555d26864773caad280",
+        "eurosat": "1c44e71f0c1abb0f189093e242f4359dd74d80e0",
+        "gtsrb": "7b315e45d39149f3f91ac97c4b555e6f98c91cd9",
+        "mnist": "1005cabdb618e0898ba51afaa4d15e9ddac6473b",
+        "resisc45": "461d134bd88fa1af0ed4e93d15e30b9fab3fe64d",
+        "stanford-cars": "f09575c87b9a01d587a6f9b086a7f18c04e7e162",
+        "sun397": "ee2ef3c03b2b60ec11e8701aeda0c2be37c25f28",
+        "svhn": "5221efd45a3f0ffe548934629d4d2b96e62a0584"
+      }
+    }
+  },
+  "calibration_datasets": {
+    "repository_template": "tanganke/{source}",
+    "revision_by_source": {
+      "cifar10": "97b332c7b2981f9decda4ba9abac76ef18bb0636",
+      "dtd": "d2afa97d9f335b1a6b3b09c637aef667f98f966e",
+      "eurosat": "43750fc422c7fbd4289e2df3f7473617a5937acc",
+      "gtsrb": "ea889fff70dda7b09e94a4b207dded438deca549",
+      "resisc45": "5c484982a196dcb501b8e79c6cf4680dc6f2ccdf",
+      "stl10": "49ae7f94508f7feae62baf836db284306eab0b0f",
+      "sun397": "9c4afd6174afa3974f209a0ef099dbbe244dfd27"
+    }
+  },
+  "calibration_composition_datasets": {
+    "mnist": {
+      "repository": "ylecun/mnist",
+      "config": "mnist",
+      "split": "test",
+      "revision": "77f3279092a1c1579b2250db8eafed0ad422088c"
+    },
+    "stanford_cars": {
+      "repository": "tanganke/stanford_cars",
+      "config": "default",
+      "split": "test",
+      "revision": "9abf6cf7d6dfa7b95152a0d6e791ea9435b47a40"
+    },
+    "svhn": {
+      "repository": "ufldl-stanford/svhn",
+      "config": "cropped_digits",
+      "split": "test",
+      "revision": "f9e1717d73324ebbc1ece84267ccd80d0aca0690"
+    }
+  },
+  "remaining_unknowns": [
+    "The original B16 activation-covariance manifest did not retain a snapshot revision label. Both locally retained candidate base snapshots have identical tensor keys and bitwise-identical values across all 400 tensors; the exact input weights are therefore pinned by content hashes, but the historical cache label is not recoverable."
+  ]
+}

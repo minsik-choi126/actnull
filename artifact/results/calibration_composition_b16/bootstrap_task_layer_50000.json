@@ -1,0 +1,125 @@
+{
+  "datasets": [
+    {
+      "input": "artifact/results/calibration_composition_b16/exact_b16_20task_72module.csv.gz",
+      "label": "composition_control",
+      "metric_keys": {
+        "fraction": "exact_reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_exact",
+      "null_kinds": [
+        "exact_haar_block"
+      ],
+      "one_way_comparison": {
+        "exact_reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.270629367496417,
+          "joint_to_legacy_envelope_width_ratio": 1.270629367496417,
+          "joint_to_task_only_width_ratio": 1.84858515319379,
+          "joint_width": 9.37145003891506,
+          "layer_only_width": 7.37543950946143,
+          "legacy_envelope_width": 7.37543950946143,
+          "task_only_width": 5.069525752018542
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.1634082587486658,
+          "joint_to_legacy_envelope_width_ratio": 1.1634082587486658,
+          "joint_to_task_only_width_ratio": 1.990645409160651,
+          "joint_width": 0.060409658669460936,
+          "layer_only_width": 0.05192472910106047,
+          "legacy_envelope_width": 0.05192472910106047,
+          "task_only_width": 0.03034677014372563
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "exact_reproduced_fraction_percent": [
+            16.897537228735672,
+            26.268987267650733
+          ],
+          "residual": [
+            0.04860552331363323,
+            0.10901518198309416
+          ]
+        },
+        "layer_only": {
+          "exact_reproduced_fraction_percent": [
+            17.584230716841006,
+            24.959670226302435
+          ],
+          "residual": [
+            0.05208125942103091,
+            0.10400598852209138
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "exact_reproduced_fraction_percent": [
+            17.584230716841006,
+            24.959670226302435
+          ],
+          "residual": [
+            0.05208125942103091,
+            0.10400598852209138
+          ]
+        },
+        "task_only": {
+          "exact_reproduced_fraction_percent": [
+            18.893925578632615,
+            23.963451330651157
+          ],
+          "residual": [
+            0.0611038489409532,
+            0.09145061908467883
+          ]
+        }
+      },
+      "point_estimate": {
+        "exact_reproduced_fraction_percent": 21.481765441250214,
+        "residual": 0.07495277246403305
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 72,
+        "pair_layer_cells": 2280,
+        "rows": 13680,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "sha256": "2d7530001ed63800028a4a25a2b495a3e4278599c804fe5364d0e89a0ad1e75a"
+    }
+  ],
+  "method": {
+    "conditioning": "conditions on realised task-pair rows, modules, activation calibration, and selected per-row null values; null_exact is analytic, whereas sampled fitted-null columns are realised Monte Carlo means",
+    "coverage_note": "crossed/joint refers to cluster dimensions, not family-wise simultaneous coverage across the two metrics",
+    "crossed_weight": "C_a*C_b*L_l",
+    "fraction": "100*(mean(null)-mean(isotropic))/(mean(raw)-mean(isotropic))",
+    "interval": "2.5th and 97.5th percentiles (NumPy linear quantiles)",
+    "layer_resampling": "sample L encoder-layer blocks with replacement from the L observed layers; all module types in layer l receive weight L_l",
+    "name": "crossed task-endpoint by encoder-layer pigeonhole bootstrap",
+    "point_and_replicate_aggregation": "weighted rows are averaged before taking the reproduced-fraction ratio",
+    "ratio_denominator_absolute_epsilon": 1e-12,
+    "residual": "mean(raw-null)",
+    "seed_reset_for_each_input": 20260915,
+    "task_resampling": "sample T endpoints with replacement from the T observed tasks; row (a,b) receives endpoint weight C_a*C_b",
+    "valid_replicates_per_scheme": 50000
+  },
+  "schema_version": 1
+}

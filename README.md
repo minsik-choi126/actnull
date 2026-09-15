@@ -1,99 +1,95 @@
-# Calibrated null models for task-vector subspace overlap
+# Conditional nulls and positive controls for task-vector subspace overlap
 
-> **Under review.** The accompanying paper is under review at ICLR 2027. This repository is the
-> code and the measured results behind it.
+> **Under review.** The accompanying paper is under review at ICLR 2027. This repository holds the
+> manuscript source, the measured results behind it, the producer code, and the checkers that tie
+> the three together.
 
 Model merging research reports that task vectors from independently fine-tuned models share
-input-side subspaces, and compares that overlap against an isotropic random subspace. That
-baseline is wrong. A fine-tuning update is a sum of outer products with layer input activations,
-so its row space lies inside a span every model descended from one checkpoint inherits for free.
+input-side subspaces, and compares that overlap against an isotropic random subspace. A
+fine-tuning update is a sum of outer products with layer input activations, so its row space lies
+inside a span that every model descended from one checkpoint inherits for free. The isotropic
+comparator conditions on none of that.
 
-This repository provides a null that preserves the inherited geometry and destroys only whether
-two specialists chose the same directions inside it, and a protocol for checking whether any such
-null actually does what it claims.
+This repository provides a conditional null that preserves each update's spectrum and blockwise
+occupancy in frozen-base activation geometry while randomising cross-task directional agreement,
+a closed form for its expected overlap, and a positive control that checks whether any such null
+actually destroys what it claims to.
 
-## What the protocol says about the baselines in use
+## Headline results
 
-On a pair of updates that share the base model's activation geometry and nothing else, so the
+On the complete ViT-B benchmarks, the corrected activation null reproduces **25.3%** (B/16) and
+**22.4%** (B/32) of above-isotropic overlap. Residual alignment stays positive in every fully
+fine-tuned pool. For shared-start LoRA, a regime-specific factor null reproduces **80.3%**.
+
+The positive control is what makes those numbers reportable. Our first implementation recovered
+only **45.6–51.7%** of planted, delivered signal while returning `+0.00004` at zero plant, which
+looks well behaved under a level check alone. After correction the same arm recovers
+**99.3–99.6%**.
+
+## What the protocol says about baselines in use
+
+On a reference pair that shares the base model's activation geometry and nothing else, so the
 truth is zero:
 
-| baseline | reported excess | x chance |
-|---|---:|---:|
-| exact orthogonality | +0.0278 | 3.7 |
-| isotropic *k/d* | +0.0174 | 2.7 |
-| whitened at the participation ratio | +0.0521 | 6.0 |
-| whitened, all stored directions | +0.0567 | 6.4 |
-| coordinate permutation | +0.0000 | 1.0 |
+| baseline | reported excess |
+|---|---:|
+| exact orthogonality | +0.0275 |
+| isotropic *k/d* | +0.0171 |
+| whitened at the participation ratio | +0.0522 |
+| whitened, all stored directions | +0.0554 |
+| coordinate permutation (paired action) | −0.0000 |
+| activation-conditioned (ours, circular here) | −0.0007 |
 
-Whitening the task vectors first, a transform introduced to reduce interference inside a merge,
-more than doubles the false signal when the same object is read as evidence.
-
-Run it yourself with `scripts/baseline_levels.py` (see [REPRODUCE.md](REPRODUCE.md)).
-
-## Why level is not enough
-
-The usual check on a null is that it returns zero excess on data built to satisfy the null
-hypothesis. Writing `N` for the null and `(A0, B0)` for a matched true pair, that statistic is
-
-```
-E[ O(A0, B0) - O(N A0, N B0) ]
-```
-
-which is exactly zero for `N = id`. A null that destroys nothing earns a perfect score, and so
-does one that destroys a tenth of what it claims to. Under-destruction is the failure that makes
-real structure look inherited, and the standard check cannot see it.
-
-So measure power instead: plant a known number of shared read directions into an otherwise null
-pair and ask how many the test recovers. Run on our own null this found three defects the level
-check had passed, and correcting them raised recovery from 44% to 91%.
-
-![power](figures/fig_power.pdf)
+The untransformed pair's raw overlap is 0.0275, or 2.6 times isotropic chance. Whitening, a
+transform introduced to reduce interference inside a merge, reports still larger native excess
+when the same object is read as evidence. Entries share overlap units but not an estimand;
+our own row is circular here and is shown only as an implementation check.
 
 ## Layout
 
 ```
-actnull/
-  null.py         the overlap statistic, the activation-conditioned null, the LoRA null,
-                  resolvable_blocks, and the checkpoint readers
-  covariance.py   the activation second moment C_H of a frozen base model, exact or two-pass
-scripts/
-  fetch_calibration_images.py   build the calibration set
-  power_activation.py           planting protocol on the activation null
-  power_lora.py                 planting protocol on the LoRA null
-  baseline_levels.py            level of the baselines this literature uses
-  ablation.py                   which correction did the work
-  projector_rebuild.py          rebuild a published projector from null-passed task vectors
-  merge_eval.py                 merged accuracy by rank budget
-  whitening_calibration.py      type-I study for the whitening truncation
-  check_numbers.py              verify every number in the paper against the results
-results/        the measured outputs, committed
-figures/        the two figures in the paper
+artifact/          the v7 result bundle: row-level data, producer source, tests,
+                   locked environment, upstream pins, RESULTS.sha256
+analysis/          the two release checkers and their tests
+sections/          manuscript source
+figures/           the two paper figures and their generators
+iclr2027_*.tex     manuscript entry point and ICLR style files
+iclr2027_*.pdf     the compiled manuscript
 ```
 
-## Install
+`artifact/README.md` documents the bundle contents and every reproduction path.
+`artifact/code/README.md` documents the producer source and its tests.
+
+## Verify
+
+Run from the repository root.
 
 ```bash
-pip install -e .
+# file integrity
+shasum -a 256 -c artifact/RESULTS.sha256
+
+# numerical audit of the v7 results, standard library only
+python3 analysis/check_paper_numbers.py
+
+# the same audit plus a context-anchored check of manuscript claims
+PYTHONDONTWRITEBYTECODE=1 python3 analysis/check_manuscript.py \
+  --paper iclr2027_conference.tex --artifact artifact
 ```
 
-Optional extras: `pip install -e '.[data,figures]'` for the calibration-set builder and the
-figure scripts.
+`check_manuscript.py` also verifies manifest coverage, so it fails if a build or test writes
+files into the shipped tree. Never invoke one from inside `artifact/code/`; see
+[REPRODUCE.md](REPRODUCE.md).
 
-## Reproducing
+The coverage inventory it prints is deliberately partial. It checks registered empirical claims
+in their stated context rather than every numeric literal in the TeX, and design constants,
+mathematical examples, and literature values appear there as warnings.
 
-See [REPRODUCE.md](REPRODUCE.md). The short version: the calibration covariances come to 26 GB
-and are not distributed, but `results/calibration/calibration_1001.json` records the exact image
-list, the per-source counts, a hash, and the fold assignment, which is enough to rebuild them.
+## Scope
 
-## Verifying the numbers
-
-```bash
-python scripts/check_numbers.py
-```
-
-This reads `results/` and recomputes every percentage the paper asserts, failing on any that no
-arm produces and is not declared with its source. It is the guard against text and data drifting
-apart, which happened repeatedly while the paper was being written.
+All quantitative conclusions concern CLIP vision encoders. The decomposition is conditional on a
+stated reference model, not causal: it reports how much observed overlap survives holding each
+update's own occupancy of a common activation coordinate system fixed. It does not locate where
+the agreement originates.
 
 ## License
 

@@ -1,105 +1,63 @@
 # Reproducing the results
 
-Every number in the paper comes from `results/`, which is committed. This document is for
-rebuilding those files from scratch.
+Every headline number is recomputable from the committed `artifact/` bundle without a GPU, model
+weights, or network access. Rebuilding the bundle from upstream checkpoints is a separate, much
+longer path described at the end.
 
-All scripts read two environment variables:
+**Run every command from the repository root.** A build or test invoked from inside
+`artifact/code/` writes `.venv`, `uv.lock`, and `__pycache__` next to the shipped sources, and
+`analysis/check_manuscript.py` reports that as a manifest-coverage failure.
 
-```bash
-export ACTNULL_WORK=work          # scratch: images, covariances, HF cache
-export ACTNULL_RESULTS=results    # where result files are read and written
-```
+## 1. Audit the committed results
 
-Everything runs on CPU. The covariances are the expensive part.
-
-## 0. Install
+No install required. Both checkers use only the Python standard library.
 
 ```bash
-pip install -e '.[data,figures]'
+shasum -a 256 -c artifact/RESULTS.sha256
+
+python3 analysis/check_paper_numbers.py
+
+PYTHONDONTWRITEBYTECODE=1 python3 analysis/check_manuscript.py \
+  --paper iclr2027_conference.tex --artifact artifact
 ```
 
-## 1. The calibration set (2 min, needs network)
+The first recomputes the six row-level ratio-of-means estimates, the 50,000-draw crossed
+bootstrap intervals, the sensitivity grids, leave-one-task-out and leave-one-layer-out influence,
+the power and ablation normalisations, the merge table, the LoRA factor audit against the
+released product rows, and every manifest entry. The second runs that audit and then checks the
+manuscript's registered claims in their stated context.
 
-`C_H` is an expectation over some input distribution, so the calibration set is part of the
-measurement. We draw 1001 images round-robin across seven of the benchmark's own datasets.
+## 2. Run the producer tests
+
+This creates the locked environment outside the tree, which is what keeps the audit clean.
 
 ```bash
-python scripts/fetch_calibration_images.py --out $ACTNULL_WORK/images --per_source 143
+UV_PROJECT_ENVIRONMENT=/tmp/prism-v7-env \
+  uv sync --project artifact/environment --all-extras --no-install-project --locked
+
+export PYTHONPATH="$PWD/artifact/code"
+PYTHONDONTWRITEBYTECODE=1 /tmp/prism-v7-env/bin/python -m unittest discover \
+  -s artifact/code/tests -p 'test_*.py' -v
 ```
 
-`results/calibration/calibration_1001.json` records the exact file list we used, the per-source
-counts, a sha256 of the list, and the assignment of each image to one of eight jackknife folds.
-Check against it if you want the identical set.
-
-Stripe the round-robin order into eight folds by position mod 8. The folds are what the
-eigenvalue standard errors, and therefore the block structure, are computed from.
-
-## 2. Activation covariances (6 min per base-size encoder, 25 min for ViT-L/14)
+## 3. Rebuild the figures
 
 ```bash
-python -m actnull.covariance --arch clip_vision --model openai/clip-vit-base-patch16 \
-  --images $ACTNULL_WORK/images_flat --max_seqs 2000 --exact_cov --m_out 64 \
-  --batch 32 --device cpu --dtype float32 --out $ACTNULL_WORK/cov_b16
+python3 figures/make_fig_power.py
+python3 figures/make_fig_main.py
 ```
 
-Repeat for each of the eight folds into `$ACTNULL_WORK/fold_b16/f0 ... f7`.
+## 4. Recompute from upstream checkpoints
 
-These come to about 26 GB across the three encoders and are not distributed. The per-module
-participation ratios and condition numbers we measured are in
-`results/calibration/*_manifest_1001.json` if you want to compare without rebuilding.
+`artifact/code/scripts/` holds the producer entry points, and `artifact/upstream_revisions.json`
+pins the exact checkpoint and dataset revisions each one reads. The order is: fetch calibration
+images, estimate the activation covariance, then run the overlap, power, ablation, baseline,
+projector, and merge scripts.
 
-## 3. The overlap measurement (80 min per base-size encoder)
+Two costs dominate. The covariance estimation reads 1001 calibration images through three CLIP
+encoders. The merge evaluation needs the pinned upstream weights and test datasets, which is why
+per-task accuracies are shipped as a table instead.
 
-```bash
-python -m actnull.null --base openai/clip-vit-base-patch16 --key_prefix vision_model. \
-  --experts cifar10=tanganke/clip-vit-base-patch16_cifar10 ... \
-  --cov $ACTNULL_WORK/cov_b16 --fold_cov $ACTNULL_WORK/fold_b16 \
-  --k 8 --m auto --null coupling --null_draws 12 --h0_draws 24 --device cpu \
-  --out $ACTNULL_RESULTS/v6_clip-vit-base-patch16.csv
-```
-
-`--fold_cov` is what makes the block structure data-driven; without it the null falls back to a
-fixed block count, which is a free parameter the method does not otherwise have.
-
-## 4. The checks
-
-These are the point of the paper and they are cheap.
-
-```bash
-python scripts/baseline_levels.py     # what the baselines in use report where truth is zero
-python scripts/power_activation.py    # planting protocol, activation null
-python scripts/power_lora.py          # planting protocol, LoRA null
-python scripts/ablation.py            # which correction did the work
-```
-
-`power_activation.py` and `power_lora.py` take `NULL_VERSION=shipped` to score the null as first
-written, for the comparison in Figure 1. Both arms score the same planted pairs.
-
-## 5. Downstream arms
-
-```bash
-python scripts/projector_rebuild.py --cov ... --fold_cov ... --rp 128 --draws 6 --stride 6
-python scripts/merge_eval.py --arch clip-vit-base-patch32 --rp 8 16 32 64 128 256 --n_test 500
-python scripts/whitening_calibration.py
-```
-
-`merge_eval.py` downloads the eight task test sets on first run.
-
-## 6. Figures and verification
-
-```bash
-python scripts/fig_power.py
-python scripts/fig_main.py
-python scripts/check_numbers.py
-```
-
-`check_numbers.py` exits non-zero if any percentage in the paper is not reproduced by `results/`
-or declared with its source.
-
-## Notes
-
-- Set `HF_HUB_DISABLE_XET=1` if downloads fail with a 403 from the CDN.
-- The complement rotation runs in float64. The float32 path fails to converge on some residuals.
-- Expect the block count to move with the calibration budget: 16 blocks at 224 images, 37 at
-  1001. That is a resource-precision trade-off, not a hidden hyperparameter, and the appendix of
-  the paper reports how far it moves the answer.
+`artifact/code/README.md` gives the per-script invocations, including the byte-for-byte
+reconstruction of the pooled MC64 LoRA rows. `artifact/calibration_link.json` fingerprints the
+large calibration intermediates that the bundle deliberately omits.

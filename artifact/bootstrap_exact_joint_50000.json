@@ -1,0 +1,440 @@
+{
+  "datasets": [
+    {
+      "input": "results/v7_exact_clip-vit-base-patch16.csv.gz",
+      "label": "B16",
+      "metric_keys": {
+        "fraction": "exact_reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_exact",
+      "null_kinds": [
+        "exact_haar_block"
+      ],
+      "one_way_comparison": {
+        "exact_reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.17774298975575,
+          "joint_to_legacy_envelope_width_ratio": 1.17774298975575,
+          "joint_to_task_only_width_ratio": 2.419362337146419,
+          "joint_width": 12.49772806953861,
+          "layer_only_width": 10.611591984198938,
+          "legacy_envelope_width": 10.611591984198938,
+          "task_only_width": 5.165711591707833
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.17571884580032,
+          "joint_to_legacy_envelope_width_ratio": 1.17571884580032,
+          "joint_to_task_only_width_ratio": 1.9472684950025192,
+          "joint_width": 0.060279157894065606,
+          "layer_only_width": 0.051270044798025806,
+          "legacy_envelope_width": 0.051270044798025806,
+          "task_only_width": 0.030955750605921255
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "exact_reproduced_fraction_percent": [
+            19.3032940672202,
+            31.80102213675881
+          ],
+          "residual": [
+            0.04539694804998023,
+            0.10567610594404583
+          ]
+        },
+        "layer_only": {
+          "exact_reproduced_fraction_percent": [
+            19.705458581085576,
+            30.317050565284514
+          ],
+          "residual": [
+            0.04921340147487375,
+            0.10048344627289955
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "exact_reproduced_fraction_percent": [
+            19.705458581085576,
+            30.317050565284514
+          ],
+          "residual": [
+            0.04921340147487375,
+            0.10048344627289955
+          ]
+        },
+        "task_only": {
+          "exact_reproduced_fraction_percent": [
+            22.586392216262844,
+            27.752103807970677
+          ],
+          "residual": [
+            0.0575975302613986,
+            0.08855328086731985
+          ]
+        }
+      },
+      "point_estimate": {
+        "exact_reproduced_fraction_percent": 25.345116807066024,
+        "residual": 0.07126485337749348
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 72,
+        "pair_layer_cells": 2280,
+        "rows": 13680,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "sha256": "0740d288030e20f22d2503fd2e7d075e1b1f6f4962cd78ac009feb76076474b1"
+    },
+    {
+      "input": "results/v7_exact_clip-vit-base-patch32.csv.gz",
+      "label": "B32",
+      "metric_keys": {
+        "fraction": "exact_reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_exact",
+      "null_kinds": [
+        "exact_haar_block"
+      ],
+      "one_way_comparison": {
+        "exact_reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.1208918441716305,
+          "joint_to_legacy_envelope_width_ratio": 1.1208918441716305,
+          "joint_to_task_only_width_ratio": 2.990370384008131,
+          "joint_width": 14.333341139171667,
+          "layer_only_width": 12.787443510898587,
+          "legacy_envelope_width": 12.787443510898587,
+          "task_only_width": 4.793165828495141
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.154815035159487,
+          "joint_to_legacy_envelope_width_ratio": 1.154815035159487,
+          "joint_to_task_only_width_ratio": 2.124207889334895,
+          "joint_width": 0.05860974382742858,
+          "layer_only_width": 0.0507524945926377,
+          "legacy_envelope_width": 0.0507524945926377,
+          "task_only_width": 0.02759134081070555
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "exact_reproduced_fraction_percent": [
+            15.551625148194512,
+            29.88496628736618
+          ],
+          "residual": [
+            0.042240847549262196,
+            0.10085059137669078
+          ]
+        },
+        "layer_only": {
+          "exact_reproduced_fraction_percent": [
+            15.793552041256564,
+            28.58099555215515
+          ],
+          "residual": [
+            0.04612688707191635,
+            0.09687938166455405
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "exact_reproduced_fraction_percent": [
+            15.793552041256564,
+            28.58099555215515
+          ],
+          "residual": [
+            0.04612688707191635,
+            0.09687938166455405
+          ]
+        },
+        "task_only": {
+          "exact_reproduced_fraction_percent": [
+            19.783238687212148,
+            24.57640451570729
+          ],
+          "residual": [
+            0.054265070005821356,
+            0.0818564108165269
+          ]
+        }
+      },
+      "point_estimate": {
+        "exact_reproduced_fraction_percent": 22.39608228634345,
+        "residual": 0.06689307599824953
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 72,
+        "pair_layer_cells": 2280,
+        "rows": 13680,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "sha256": "56e67e4b06de25e7091a8576eef161a63f83d57d107ea35db5a5f5eb1566f456"
+    },
+    {
+      "input": "results/v7_exact_b16_8task_q_v_fullft.csv.gz",
+      "label": "FT8",
+      "metric_keys": {
+        "fraction": "exact_reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_exact",
+      "null_kinds": [
+        "exact_haar_block"
+      ],
+      "one_way_comparison": {
+        "exact_reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.324926221629351,
+          "joint_to_legacy_envelope_width_ratio": 1.324926221629351,
+          "joint_to_task_only_width_ratio": 2.3380120608734973,
+          "joint_width": 18.24792294686839,
+          "layer_only_width": 13.772784211657982,
+          "legacy_envelope_width": 13.772784211657982,
+          "task_only_width": 7.804888286183964
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.3896259658728574,
+          "joint_to_legacy_envelope_width_ratio": 1.3896259658728574,
+          "joint_to_task_only_width_ratio": 1.6071451911763477,
+          "joint_width": 0.08210730261768029,
+          "layer_only_width": 0.05908590126704111,
+          "legacy_envelope_width": 0.05908590126704111,
+          "task_only_width": 0.05108891409965391
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "exact_reproduced_fraction_percent": [
+            9.233261730324305,
+            27.481184677192694
+          ],
+          "residual": [
+            0.0314908079069092,
+            0.1135981105245895
+          ]
+        },
+        "layer_only": {
+          "exact_reproduced_fraction_percent": [
+            9.993428714914728,
+            23.76621292657271
+          ],
+          "residual": [
+            0.04375523791872771,
+            0.10284113918576882
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "exact_reproduced_fraction_percent": [
+            9.993428714914728,
+            23.76621292657271
+          ],
+          "residual": [
+            0.04375523791872771,
+            0.10284113918576882
+          ]
+        },
+        "task_only": {
+          "exact_reproduced_fraction_percent": [
+            12.306217811063934,
+            20.111106097247898
+          ],
+          "residual": [
+            0.04873549369769385,
+            0.09982440779734776
+          ]
+        }
+      },
+      "point_estimate": {
+        "exact_reproduced_fraction_percent": 16.24399526619985,
+        "residual": 0.06659746170600633
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 12,
+        "modules": 24,
+        "pair_layer_cells": 336,
+        "rows": 672,
+        "task_pairs": 28,
+        "tasks": 8
+      },
+      "sha256": "74841803a540445396b607827ed2c19abca050f95eeba10da9f58f7f6b596c66"
+    },
+    {
+      "input": "results/v7_exact_clip-vit-large-patch14.csv.gz",
+      "label": "L14",
+      "metric_keys": {
+        "fraction": "exact_reproduced_fraction_percent",
+        "residual": "residual"
+      },
+      "null_column": "null_exact",
+      "null_kinds": [
+        "exact_haar_block"
+      ],
+      "one_way_comparison": {
+        "exact_reproduced_fraction_percent": {
+          "joint_to_layer_only_width_ratio": 1.1479682169704692,
+          "joint_to_legacy_envelope_width_ratio": 1.1479682169704692,
+          "joint_to_task_only_width_ratio": 2.4203633941630214,
+          "joint_width": 8.383132964954067,
+          "layer_only_width": 7.3025828076298716,
+          "legacy_envelope_width": 7.3025828076298716,
+          "task_only_width": 3.4635844291691633
+        },
+        "residual": {
+          "joint_to_layer_only_width_ratio": 1.2778874083737621,
+          "joint_to_legacy_envelope_width_ratio": 1.2778874083737621,
+          "joint_to_task_only_width_ratio": 1.6290423193731245,
+          "joint_width": 0.04775857626675055,
+          "layer_only_width": 0.037373070548936745,
+          "legacy_envelope_width": 0.037373070548936745,
+          "task_only_width": 0.029316964758244364
+        }
+      },
+      "percentile_95_intervals": {
+        "joint_task_layer": {
+          "exact_reproduced_fraction_percent": [
+            8.106414053582531,
+            16.489547018536598
+          ],
+          "residual": [
+            0.03476116710000898,
+            0.08251974336675953
+          ]
+        },
+        "layer_only": {
+          "exact_reproduced_fraction_percent": [
+            8.486819880160127,
+            15.789402687789998
+          ],
+          "residual": [
+            0.03950222516890558,
+            0.07687529571784232
+          ]
+        },
+        "legacy_one_way_envelope": {
+          "exact_reproduced_fraction_percent": [
+            8.486819880160127,
+            15.789402687789998
+          ],
+          "residual": [
+            0.03950222516890558,
+            0.07687529571784232
+          ]
+        },
+        "task_only": {
+          "exact_reproduced_fraction_percent": [
+            10.128521728283374,
+            13.592106157452537
+          ],
+          "residual": [
+            0.043342917877033725,
+            0.07265988263527809
+          ]
+        }
+      },
+      "point_estimate": {
+        "exact_reproduced_fraction_percent": 11.896127575907224,
+        "residual": 0.056024413145997494
+      },
+      "replicates": {
+        "joint_task_layer": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "layer_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        },
+        "task_only": {
+          "attempted": 50000,
+          "rejected": 0,
+          "valid": 50000
+        }
+      },
+      "sample": {
+        "balanced_pair_module_grid": true,
+        "layers": 24,
+        "modules": 48,
+        "pair_layer_cells": 4560,
+        "rows": 9120,
+        "task_pairs": 190,
+        "tasks": 20
+      },
+      "sha256": "a7df917cb264e3c126ec9b1ef3c417f330f1faeead6168da645c2fb476cb2930"
+    }
+  ],
+  "method": {
+    "conditioning": "conditions on realised task-pair rows, modules, activation calibration, and selected per-row null values; null_exact is analytic, whereas sampled fitted-null columns are realised Monte Carlo means",
+    "coverage_note": "crossed/joint refers to cluster dimensions, not family-wise simultaneous coverage across the two metrics",
+    "crossed_weight": "C_a*C_b*L_l",
+    "fraction": "100*(mean(null)-mean(isotropic))/(mean(raw)-mean(isotropic))",
+    "interval": "2.5th and 97.5th percentiles (NumPy linear quantiles)",
+    "layer_resampling": "sample L encoder-layer blocks with replacement from the L observed layers; all module types in layer l receive weight L_l",
+    "name": "crossed task-endpoint by encoder-layer pigeonhole bootstrap",
+    "point_and_replicate_aggregation": "weighted rows are averaged before taking the reproduced-fraction ratio",
+    "ratio_denominator_absolute_epsilon": 1e-12,
+    "residual": "mean(raw-null)",
+    "seed_reset_for_each_input": 20260915,
+    "task_resampling": "sample T endpoints with replacement from the T observed tasks; row (a,b) receives endpoint weight C_a*C_b",
+    "valid_replicates_per_scheme": 50000
+  },
+  "schema_version": 1
+}

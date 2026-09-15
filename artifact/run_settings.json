@@ -1,0 +1,235 @@
+{
+  "schema_version": 3,
+  "bundle_version": "v7",
+  "release_scope": "portable numerical audit and sanitized producer source with immutable upstream and environment pins",
+  "environment": {
+    "python": "3.11.16",
+    "device": "cpu",
+    "analysis_seed": 0
+  },
+  "checkpoint_policy": {
+    "revision_record": "upstream_revisions.json",
+    "coverage": "all base, specialist, adapter, primary-calibration, and composition-control dataset repositories used by v7",
+    "weights_in_bundle": false,
+    "historical_caveat": "the B16 covariance manifest omitted its snapshot label; the two retained candidate base revisions have bitwise-identical weights and are content-hashed in the revision record"
+  },
+  "producer_source": {
+    "root": "code",
+    "provenance_record": "code/SOURCE_PROVENANCE.json",
+    "identity": "all released source files are pinned by RESULTS.sha256",
+    "producer_repository_identifier_included": false,
+    "repository_identifier_policy": "withheld for double-blind review; the complete source snapshot is included directly",
+    "large_inputs_in_bundle": false
+  },
+  "frozen_bases": [
+    "openai/clip-vit-base-patch16@5ef227a78de3f75873f373246dac80def63b0003",
+    "openai/clip-vit-base-patch32@c237dc49a33fc61debc9276459120b7eac67e7ef",
+    "openai/clip-vit-large-patch14@32bd64288804d66eefd0ccbe215aa642df71cc41"
+  ],
+  "tasks_20": [
+    "cifar10", "cifar100", "dtd", "emnist_letters", "eurosat",
+    "fashion_mnist", "fer2013", "food101", "gtsrb", "kmnist", "mnist",
+    "oxford-iiit-pet", "oxford_flowers102", "pcam", "rendered-sst2",
+    "resisc45", "stanford-cars", "stl10", "sun397", "svhn"
+  ],
+  "tasks_8": [
+    "dtd", "eurosat", "gtsrb", "mnist", "resisc45", "stanford-cars",
+    "sun397", "svhn"
+  ],
+  "headline_estimand": {
+    "k": 8,
+    "activation_eigendirections_m": 64,
+    "block_standard_error_multiplier_z": 2.0,
+    "split_sample_folds": 8,
+    "point_aggregation": "equal-cell ratio of sums",
+    "fraction_percent": "100 * sum(null - k/d) / sum(raw - k/d)",
+    "residual": "mean(raw - null)",
+    "external_h0_policy": "reported separately; never added to or subtracted from the fitted null"
+  },
+  "runs": {
+    "main_full_finetuning_exact": {
+      "null": "analytic scalar Haar expectation within every retained activation block and full complement",
+      "null_draws": 0,
+      "B16_B32_scope": "20 tasks x all 72 retained linear modules",
+      "L14_scope": "20 tasks x 48 q_proj/v_proj modules"
+    },
+    "matched_full_finetuning_exact": {
+      "null_draws": 0,
+      "scope": "8 tasks x 24 q_proj/v_proj modules"
+    },
+    "lora_factor_null": {
+      "draws_per_batch": 16,
+      "independent_batch_seeds": [0, 1000003, 2000003, 3000017],
+      "independent_batches": 4,
+      "total_null_draws_per_row": 64,
+      "pooling": "arithmetic mean of the four per-row 16-draw null estimates",
+      "primary_rows": [
+        "results/v7_mc64_b16_8task_q_v_lora-16_loranull.csv",
+        "results/v7_mc64_b16_8task_q_v_l-lora-16_loranull.csv"
+      ],
+      "scope": "8 tasks x 24 q_proj/v_proj modules",
+      "arms": ["rank-16 LoRA", "rank-16 linearized LoRA"],
+      "mc_uncertainty": "sample SD across four independent batch estimates divided by sqrt(4), df=3",
+      "legacy_seed0_rows": [
+        "results/v7_legacy16_b16_8task_q_v_lora-16_loranull.csv.gz",
+        "results/v7_legacy16_b16_8task_q_v_l-lora-16_loranull.csv.gz"
+      ],
+      "legacy_status": "seed-0 16-draw audit only; not the primary paper estimate"
+    },
+    "lora_factor_audit": {
+      "record": "results/v7_lora_factor_audit.json",
+      "producer": "code/scripts/lora_factor_audit.py",
+      "k": 8,
+      "arms": ["rank16_lora", "rank16_linearized_lora"],
+      "primary_scope": "8 tasks x 28 unordered pairs x all 24 q_proj/v_proj modules",
+      "primary_cells_per_arm": 672,
+      "primary_aggregation": "unweighted arithmetic mean over task-pair/module cells",
+      "secondary_legacy_scope": "layers 2, 6, and 10 x q_proj/v_proj only",
+      "secondary_legacy_cells_per_arm": 168,
+      "secondary_status": "historical provenance diagnostic only; not the primary factor-audit estimand",
+      "checkpoint_revisions": "upstream_revisions.json"
+    },
+    "lora_topk_boundary_gap_diagnostic": {
+      "record": "results/v7_lora_topk_gap_diagnostic.json",
+      "k": 8,
+      "arms": ["rank16_lora", "rank16_linearized_lora"],
+      "observed_cells_per_arm": 192,
+      "factor_null_seeds": [0, 1000003, 2000003, 3000017],
+      "factor_null_draws_per_seed_per_cell": 16,
+      "factor_null_cells": 24576,
+      "gap": "(s_k-s_{k+1})/s_k on linear singular values"
+    },
+    "merge_accuracy_evaluation": {
+      "record": "results/v7_merge_b32_accuracy.json",
+      "model": "openai/clip-vit-base-patch32",
+      "tasks": ["dtd", "eurosat", "gtsrb", "mnist", "resisc45", "stanford-cars", "sun397", "svhn"],
+      "ranks": [8, 16, 32, 64, 128, 256],
+      "lambda_scale": 0.3,
+      "test_examples_per_task": 500,
+      "seed": 0,
+      "prompt_templates": ["a photo of a {}.", "a photo of the {}.", "a blurry photo of a {}."],
+      "checkpoint_and_dataset_revisions": "upstream_revisions.json",
+      "scope": "fixed-rank empirical comparison; no general dominance claim"
+    },
+    "external_h0_diagnostics": {
+      "activation_null_draws": 12,
+      "external_pairs_per_module": 8,
+      "scope": "matched full-FT, LoRA, and linearized-LoRA arms"
+    },
+    "sensitivity": {
+      "k": [4, 8, 16, 32],
+      "m": [16, 32, 64],
+      "z": [1.0, 2.0, 3.0],
+      "settings_per_architecture": 36,
+      "cell_csvs_shipped": false,
+      "summary_csvs_shipped": true
+    },
+    "calibration_source_endpoint_subgroups": {
+      "record": "results/v7_calibration_source_subgroup_diagnostic.json",
+      "architectures": ["ViT-B/16", "ViT-B/32", "ViT-L/14 q/v"],
+      "calibration_source_tasks": ["cifar10", "dtd", "eurosat", "gtsrb", "resisc45", "stl10", "sun397"],
+      "groups": [0, 1, 2],
+      "aggregation": "equal row weights within endpoint-count subgroup; ratio of subgroup means",
+      "scope": "descriptive gradient by calibration-source endpoint count, not a randomization or causal contrast"
+    },
+    "calibration_resampling_robustness": {
+      "architecture": "openai/clip-vit-base-patch16",
+      "method": "independent source-stratified nonparametric calibration resampling with replacement, followed by full covariance and exact-null refits",
+      "sources": ["cifar10", "dtd", "eurosat", "gtsrb", "resisc45", "stl10", "sun397"],
+      "source_pool_size_each": 143,
+      "draws_per_source_each_refit": 143,
+      "total_images_each_refit": 1001,
+      "folds": 8,
+      "refit_seeds": [20260916, 20260917],
+      "conditional_crossed_bootstrap_draws": 50000,
+      "conditional_crossed_bootstrap_seed": 20260918,
+      "record": "results/calibration_resample_b16/summary.json",
+      "observed_fraction_percent_range": [25.10193589191159, 25.30172489260967],
+      "maximum_absolute_change_from_reference_percentage_points": 0.24318091515982587,
+      "interval_scope": "the two min-max values are an observed robustness range; the crossed intervals condition on each fitted covariance and are not calibration-resampling confidence intervals"
+    },
+    "calibration_composition_control": {
+      "architecture": "openai/clip-vit-base-patch16",
+      "method": "source-balanced simple random sample without replacement from three deliberately different cached test splits, followed by full covariance and exact-null refit",
+      "sources": ["mnist", "stanford_cars", "svhn"],
+      "source_counts": {"mnist": 334, "stanford_cars": 334, "svhn": 333},
+      "total_images": 1001,
+      "folds": 8,
+      "seed": 20260919,
+      "conditional_crossed_bootstrap_draws": 50000,
+      "conditional_crossed_bootstrap_seed": 20260915,
+      "conditional_crossed_bootstrap_record": "results/calibration_composition_b16/bootstrap_task_layer_50000.json",
+      "summary_record": "results/calibration_composition_b16/summary.json",
+      "map_record": "results/calibration_composition_b16/composition_map.json",
+      "row_record": "results/calibration_composition_b16/exact_b16_20task_72module.csv.gz",
+      "activation_explained_percent": 21.481765441255057,
+      "change_from_reference_percentage_points": -3.86335136581636,
+      "conditional_crossed_fraction_percent_interval": [16.897537228735672, 26.268987267650733],
+      "interval_scope": "finite-pool task-by-layer interval conditional on the alternative fitted covariance; not uncertainty over calibration compositions or superpopulation coverage",
+      "images_in_bundle": false,
+      "license_note": "source images are not redistributed; independently verify source terms before any redistribution"
+    },
+    "crossed_bootstrap": {
+      "draws_per_dataset_per_scheme": 50000,
+      "seed_reset_for_each_input": 20260915,
+      "interval": "2.5th and 97.5th percentiles",
+      "task_weight": "C_a * C_b",
+      "layer_weight": "L_l",
+      "joint_row_weight": "C_a * C_b * L_l",
+      "ratio_denominator_absolute_epsilon": 1e-12,
+      "scope": "finite-pool resampling/stability interval conditional on realized tasks, one checkpoint per task, calibration, and per-row null; not superpopulation coverage"
+    },
+    "legacy_lora_crossed_bootstrap": {
+      "record": "bootstrap_lora_legacy16_joint_50000.json",
+      "status": "seed-0 16-draw audit only; superseded by the MC64 pooled bootstrap"
+    },
+    "activation_positive_control": {
+      "tasks": 6,
+      "modules": 4,
+      "planted_ranks": [0, 1, 2, 4],
+      "k": 8,
+      "plant_draws": 10,
+      "null_draws_per_plant": 4,
+      "seed": 0,
+      "nominal_increment": "(s/k) * (1 - O0)",
+      "recovery": "(X_s - X_0) / (O_s - O_0)"
+    },
+    "lora_positive_control": {
+      "tasks": 6,
+      "modules": 4,
+      "planted_ranks": [0, 1, 2, 4],
+      "k": 8,
+      "draws": 12,
+      "seed": 0,
+      "plant": "attainable P* = P A^+ A",
+      "nominal_increment": "(s/k) * (1 - O0)",
+      "recovery": "(X_s - X_0) / (O_s - O_0)"
+    },
+    "positive_control_ablation": {
+      "planted_rank": 2,
+      "draws": 10,
+      "seed": 0,
+      "variants": ["neither", "singleton signs", "full complement", "both"]
+    },
+    "projector_diagnostic": {
+      "draws": 6,
+      "full_finetuning_rank": 128,
+      "lora_rank": 16,
+      "interpretation": "observed-null basis overlap; not a causal inheritance estimate"
+    },
+    "common_reference_baselines": {
+      "pairs_per_module": 20,
+      "modules": 8,
+      "seed": 0,
+      "haar_qr": "sign-corrected",
+      "raw_over_chance_ratio": 2.641032887343317
+    },
+    "leave_one_out_influence": {
+      "arms": ["B16", "B32", "FT8", "L14"],
+      "task_omission": "remove every row whose endpoint pair contains the task",
+      "layer_omission": "remove every module in the encoder-layer index",
+      "aggregation": "recompute the equal-cell ratio of means after each omission",
+      "record": "influence_exact_leave_one_out.json"
+    }
+  }
+}
