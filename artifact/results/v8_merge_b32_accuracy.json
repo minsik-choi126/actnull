@@ -1,0 +1,490 @@
+{
+ "schema_version": 1,
+ "supersedes": "results/v7_merge_b32_accuracy.json",
+ "why": "The v7 run built zero-shot heads from a three-template generic ensemble, which put its zero-shot and uncompressed task-arithmetic accuracies about ten points below the published values for this benchmark. This run uses the benchmark's per-dataset prompt ensembles and reproduces those values, so the compressed-basis comparison is made on a standard baseline.",
+ "scope": {
+  "backbone": "openai/clip-vit-base-patch32",
+  "tasks": [
+   "dtd",
+   "eurosat",
+   "gtsrb",
+   "mnist",
+   "resisc45",
+   "stanford-cars",
+   "sun397",
+   "svhn"
+  ],
+  "lambda_scale": 0.3,
+  "test_examples_per_task": 2000,
+  "seed": 0,
+  "ranks": [
+   8,
+   16,
+   32,
+   64,
+   128,
+   256
+  ],
+  "device": "mps",
+  "prompt_templates_per_task": {
+   "dtd": 8,
+   "eurosat": 3,
+   "gtsrb": 3,
+   "mnist": 1,
+   "resisc45": 18,
+   "stanford-cars": 8,
+   "sun397": 2,
+   "svhn": 1
+  }
+ },
+ "arms": {
+  "zeroshot": {
+   "accuracy": {
+    "dtd": 44.202127659574465,
+    "eurosat": 45.6,
+    "gtsrb": 33.7,
+    "mnist": 48.55,
+    "resisc45": 58.85,
+    "stanford-cars": 59.35,
+    "sun397": 64.4,
+    "svhn": 31.65
+   },
+   "stderr": {
+    "dt": 1.1453849757726005,
+    "eurosa": 1.1136965475388707,
+    "gtsr": 1.056955533596376,
+    "mnis": 1.1175637565705143,
+    "resisc4": 1.100381183953997,
+    "stanford-car": 1.098311772676593,
+    "sun39": 1.0706633457814834,
+    "svh": 1.040018629640835
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "full": {
+   "accuracy": {
+    "dtd": 49.787234042553195,
+    "eurosat": 78.1,
+    "gtsrb": 72.65,
+    "mnist": 96.0,
+    "resisc45": 66.8,
+    "stanford-cars": 59.1,
+    "sun397": 61.05,
+    "svhn": 78.75
+   },
+   "stderr": {
+    "dt": 1.1531535693911958,
+    "eurosa": 0.9247675383576136,
+    "gtsr": 0.996739058129057,
+    "mnis": 0.43817804600413307,
+    "resisc4": 1.0530337126607106,
+    "stanford-car": 1.0993611781393775,
+    "sun39": 1.0903892653543503,
+    "svh": 0.9147233188237852
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_8": {
+   "accuracy": {
+    "dtd": 41.170212765957444,
+    "eurosat": 54.05,
+    "gtsrb": 45.4,
+    "mnist": 87.25,
+    "resisc45": 53.95,
+    "stanford-cars": 50.1,
+    "sun397": 57.9,
+    "svhn": 63.05
+   },
+   "stderr": {
+    "dt": 1.1350402695549866,
+    "eurosa": 1.1143602424709884,
+    "gtsr": 1.1132924144177037,
+    "mnis": 0.7458007441669656,
+    "resisc4": 1.114539703195898,
+    "stanford-car": 1.1180317526796812,
+    "sun39": 1.1039904890894667,
+    "svh": 1.0792815897623753
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_16": {
+   "accuracy": {
+    "dtd": 41.170212765957444,
+    "eurosat": 62.3,
+    "gtsrb": 50.75,
+    "mnist": 92.05,
+    "resisc45": 55.7,
+    "stanford-cars": 51.55,
+    "sun397": 57.1,
+    "svhn": 70.7
+   },
+   "stderr": {
+    "dt": 1.1350402695549866,
+    "eurosa": 1.083676612278774,
+    "gtsr": 1.1179082028503056,
+    "mnis": 0.6048956521582877,
+    "resisc4": 1.1107452453195559,
+    "stanford-car": 1.1174966442902636,
+    "sun39": 1.1067045676240792,
+    "svh": 1.0177204920802174
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_32": {
+   "accuracy": {
+    "dtd": 43.351063829787236,
+    "eurosat": 70.45,
+    "gtsrb": 59.35,
+    "mnist": 94.15,
+    "resisc45": 58.0,
+    "stanford-cars": 53.1,
+    "sun397": 57.95,
+    "svhn": 75.75
+   },
+   "stderr": {
+    "dt": 1.142922636527716,
+    "eurosa": 1.0202444560006196,
+    "gtsr": 1.098311772676593,
+    "mnis": 0.52477495176504,
+    "resisc4": 1.1036303729057115,
+    "stanford-car": 1.1158830583891843,
+    "sun39": 1.1038110119037587,
+    "svh": 0.9583677530050769
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_64": {
+   "accuracy": {
+    "dtd": 45.638297872340424,
+    "eurosat": 74.45,
+    "gtsrb": 65.25,
+    "mnist": 95.1,
+    "resisc45": 61.1,
+    "stanford-cars": 54.2,
+    "sun397": 58.7,
+    "svhn": 77.1
+   },
+   "stderr": {
+    "dt": 1.148767969680851,
+    "eurosa": 0.97524291845673,
+    "gtsr": 1.0647622974166582,
+    "mnis": 0.4826955562256609,
+    "resisc4": 1.0901353127020517,
+    "stanford-car": 1.1140825822173148,
+    "sun39": 1.1009791097019053,
+    "svh": 0.9395717109406818
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_128": {
+   "accuracy": {
+    "dtd": 47.659574468085104,
+    "eurosat": 76.35,
+    "gtsrb": 69.3,
+    "mnist": 95.55,
+    "resisc45": 64.45,
+    "stanford-cars": 56.35,
+    "sun397": 59.45,
+    "svhn": 78.2
+   },
+   "stderr": {
+    "dt": 1.1519000049708716,
+    "eurosa": 0.9501782727467515,
+    "gtsr": 1.031384991164793,
+    "mnis": 0.4610843198374891,
+    "resisc4": 1.0703264688869465,
+    "stanford-car": 1.108980951143887,
+    "sun39": 1.0978837597851605,
+    "svh": 0.9232442797006652
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "tau_256": {
+   "accuracy": {
+    "dtd": 49.148936170212764,
+    "eurosat": 77.75,
+    "gtsrb": 71.25,
+    "mnist": 95.8,
+    "resisc45": 66.25,
+    "stanford-cars": 58.05,
+    "sun397": 60.5,
+    "svhn": 78.6
+   },
+   "stderr": {
+    "dt": 1.1529969483724514,
+    "eurosa": 0.9300369616310956,
+    "gtsr": 1.0120369311443136,
+    "mnis": 0.44853093538796196,
+    "resisc4": 1.0573404134903763,
+    "stanford-car": 1.1034485715247448,
+    "sun39": 1.0931033802893484,
+    "svh": 0.9170714257897258
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_8": {
+   "accuracy": {
+    "dtd": 41.861702127659576,
+    "eurosat": 52.85,
+    "gtsrb": 45.2,
+    "mnist": 85.65,
+    "resisc45": 54.3,
+    "stanford-cars": 50.65,
+    "sun397": 58.0,
+    "svhn": 59.3
+   },
+   "stderr": {
+    "dt": 1.1377862295341707,
+    "eurosa": 1.1162162648877683,
+    "gtsr": 1.1128701631367426,
+    "mnis": 0.7839252196478945,
+    "resisc4": 1.1138918259867068,
+    "stanford-car": 1.117939510885987,
+    "sun39": 1.1036303729057115,
+    "svh": 1.098524009751266
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_16": {
+   "accuracy": {
+    "dtd": 42.234042553191486,
+    "eurosat": 59.7,
+    "gtsrb": 49.1,
+    "mnist": 90.15,
+    "resisc45": 55.8,
+    "stanford-cars": 51.5,
+    "sun397": 58.1,
+    "svhn": 66.3
+   },
+   "stderr": {
+    "dt": 1.1391696081978664,
+    "eurosa": 1.0967930524944074,
+    "gtsr": 1.117852852570498,
+    "mnis": 0.666324808182916,
+    "resisc4": 1.1104863799254812,
+    "stanford-car": 1.1175307602030469,
+    "sun39": 1.1032656071862297,
+    "svh": 1.056955533596376
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_32": {
+   "accuracy": {
+    "dtd": 43.138297872340424,
+    "eurosat": 65.4,
+    "gtsrb": 53.95,
+    "mnist": 92.65,
+    "resisc45": 57.5,
+    "stanford-cars": 52.65,
+    "sun397": 57.95,
+    "svhn": 70.65
+   },
+   "stderr": {
+    "dt": 1.1422535219746284,
+    "eurosa": 1.0636822833910509,
+    "gtsr": 1.114539703195898,
+    "mnis": 0.5835141386461853,
+    "resisc4": 1.105384548471707,
+    "stanford-car": 1.1164626057329463,
+    "sun39": 1.1038110119037587,
+    "svh": 1.0182282406219147
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_64": {
+   "accuracy": {
+    "dtd": 44.57446808510638,
+    "eurosat": 68.95,
+    "gtsrb": 58.8,
+    "mnist": 93.6,
+    "resisc45": 59.8,
+    "stanford-cars": 54.2,
+    "sun397": 58.7,
+    "svhn": 73.15
+   },
+   "stderr": {
+    "dt": 1.1463549085244598,
+    "eurosa": 1.0346249320405922,
+    "gtsr": 1.1005816643938786,
+    "mnis": 0.5472842040475865,
+    "resisc4": 1.096348484743788,
+    "stanford-car": 1.1140825822173148,
+    "sun39": 1.1009791097019053,
+    "svh": 0.9909786829190627
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_128": {
+   "accuracy": {
+    "dtd": 46.223404255319146,
+    "eurosat": 71.05,
+    "gtsrb": 61.5,
+    "mnist": 94.15,
+    "resisc45": 61.7,
+    "stanford-cars": 55.85,
+    "sun397": 59.85,
+    "svhn": 74.3
+   },
+   "stderr": {
+    "dt": 1.1498698641865952,
+    "eurosa": 1.0141246225193432,
+    "gtsr": 1.0880602005403928,
+    "mnis": 0.52477495176504,
+    "resisc4": 1.086993560238514,
+    "stanford-car": 1.1103552359492885,
+    "sun39": 1.0961244226820237,
+    "svh": 0.9771156533389485
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  },
+  "cross_256": {
+   "accuracy": {
+    "dtd": 47.07446808510638,
+    "eurosat": 72.1,
+    "gtsrb": 62.95,
+    "mnist": 94.7,
+    "resisc45": 63.05,
+    "stanford-cars": 56.6,
+    "sun397": 60.35,
+    "svhn": 74.7
+   },
+   "stderr": {
+    "dt": 1.1511883922146056,
+    "eurosa": 1.00289331436599,
+    "gtsr": 1.079883674290893,
+    "mnis": 0.5009540897128196,
+    "resisc4": 1.0792815897623753,
+    "stanford-car": 1.1082508741255295,
+    "sun39": 1.093818426431005,
+    "svh": 0.9720879589831364
+   },
+   "n": {
+    "dtd": 1880,
+    "eurosat": 2000,
+    "gtsrb": 2000,
+    "mnist": 2000,
+    "resisc45": 2000,
+    "stanford-cars": 2000,
+    "sun397": 2000,
+    "svhn": 2000
+   }
+  }
+ }
+}

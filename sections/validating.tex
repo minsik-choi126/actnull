@@ -73,7 +73,11 @@ statistics arose.
 Figure~\ref{fig:power} separates the two arms. The null as first written
 recovers only $45.6$--$51.7\%$ of delivered overlap while returning $+0.00004$ at $s=0$, which
 looks well behaved under the offset check; the corrected null recovers $99.3$--$99.6\%$ and has
-$-0.000623$ at $s=0$. Both arms score the same planted pairs and differ only in the randomisation.
+$-0.000623$ at $s=0$. Both arms score the same planted pairs and differ only in the randomisation, which is the
+combination we want: small reference offset and high response to the planted alternative. The
+study covers four modules and one family of interventions, and planting can alter conditioned
+occupancies, so we do not transfer the sub-percent deviation to the $72$-module observational
+estimate.
 
 \subsection{What the positive control found}
 \label{sec:defects}
@@ -88,8 +92,11 @@ third. Appendices~\ref{app:defects} and~\ref{app:ablation} give the fixes and ab
 \subsection{A common-reference stress test for existing baselines}
 \label{sec:baselines}
 
-To expose how existing baselines behave on the same reference pairs, we form semi-synthetic pairs by
-independently applying our activation-conditioned generator to real updates. Residual orientation
+A reader's first instinct is to substitute some other transform for the isotropic comparator, so we
+show how those transforms behave on pairs whose true overlap is zero by construction. We form
+semi-synthetic pairs by independently applying our activation-conditioned generator to real
+updates. None of the cited work proposes its transform as an evidential null; the rows are
+candidate substitutions, not attributed claims. Residual orientation
 coupling is absent by construction under this reference, while each endpoint retains its observed
 spectrum and occupancy profile. Table~\ref{tab:baselines} reports each baseline's native excess;
 these are diagnostics on a common input distribution, not one shared estimand, because whitening
@@ -101,20 +108,18 @@ neither independently validates our null nor establishes model-free false-positi
 eight fixed modules, and $20$ pairs per module ($160$ total; seed $0$). Exact orthogonality subtracts zero; isotropic subtracts $k/d$;
 whitened rows use the participation-ratio floor or all $64$ stored directions before subtracting
 $k/d$; the final three rows subtract their
-own surrogate mean. Thus entries share overlap units but not an estimand. Our row is circular and
-is shown only as an implementation check.}
+own surrogate mean. Thus entries share overlap units but not an estimand.}
 \label{tab:baselines}
 \begin{tabular}{@{}lr@{}}
 \toprule
 baseline & reported excess \\
 \midrule
-exact orthogonality~\citep{gargiulo2025task}        & $+0.0275$ \\
+exact orthogonality (no reference subtracted)        & $+0.0275$ \\
 isotropic $k/d$                                     & $+0.0171$ \\
 whitened at the participation ratio                 & $+0.0522$ \\
 whitened, all stored directions                     & $+0.0554$ \\
 generative activation model                         & $-0.8959$ \\
 coordinate permutation (paired action)              & $-0.0000$ \\
-activation-conditioned (ours, circular here)        & $-0.0007$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -124,6 +129,16 @@ subtracting the isotropic comparator reports $+0.0171$ excess. Whitening changes
 matrices and reports still larger native excesses
 (Table~\ref{tab:baselines}). A transform introduced
 to reduce interference inside a merge therefore need not be calibrated as an evidential baseline.
+
+The mechanism is concentration, and it sharpens with the ridge. $C_H^{-1/2}$ amplifies small
+eigendirections and drives both endpoints onto the same few of them: at a Tikhonov ridge of
+$\lambda=10^{-4}\bar w$, $96.5\%$ of the whitened read mass lands on the twenty smallest stored
+eigendirections, and a chance-overlap pair is reported at $0.7199$. RegMean's published
+off-diagonal shrinkage $\alpha=0.9$ returns $0.0931$ on the same pair. Truncating the whitening at
+the top $m_{\rm white}$ directions keeps the reference near chance ($0.0394$, $0.0405$, $0.0422$ at
+$m_{\rm white}=8,32,64$), which is why we set $m_{\rm white}$ per module from its participation
+ratio. The failure is therefore not whitening as such but whitening into directions the
+calibration set does not determine.
 
 The coordinate permutation is the useful counterexample. Here the same permutation is applied to
 both endpoints, so overlap, and hence its offset, is exactly unchanged; this paired action is a
@@ -143,11 +158,3 @@ near-$100\%$ level-centred response, but its unplanted level is $-0.1485$, versu
 factor-spectrum matching. The correction therefore calibrates level rather than rescuing low
 power or an upward bias. This remains one intervention over four modules and six tasks.
 
-\subsection{What the correction costs}
-
-For the activation null, delivered-signal recovery rises from $45.6$--$51.7\%$ to $99.3$--$99.6\%$
-while the unplanted offset moves from $+0.00004$ to $-0.000623$. This is the desired combination:
-small reference offset and high response to the planted alternative. The study covers four
-modules and one family of interventions, and planting can alter conditioned occupancies, so we do
-not transfer the sub-percent deviation as a correction or bound on the $72$-module
-observational estimate.

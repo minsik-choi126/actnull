@@ -50,15 +50,13 @@ Applied to the CLIP benchmarks used by this literature, the null reproduces $25.
 of above-isotropic top-$8$ overlap in the two complete ViT-B measurements. Conditional on the
 fixed calibration and blocking specification, the remaining excess stays positive throughout the
 crossed task--layer finite-pool stability interval. Under rank-$16$
-LoRA, $\mathrm{row}(BA)\subseteq\mathrm{row}(A)$ makes the observed $A$ factor a necessary
-regime-specific condition. Its top-$8$ right singular subspaces overlap at $0.88$, and at $1.00$
-when linearisation keeps $A$ bit-identical, while the learned $B$ factor's top-$8$ left singular
-subspaces overlap at $0.05$ against $0.01$ isotropic
-chance. An $A$- and factor-spectrum-conditioned null reproduces $80.3\%$ of the product update's
-above-isotropic overlap;
-although its attainable plant delivers only $37.4$--$57.0\%$ of the nominal increment, the null
-recovers $100.7$--$101.1\%$ of what is delivered. This one stress test does not identify which
-mechanism produced the conditioned structure.
+LoRA the answer is mostly the rank constraint. Since $\mathrm{row}(BA)\subseteq\mathrm{row}(A)$, a
+shared $A$ confines both updates to one $16$-dimensional row space, where two independent top-$8$
+subspaces already agree at $k/r$. An $A$- and factor-spectrum-conditioned null reproduces $80.3\%$
+of the product update's above-isotropic overlap, against $82.0\%$ from that one-line count. Its
+attainable plant delivers $37.4$--$57.0\%$ of the nominal increment and the null recovers
+$100.7$--$101.1\%$ of what is delivered, so the construction is calibrated; it simply has little
+left to explain.
 
 The methodological result is why these estimates, rather than a larger number from our first
 implementation, are reported. A zero-signal level check accepts the identity map, so it cannot

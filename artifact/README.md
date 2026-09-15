@@ -73,8 +73,16 @@ shasum -a 256 -c artifact/RESULTS.sha256
   adapter hash and a 672-row cross-check against each released product CSV.
 - `results/v7_lora_topk_gap_diagnostic.json`: observed-A, observed-BA, and all
   24,576 factor-null top-k boundary-gap summaries for both LoRA arms.
-- `results/v7_merge_b32_accuracy.json`: all eight per-task accuracies for
-  zero-shot, uncompressed, and both rank-constrained bases at six ranks.
+- `results/v8_merge_b32_accuracy.json`: the reported merge table. All eight per-task
+  accuracies, binomial standard errors, and counts for zero-shot, uncompressed, and
+  both rank-constrained bases at six ranks, on 2,000 test images per task. Zero-shot
+  averages 48.3% and uncompressed task arithmetic 70.3%, both within a point of the
+  published values for this benchmark.
+- `results/v7_merge_b32_accuracy.json`: the superseded first run of that table. Its
+  zero-shot heads used a three-template generic ensemble instead of the benchmark's
+  per-dataset ensembles, which put both baselines about ten points low. Retained
+  because the comparison between the two is what establishes that the prompt protocol,
+  not the bases being compared, produced the gap.
 - `results/calibration_resample_b16/`: two complete source-stratified calibration
   refit row files, all 1,001 source/draw/fold assignments per refit, and a compact
   method/result summary. The observed headline range is 25.102--25.302%, at most

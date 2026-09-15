@@ -6,9 +6,12 @@ occupancy in frozen-base activation geometry while randomising cross-task direct
 its expected overlap has a closed form. We pair this null with a positive control that plants
 shared directions and measures recovery of the delivered signal, exposing consequential
 under-randomisation in our initial implementation. In complete ViT-B measurements, the corrected
-activation null reproduces $22$--$25\%$ of above-isotropic overlap, with positive residual
-alignment across all fully fine-tuned pools. For shared-start LoRA, a regime-specific factor null
-reproduces about $80\%$, showing that the reference must match the training regime. The resulting
-decomposition is conditional rather than causal; the protocol makes structural claims auditable
-by requiring explicit conditioning assumptions and validation against planted alternatives.
+activation null reproduces about a quarter of above-isotropic overlap, moving over $20$--$26\%$
+across our calibration and blocking grid at the reported subspace size, and the residual stays
+positive throughout. Module role moves this far
+more than architecture does. For shared-start LoRA a regime-matched factor null reproduces about
+$80\%$, but a one-line count from the shared rank already gives $82\%$, so there the admissible
+row space, not a learned basis, accounts for nearly all observed overlap. These are attribution
+statements conditional on what each null holds fixed, and they leave pair rankings and downstream
+merge behaviour unchanged.
 \end{abstract}

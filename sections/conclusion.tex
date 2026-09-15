@@ -1,12 +1,12 @@
-\section{Discussion}
+\section{Conclusion}
 
 Cross-task top-$8$ sharing remains positive after conditioning in every fully fine-tuned CLIP pool,
-but its attribution changes. The null reproduces $25.3\%$ and $22.4\%$ in the complete ViT-B runs;
-the factor-conditioned LoRA value is $80.3\%$, with near-full recovery of delivered signal in its
-narrow positive control. These quantities split agreement under stated conditions; they do not
-locate its origin in the base or the shared start.
+but its attribution changes and its size is not a property of the architecture. The null reproduces
+about a quarter in the complete ViT-B runs, module role moves that far more than encoder scale
+does, and the shared-start LoRA value is mostly the rank constraint. These quantities split
+agreement under stated conditions; they do not locate its origin in the base or the shared start.
 
-A reader should report a null's invariants, training regime, reference offset, and positive-control
-response. Here conditioning changes effect size while pair rankings barely move, and a separate
-coupling-only basis does not improve merge accuracy. A structural claim is only as specific as the
-null it survives and only as credible as that null's measured response.
+Three things follow for work that measures subspace structure. State the baseline as an invariant,
+since writing down what is held fixed makes the estimand checkable. Treat an offset check as
+necessary and not sufficient, since a null that destroys too little still returns zero on a
+reference it generated. And keep a null in the regime it was built for.

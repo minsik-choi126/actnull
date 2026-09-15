@@ -1,162 +1,169 @@
 {
-  "schema_version": 1,
-  "bundle_version": "v7",
-  "snapshot": {
-    "description": "Sanitized snapshot of the producer package, numerical producer scripts, and tests used for the v7 audit.",
-    "authoritative_identity": "The artifact/code file entries in artifact/RESULTS.sha256 identify the exact released source snapshot.",
-    "working_tree_status": "The v7 producer snapshot contained working-tree changes beyond its last commit; no repository commit is claimed to identify this release.",
-    "producer_repository_identifier_included": false,
-    "repository_identifier_policy": "Withheld for double-blind review; the complete source snapshot needed by this artifact is included directly.",
-    "local_paths_included": false
-  },
-  "included": {
-    "package_modules": [
-      "actnull/__init__.py",
-      "actnull/covariance.py",
-      "actnull/experiment.py",
-      "actnull/null.py",
-      "actnull/positive_control_utils.py"
-    ],
-    "producer_scripts": [
-      "scripts/ablation.py",
-      "scripts/baseline_levels.py",
-      "scripts/bootstrap_overlap.py",
-      "scripts/calibration_resample.py",
-      "scripts/calibration_source_subgroup_diagnostic.py",
-      "scripts/exact_overlap.py",
-      "scripts/exact_sensitivity.py",
-      "scripts/fetch_calibration_images.py",
-      "scripts/lora_factor_audit.py",
-      "scripts/lora_topk_gap_diagnostic.py",
-      "scripts/materialize_composition_control.py",
-      "scripts/merge_eval.py",
-      "scripts/pool_lora_mc_batches.py",
-      "scripts/power_activation.py",
-      "scripts/power_lora.py",
-      "scripts/projector_rebuild.py",
-      "scripts/run_resample_exact.py",
-      "scripts/whitening_calibration.py"
-    ],
-    "tests": [
-      "tests/test_bootstrap_overlap.py",
-      "tests/test_exact_overlap.py",
-      "tests/test_exact_sensitivity.py",
-      "tests/test_haar_null.py",
-      "tests/test_pool_lora_mc_batches.py",
-      "tests/test_positive_control_producers.py"
-    ]
-  },
-  "archived_execution_sha256": {
-    "actnull/covariance.py": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
-    "actnull/null.py": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
-    "scripts/bootstrap_overlap.py": "7865380f4f61488f40936b22fe4471b961fceb7945cc9844451105c33c9efe7b",
-    "scripts/calibration_resample.py": "d8c1fa51899b055c9daaef8b33d3f3bfe8431d0173d8f826404634a178447bd8",
-    "scripts/calibration_source_subgroup_diagnostic.py": "4fbbe84c2e9902d7a97c83a7370a0e744c4dee8d61ea3b058c3483cf40777201",
-    "scripts/exact_overlap.py": "49175cb0204039c60992ba2dbc176cb9b502f37ff92727680ff2a60d36157dab",
-    "scripts/lora_topk_gap_diagnostic.py": "ec20102066b5cc47e697ebb3b550f63c1aec8764c63f1725d95b5393165227e4",
-    "scripts/materialize_composition_control.py": "fe9061d8f6f23647b191c519a6659cafef3cb30b8175a05bd15d423964fb7a46",
-    "scripts/merge_eval.py": "ff63fe99c5b27bc5cb7d7ca9b6108a83fc8e2d39772af5e9372046d5b9dca314",
-    "scripts/run_resample_exact.py": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d"
-  },
-  "release_adjustments": [
-    {
-      "path": "scripts/ablation.py",
-      "kind": "published_schema_reconstruction",
-      "pre_release_sha256": "8b79540214d2a375ddbf439ac3f037052d543297804cd67397950c1eaced8b92",
-      "shipped_sha256": "d1e149647b3044bcc6efd3a62c9148312d0b3f608723df9dfc763cd5c2647581",
-      "change": "Normalized the four variant labels and made the producer run both s=0 and the requested planted level, then emit the released level-centered recovery schema. The pre-release single-level script could not reproduce that artifact and is not claimed as its execution identity."
-    },
-    {
-      "path": "actnull/covariance.py",
-      "kind": "documentation_only_sanitization",
-      "archived_execution_sha256": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
-      "shipped_sha256": "33fcd6019bcff725f05edf9910ffaca9985d770b03367ff34af1edf4eca2f34d",
-      "change": "Replaced one workstation-specific example checkpoint path with a role-based placeholder; executable statements are unchanged."
-    },
-    {
-      "path": "actnull/null.py",
-      "kind": "documentation_only_estimand_alignment",
-      "archived_execution_sha256": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
-      "shipped_sha256": "5f6018ccef422d7126bf362fcc2bfbe32287c9123c0ecfffb0770baa715ad88a",
-      "change": "Replaced stale pre-v7 module and inline commentary with the released conditional-null, external-H0, factor-spectrum, and operational-participation-ratio semantics; removed quantitative generative-null claims traced to an invalid no-complement exploratory implementation; executable statements are unchanged."
-    },
-    {
-      "path": "scripts/run_resample_exact.py",
-      "kind": "portable_release_wrapper",
-      "archived_execution_sha256": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d",
-      "shipped_sha256": "ea4cc73fc2e98b3b6e9339928549074300e36e14da5e368aaf551af720fd6f01",
-      "change": "Replaced machine-layout assumptions with explicit code, cache, seed-root, and revision-record arguments; the scientific exact-overlap arguments are unchanged."
-    },
-    {
-      "path": "scripts/fetch_calibration_images.py",
-      "kind": "portable_release_hardening",
-      "shipped_sha256": "ec845de6e317493c48912df48496bfc44ad4d88cb93c4c711026074a32290d38",
-      "change": "Requires immutable dataset revisions from upstream_revisions.json and fails closed on incomplete source pools."
-    },
-    {
-      "path": "scripts/materialize_composition_control.py",
-      "kind": "portable_release_hardening",
-      "archived_execution_sha256": "fe9061d8f6f23647b191c519a6659cafef3cb30b8175a05bd15d423964fb7a46",
-      "shipped_sha256": "44a1d498bfd3298e37262fd14f5c329e6d1641854c6082e1711bce18e60a09b4",
-      "change": "Added fail-closed checks for the upstream revision record and archived Arrow-shard hashes, and constructed the path-scan markers without embedding workstation prefixes; sampling and materialization are unchanged."
-    },
-    {
-      "path": "scripts/lora_factor_audit.py",
-      "kind": "artifact_reconstruction_helper",
-      "shipped_sha256": "c4b9105cc544fdb0fe25fce83f220c6d41be690f5f8cecebd1ad396f8eb08bae",
-      "change": "Recomputes A-right, B-left, and BA-right overlap from all 16 pinned adapter checkpoints. The primary estimand uses all 24 targeted q/v modules; the historical layers-2/6/10 subset is retained only as an explicitly labelled secondary provenance diagnostic."
-    },
-    {
-      "path": "scripts/lora_topk_gap_diagnostic.py",
-      "kind": "portable_release_hardening",
-      "archived_execution_sha256": "ec20102066b5cc47e697ebb3b550f63c1aec8764c63f1725d95b5393165227e4",
-      "shipped_sha256": "62ed64c5e9d20a49b95e7de787230ec7c499edba1c5d1d14f7442df808db7740",
-      "change": "Changed only result creation from overwrite to exclusive-create mode; the diagnostic computation is unchanged."
-    },
-    {
-      "path": "scripts/merge_eval.py",
-      "kind": "portable_release_hardening",
-      "archived_execution_sha256": "ff63fe99c5b27bc5cb7d7ca9b6108a83fc8e2d39772af5e9372046d5b9dca314",
-      "shipped_sha256": "5534d7ed3423d177e0e6ce71a62d116a50310b9a69016e6cee383fca2bd6dbc1",
-      "change": "Kept the evaluated projection, prompts, deterministic sampling, and accuracy computation, while replacing stale claims and unpinned repository HEADs with immutable base, specialist, and dataset revisions; output creation now refuses overwrite."
-    },
-    {
-      "path": "scripts/pool_lora_mc_batches.py",
-      "kind": "artifact_reconstruction_helper",
-      "shipped_sha256": "2fee976d7d7a3b244cdf77e356936a9d137884a56da227497f706e195fcc1fd2",
-      "change": "Pools the four shipped independent LoRA-null batches and reproduces both canonical pooled CSVs byte for byte."
-    },
-    {
-      "path": "scripts/projector_rebuild.py",
-      "kind": "documentation_only_estimand_alignment",
-      "pre_release_sha256": "a59404cffd7a6dd6942629bafbc879a2352e6f11f951079ddc4913c32bbec9c1",
-      "shipped_sha256": "5a1bf22ff5e233dbeff3d8271039660fa0b0b13133768fb556aa38cc3568d229",
-      "change": "Replaced causal attribution language with the released conditional-null reproduction interpretation; executable statements are unchanged."
-    },
-    {
-      "path": "scripts/whitening_calibration.py",
-      "kind": "documentation_only_estimand_alignment",
-      "pre_release_sha256": "48f2467a30f0d905f99d58a5164daf1dcca2d163c48447bc8134b52e165c019e",
-      "shipped_sha256": "2850b392b0b09d4f017b0ea74b2776cb46672a080df43bf7c5f8aae6c4b610e1",
-      "change": "Replaced one ambiguous legacy term with reuse; executable statements are unchanged."
-    }
+ "schema_version": 1,
+ "bundle_version": "v7",
+ "snapshot": {
+  "description": "Sanitized snapshot of the producer package, numerical producer scripts, and tests used for the v7 audit.",
+  "authoritative_identity": "The artifact/code file entries in artifact/RESULTS.sha256 identify the exact released source snapshot.",
+  "working_tree_status": "The v7 producer snapshot contained working-tree changes beyond its last commit; no repository commit is claimed to identify this release.",
+  "producer_repository_identifier_included": false,
+  "repository_identifier_policy": "Withheld for double-blind review; the complete source snapshot needed by this artifact is included directly.",
+  "local_paths_included": false
+ },
+ "included": {
+  "package_modules": [
+   "actnull/__init__.py",
+   "actnull/covariance.py",
+   "actnull/experiment.py",
+   "actnull/null.py",
+   "actnull/positive_control_utils.py"
   ],
-  "deliberate_omissions": [
-    {
-      "item": "large model weights, activation-covariance tensors, fold tensors, and sensitivity cell caches",
-      "reason": "They are not needed for the offline numerical audit; immutable upstream revisions and compact output fingerprints are shipped instead."
-    },
-    {
-      "item": "individual-example merge-evaluation logits and source images",
-      "reason": "The compact bundle ships all per-task accuracies and their pinned evaluator, which is sufficient to audit the table aggregation; repeating model forward passes requires the pinned public inputs."
-    },
-    {
-      "item": "internal stale number-check and figure-rendering scripts",
-      "reason": "The release-level standard-library checker is analysis/check_paper_numbers.py; stale internal scripts could silently validate superseded values."
-    },
-    {
-      "item": "bytecode, logs, and transient caches",
-      "reason": "They are machine-specific or nonessential."
-    }
+  "producer_scripts": [
+   "scripts/ablation.py",
+   "scripts/baseline_levels.py",
+   "scripts/bootstrap_overlap.py",
+   "scripts/calibration_resample.py",
+   "scripts/calibration_source_subgroup_diagnostic.py",
+   "scripts/exact_overlap.py",
+   "scripts/exact_sensitivity.py",
+   "scripts/fetch_calibration_images.py",
+   "scripts/lora_factor_audit.py",
+   "scripts/lora_topk_gap_diagnostic.py",
+   "scripts/materialize_composition_control.py",
+   "scripts/merge_eval.py",
+   "scripts/merge_eval_v8.py",
+   "scripts/pool_lora_mc_batches.py",
+   "scripts/power_activation.py",
+   "scripts/power_lora.py",
+   "scripts/projector_rebuild.py",
+   "scripts/prompt_templates.py",
+   "scripts/run_resample_exact.py",
+   "scripts/whitening_calibration.py"
+  ],
+  "tests": [
+   "tests/test_bootstrap_overlap.py",
+   "tests/test_exact_overlap.py",
+   "tests/test_exact_sensitivity.py",
+   "tests/test_haar_null.py",
+   "tests/test_pool_lora_mc_batches.py",
+   "tests/test_positive_control_producers.py"
   ]
+ },
+ "archived_execution_sha256": {
+  "actnull/covariance.py": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
+  "actnull/null.py": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
+  "scripts/bootstrap_overlap.py": "7865380f4f61488f40936b22fe4471b961fceb7945cc9844451105c33c9efe7b",
+  "scripts/calibration_resample.py": "d8c1fa51899b055c9daaef8b33d3f3bfe8431d0173d8f826404634a178447bd8",
+  "scripts/calibration_source_subgroup_diagnostic.py": "4fbbe84c2e9902d7a97c83a7370a0e744c4dee8d61ea3b058c3483cf40777201",
+  "scripts/exact_overlap.py": "49175cb0204039c60992ba2dbc176cb9b502f37ff92727680ff2a60d36157dab",
+  "scripts/lora_topk_gap_diagnostic.py": "ec20102066b5cc47e697ebb3b550f63c1aec8764c63f1725d95b5393165227e4",
+  "scripts/materialize_composition_control.py": "fe9061d8f6f23647b191c519a6659cafef3cb30b8175a05bd15d423964fb7a46",
+  "scripts/merge_eval.py": "ff63fe99c5b27bc5cb7d7ca9b6108a83fc8e2d39772af5e9372046d5b9dca314",
+  "scripts/merge_eval_v8.py": "deea531c6fc2f357563ccc559da5068e27f0bc6b7b8f9a20ff7f219bb8192510",
+  "scripts/prompt_templates.py": "e668dc4bde63b08042ea47a2b0246254b16104a649f2ac83ab81be0b077b1ad0",
+  "scripts/run_resample_exact.py": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d"
+ },
+ "release_adjustments": [
+  {
+   "path": "scripts/ablation.py",
+   "kind": "published_schema_reconstruction",
+   "pre_release_sha256": "8b79540214d2a375ddbf439ac3f037052d543297804cd67397950c1eaced8b92",
+   "shipped_sha256": "d1e149647b3044bcc6efd3a62c9148312d0b3f608723df9dfc763cd5c2647581",
+   "change": "Normalized the four variant labels and made the producer run both s=0 and the requested planted level, then emit the released level-centered recovery schema. The pre-release single-level script could not reproduce that artifact and is not claimed as its execution identity."
+  },
+  {
+   "path": "actnull/covariance.py",
+   "kind": "documentation_only_sanitization",
+   "archived_execution_sha256": "a366fe40bb39e93b854f1a33491c5642752eabf60211f3d28b5b881e8ec2c831",
+   "shipped_sha256": "33fcd6019bcff725f05edf9910ffaca9985d770b03367ff34af1edf4eca2f34d",
+   "change": "Replaced one workstation-specific example checkpoint path with a role-based placeholder; executable statements are unchanged."
+  },
+  {
+   "path": "actnull/null.py",
+   "kind": "documentation_only_estimand_alignment",
+   "archived_execution_sha256": "29582f1836e18648633f3a1bb38b54697590671f087ec1efefd2a75e12ff1fbe",
+   "shipped_sha256": "5f6018ccef422d7126bf362fcc2bfbe32287c9123c0ecfffb0770baa715ad88a",
+   "change": "Replaced stale pre-v7 module and inline commentary with the released conditional-null, external-H0, factor-spectrum, and operational-participation-ratio semantics; removed quantitative generative-null claims traced to an invalid no-complement exploratory implementation; executable statements are unchanged."
+  },
+  {
+   "path": "scripts/run_resample_exact.py",
+   "kind": "portable_release_wrapper",
+   "archived_execution_sha256": "41a70c7351692d300223a66c72d3d8486ff77025b420bdd113e1d1076b8b8e5d",
+   "shipped_sha256": "ea4cc73fc2e98b3b6e9339928549074300e36e14da5e368aaf551af720fd6f01",
+   "change": "Replaced machine-layout assumptions with explicit code, cache, seed-root, and revision-record arguments; the scientific exact-overlap arguments are unchanged."
+  },
+  {
+   "path": "scripts/fetch_calibration_images.py",
+   "kind": "portable_release_hardening",
+   "shipped_sha256": "ec845de6e317493c48912df48496bfc44ad4d88cb93c4c711026074a32290d38",
+   "change": "Requires immutable dataset revisions from upstream_revisions.json and fails closed on incomplete source pools."
+  },
+  {
+   "path": "scripts/materialize_composition_control.py",
+   "kind": "portable_release_hardening",
+   "archived_execution_sha256": "fe9061d8f6f23647b191c519a6659cafef3cb30b8175a05bd15d423964fb7a46",
+   "shipped_sha256": "44a1d498bfd3298e37262fd14f5c329e6d1641854c6082e1711bce18e60a09b4",
+   "change": "Added fail-closed checks for the upstream revision record and archived Arrow-shard hashes, and constructed the path-scan markers without embedding workstation prefixes; sampling and materialization are unchanged."
+  },
+  {
+   "path": "scripts/lora_factor_audit.py",
+   "kind": "artifact_reconstruction_helper",
+   "shipped_sha256": "c4b9105cc544fdb0fe25fce83f220c6d41be690f5f8cecebd1ad396f8eb08bae",
+   "change": "Recomputes A-right, B-left, and BA-right overlap from all 16 pinned adapter checkpoints. The primary estimand uses all 24 targeted q/v modules; the historical layers-2/6/10 subset is retained only as an explicitly labelled secondary provenance diagnostic."
+  },
+  {
+   "path": "scripts/lora_topk_gap_diagnostic.py",
+   "kind": "portable_release_hardening",
+   "archived_execution_sha256": "ec20102066b5cc47e697ebb3b550f63c1aec8764c63f1725d95b5393165227e4",
+   "shipped_sha256": "62ed64c5e9d20a49b95e7de787230ec7c499edba1c5d1d14f7442df808db7740",
+   "change": "Changed only result creation from overwrite to exclusive-create mode; the diagnostic computation is unchanged."
+  },
+  {
+   "path": "scripts/merge_eval.py",
+   "kind": "portable_release_hardening",
+   "archived_execution_sha256": "ff63fe99c5b27bc5cb7d7ca9b6108a83fc8e2d39772af5e9372046d5b9dca314",
+   "shipped_sha256": "5534d7ed3423d177e0e6ce71a62d116a50310b9a69016e6cee383fca2bd6dbc1",
+   "change": "Kept the evaluated projection, prompts, deterministic sampling, and accuracy computation, while replacing stale claims and unpinned repository HEADs with immutable base, specialist, and dataset revisions; output creation now refuses overwrite."
+  },
+  {
+   "path": "scripts/pool_lora_mc_batches.py",
+   "kind": "artifact_reconstruction_helper",
+   "shipped_sha256": "2fee976d7d7a3b244cdf77e356936a9d137884a56da227497f706e195fcc1fd2",
+   "change": "Pools the four shipped independent LoRA-null batches and reproduces both canonical pooled CSVs byte for byte."
+  },
+  {
+   "path": "scripts/projector_rebuild.py",
+   "kind": "documentation_only_estimand_alignment",
+   "pre_release_sha256": "a59404cffd7a6dd6942629bafbc879a2352e6f11f951079ddc4913c32bbec9c1",
+   "shipped_sha256": "5a1bf22ff5e233dbeff3d8271039660fa0b0b13133768fb556aa38cc3568d229",
+   "change": "Replaced causal attribution language with the released conditional-null reproduction interpretation; executable statements are unchanged."
+  },
+  {
+   "path": "scripts/whitening_calibration.py",
+   "kind": "documentation_only_estimand_alignment",
+   "pre_release_sha256": "48f2467a30f0d905f99d58a5164daf1dcca2d163c48447bc8134b52e165c019e",
+   "shipped_sha256": "2850b392b0b09d4f017b0ea74b2776cb46672a080df43bf7c5f8aae6c4b610e1",
+   "change": "Replaced one ambiguous legacy term with reuse; executable statements are unchanged."
+  }
+ ],
+ "deliberate_omissions": [
+  {
+   "item": "large model weights, activation-covariance tensors, fold tensors, and sensitivity cell caches",
+   "reason": "They are not needed for the offline numerical audit; immutable upstream revisions and compact output fingerprints are shipped instead."
+  },
+  {
+   "item": "individual-example merge-evaluation logits and source images",
+   "reason": "The compact bundle ships all per-task accuracies and their pinned evaluator, which is sufficient to audit the table aggregation; repeating model forward passes requires the pinned public inputs."
+  },
+  {
+   "item": "internal stale number-check and figure-rendering scripts",
+   "reason": "The release-level standard-library checker is analysis/check_paper_numbers.py; stale internal scripts could silently validate superseded values."
+  },
+  {
+   "item": "bytecode, logs, and transient caches",
+   "reason": "They are machine-specific or nonessential."
+  }
+ ],
+ "notes": {
+  "merge_evaluation_supersession": "scripts/merge_eval.py produced results/v7_merge_b32_accuracy.json with a three-template generic prompt ensemble. scripts/merge_eval_v8.py is that script with the benchmark's per-dataset ensembles (scripts/prompt_templates.py), per-task binomial standard errors, a 2000-example default, and a device fix for the task-vector tensors; it produced results/v8_merge_b32_accuracy.json, which is what the paper reports."
+ }
 }

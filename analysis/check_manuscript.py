@@ -268,6 +268,94 @@ def build_metrics(artifact: Path) -> MetricStore:
             "results/v7_exact_clip-vit-base-patch16.csv.gz",
         )
 
+    # Rank-constraint comparator for the shared-start LoRA pools.  Two independent
+    # top-k subspaces of a shared r-dimensional row space already agree at k/r, so
+    # this is what the factor null has to beat to be doing work.
+    for label, source_name in (
+        ("LoRA16", "results/v7_legacy16_b16_8task_q_v_lora-16_loranull.csv.gz"),
+        ("LinearizedLoRA16", "results/v7_legacy16_b16_8task_q_v_l-lora-16_loranull.csv.gz"),
+    ):
+        rows = arm_rows[label]
+        raw = _mean(rows, "raw")
+        iso = _mean(rows, "null_iso")
+        k, rank = 8, 16
+        metrics.add(
+            f"rank_floor.{label}.fraction",
+            100.0 * ((k / rank) - iso) / (raw - iso),
+            source_name,
+        )
+
+    # Module-set-matched cross-architecture comparison.  The full pools instrument
+    # different module sets, so the headline fractions are not directly comparable.
+    for label, source_name in (
+        ("B16", "results/v7_exact_clip-vit-base-patch16.csv.gz"),
+        ("B32", "results/v7_exact_clip-vit-base-patch32.csv.gz"),
+        ("L14", "results/v7_exact_clip-vit-large-patch14.csv.gz"),
+        ("FT8", "results/v7_exact_b16_8task_q_v_fullft.csv.gz"),
+    ):
+        rows = [
+            row
+            for row in arm_rows[label]
+            if row["module"].split(".")[-1] in {"q_proj", "v_proj"}
+        ]
+        raw = _mean(rows, "raw")
+        iso = _mean(rows, "null_iso")
+        fitted = _mean(rows, "null_exact")
+        metrics.add(f"qv.{label}.fraction", 100.0 * (fitted - iso) / (raw - iso), source_name)
+
+    # Width-matched role contrast: out_proj against q/k/v at the same input width.
+    for name, suffixes in (
+        ("out_proj", {"out_proj"}),
+        ("qkv", {"q_proj", "k_proj", "v_proj"}),
+    ):
+        rows = [
+            row
+            for row in arm_rows["B16"]
+            if row["module"].split(".")[-1] in suffixes
+        ]
+        raw = _mean(rows, "raw")
+        iso = _mean(rows, "null_iso")
+        fitted = _mean(rows, "null_exact")
+        metrics.add(
+            f"width_matched.B16.{name}.fraction",
+            100.0 * (fitted - iso) / (raw - iso),
+            "results/v7_exact_clip-vit-base-patch16.csv.gz",
+        )
+
+    # Dispersion of the pooled ratio across the modules it averages.
+    b16 = arm_rows["B16"]
+    per_module = []
+    for module in sorted({row["module"] for row in b16}):
+        rows = [row for row in b16 if row["module"] == module]
+        raw = _mean(rows, "raw")
+        iso = _mean(rows, "null_iso")
+        fitted = _mean(rows, "null_exact")
+        per_module.append(100.0 * (fitted - iso) / (raw - iso))
+    per_module.sort()
+    middle = len(per_module) // 2
+    median = (
+        per_module[middle]
+        if len(per_module) % 2
+        else 0.5 * (per_module[middle - 1] + per_module[middle])
+    )
+    src = "results/v7_exact_clip-vit-base-patch16.csv.gz"
+    metrics.add("spread.B16.module.min", per_module[0], src)
+    metrics.add("spread.B16.module.max", per_module[-1], src)
+    metrics.add("spread.B16.module.median", median, src)
+    metrics.add(
+        "spread.B16.negative_residual_rows",
+        sum(1 for row in b16 if float(row["raw"]) < float(row["null_exact"])),
+        src,
+    )
+
+    # fc2 share of the block-internal group's numerator.
+    def _numerator(rows: list[dict[str, str]]) -> float:
+        return sum(float(r["null_exact"]) - float(r["null_iso"]) for r in rows)
+
+    fc2 = _numerator([r for r in b16 if r["module"].endswith("fc2")])
+    out_proj = _numerator([r for r in b16 if r["module"].endswith("out_proj")])
+    metrics.add("share.B16.fc2_of_internal", 100.0 * fc2 / (fc2 + out_proj), src)
+
     for label in ("B16", "B32"):
         grouped: dict[tuple[str, str], list[dict[str, str]]] = {}
         for row in arm_rows[label]:
@@ -373,11 +461,26 @@ def build_metrics(artifact: Path) -> MetricStore:
         ):
             metrics.add(f"projector.{family}.{field}", _mean(rows, field), source)
 
-    merge_source = "results/v7_merge_b32_accuracy.json"
-    merge = json.loads((root / merge_source).read_text())
-    for method, by_task in merge.items():
+    # v8 supersedes v7: the v7 run's three-template heads put the zero-shot and
+    # uncompressed task-arithmetic baselines about ten points below the published
+    # values, so only v8 backs the reported table.
+    merge_source = "results/v8_merge_b32_accuracy.json"
+    merge = json.loads((root / merge_source).read_text())["arms"]
+    for method, record in merge.items():
+        by_task = record["accuracy"]
+        metrics.add(f"merge.{method}.mean", stats.fmean(by_task.values()), merge_source)
+    for rank in (8, 16, 32, 64, 128, 256):
+        tau = merge[f"tau_{rank}"]["accuracy"]
+        cross = merge[f"cross_{rank}"]["accuracy"]
         metrics.add(
-            f"merge.{method}.mean", stats.fmean(by_task.values()), merge_source
+            f"merge.tasks_won.r{rank}",
+            sum(1 for task in tau if tau[task] > cross[task]),
+            merge_source,
+        )
+        metrics.add(
+            f"merge.gap.r{rank}",
+            stats.fmean(tau.values()) - stats.fmean(cross.values()),
+            merge_source,
         )
 
     sensitivity_files = {
@@ -561,10 +664,10 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
 
     # Abstract and duplicated paper-level headlines.
     add(
-        "abstract.complete_vitb.rounded_range",
+        "abstract.spec_range",
         "sections/abstract.tex",
-        f"activation null reproduces ${shown('arm.B32.fraction', 0)}$--"
-        f"${shown('arm.B16.fraction', 0)}\\%$ of above-isotropic overlap",
+        f"moving over ${shown('sensitivity.B16.k8.lo', 0)}$--"
+        f"${shown('sensitivity.B16.k8.hi', 0)}\\%$",
     )
     add(
         "abstract.lora.rounded",
@@ -582,14 +685,6 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
         "sections/introduction.tex",
         f"conditioned null reproduces ${shown('arm.LoRA16.fraction', 1)}\\%$ "
         "of the product update's above-isotropic overlap",
-    )
-    add(
-        "discussion.headlines",
-        "sections/conclusion.tex",
-        f"The null reproduces ${shown('arm.B16.fraction', 1)}\\%$ and "
-        f"${shown('arm.B32.fraction', 1)}\\%$ in the complete ViT-B runs; "
-        f"the factor-conditioned LoRA value is "
-        f"${shown('arm.LoRA16.fraction', 1)}\\%$",
     )
 
     # Main experiment point estimates and crossed intervals.
@@ -622,15 +717,15 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
     )
     for label, prose in (
         ("LoRA16", "factor null reproduces"),
-        ("LinearizedLoRA16", "linearized pool gives"),
+        ("LinearizedLoRA16", "linearized pool"),
         ("FT8", "gives"),
     ):
         add(
             f"experiments.{label}.point_interval",
             "sections/experiments.tex",
-            f"{prose} ${shown(f'arm.{label}.fraction', 4)}\\%$ "
-            f"($[{shown(f'bootstrap.{label}.fraction.lo', 4)},"
-            f"{shown(f'bootstrap.{label}.fraction.hi', 4)}]$)",
+            f"{prose} ${shown(f'arm.{label}.fraction', 1)}\\%$ "
+            f"($[{shown(f'bootstrap.{label}.fraction.lo', 1)},"
+            f"{shown(f'bootstrap.{label}.fraction.hi', 1)}]$)",
         )
 
     # Exact scalar decomposition table. Row labels make every number semantic.
@@ -642,21 +737,76 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
     ):
         add(
             f"table.main.{label}",
-            "sections/appendix.tex",
+            "sections/experiments.tex",
             f"{row_label} & ${modules}$ & ${shown(f'arm.{label}.raw', 6)}$ & "
             f"${shown(f'arm.{label}.iso', 6)}$ & "
             f"${shown(f'arm.{label}.null', 6)}$ & "
             f"${shown(f'arm.{label}.residual', 6)}$ & "
-            f"${shown(f'arm.{label}.fraction', 4)}\\%$",
+            f"${shown(f'arm.{label}.fraction', 1)}\\%$ & "
+            f"${shown(f'qv.{label}.fraction', 1)}\\%$",
         )
+
+    # The rank-constraint comparator, in both places it is quoted.
+    add(
+        "experiments.rank_floor",
+        "sections/experiments.tex",
+        f"gives ${shown('rank_floor.LoRA16.fraction', 1)}\\%$ and "
+        f"${shown('rank_floor.LinearizedLoRA16.fraction', 1)}\\%$ on the same pools",
+    )
+    add(
+        "introduction.rank_floor",
+        "sections/introduction.tex",
+        f"against ${shown('rank_floor.LoRA16.fraction', 1)}\\%$ from that one-line count",
+    )
+    add(
+        "abstract.rank_floor",
+        "sections/abstract.tex",
+        f"already gives ${shown('rank_floor.LoRA16.fraction', 0)}\\%$",
+    )
+
+    # Module-set-matched reading of the cross-architecture table.
+    add(
+        "experiments.qv_matched",
+        "sections/experiments.tex",
+        f"moves them to\n${shown('qv.B16.fraction', 1)}\\%$ and "
+        f"${shown('qv.B32.fraction', 1)}\\%$",
+    )
+    # Width-matched role contrast and the fc2 share that motivates it.
+    add(
+        "experiments.fc2_share",
+        "sections/experiments.tex",
+        f"supplies ${shown('share.B16.fc2_of_internal', 1)}\\%$ of the "
+        "block-internal group's numerator",
+    )
+    add(
+        "experiments.width_matched",
+        "sections/experiments.tex",
+        f"at ${shown('width_matched.B16.out_proj.fraction', 1)}\\%$ against "
+        f"${shown('width_matched.B16.qkv.fraction', 1)}\\%$",
+    )
+    # Dispersion of the pooled ratio.
+    add(
+        "experiments.module_spread",
+        "sections/experiments.tex",
+        f"runs from ${shown('spread.B16.module.min', 1)}\\%$ to "
+        f"${shown('spread.B16.module.max', 1)}\\%$ with median\n"
+        f"${shown('spread.B16.module.median', 1)}\\%$",
+    )
+    add(
+        "experiments.negative_rows",
+        "sections/experiments.tex",
+        f"${shown('spread.B16.negative_residual_rows', 0)}$ of $13{{,}}680$ cells "
+        "have a negative residual",
+    )
 
     # ViT-B/16 role split in both reporting locations.
     add(
         "experiments.role_split",
         "sections/experiments.tex",
-        f"${shown('role.B16.residual.fraction', 4)}\\%$ for modules reading "
-        f"the residual stream and ${shown('role.B16.internal.fraction', 4)}\\%$ "
-        "for modules reading a representation built within the block",
+        f"${shown('role.B16.residual.fraction', 1)}\\%$ for ViT-B/16 "
+        "modules reading the residual stream and "
+        f"${shown('role.B16.internal.fraction', 1)}\\%$ for modules reading a "
+        "representation built within the block",
     )
     add(
         "appendix.role_split",
@@ -694,16 +844,6 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
         "isotropic & "
         + " & ".join(f"${shown('factor.iso', 4)}$" for _ in range(3)),
     )
-    add(
-        "introduction.factor_audit",
-        "sections/introduction.tex",
-        f"right singular subspaces overlap at "
-        f"${shown('factor.LoRA.A_right', 2)}$, and at "
-        f"${shown('factor.LinearizedLoRA.A_right', 2)}$ when linearisation "
-        f"keeps $A$ bit-identical, while the learned $B$ factor's top-$8$ left "
-        f"singular subspaces overlap at ${shown('factor.LoRA.B_left', 2)}$ "
-        f"against ${shown('factor.iso', 2)}$ isotropic chance",
-    )
 
     # Positive-control ranges and activation response table.
     initial_recovery = [
@@ -728,14 +868,6 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
         f"which looks well behaved under the offset check; the corrected null "
         f"recovers {current_range} and has "
         f"${signed('power.activation.current.s0.excess', 6)}$ at $s=0$",
-    )
-    add(
-        "validation.activation_power_cost",
-        "sections/validating.tex",
-        f"recovery rises from {initial_range} to {current_range} while the "
-        f"unplanted offset moves from "
-        f"${signed('power.activation.initial.s0.excess', 5)}$ to "
-        f"${signed('power.activation.current.s0.excess', 6)}$",
     )
     add(
         "introduction.activation_power",
@@ -779,7 +911,6 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
     for claim_id, file in (
         ("introduction.lora_power", "sections/introduction.tex"),
         ("method.lora_power", "sections/method.tex"),
-        ("appendix.lora_power_limit", "sections/appendix.tex"),
     ):
         possessive = "its " if file != "sections/introduction.tex" else "the "
         add(
@@ -806,9 +937,9 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
         "experiments.lora_power",
         "sections/experiments.tex",
         "$"
-        + "/".join(_render(x, 2) for x in deliveries)
-        + "\\%$ of its nominal increment, while level-centred recovery is $"
-        + "/".join(_render(x, 2) for x in recoveries)
+        + "/".join(_render(x, 1) for x in deliveries)
+        + "\\%$ of the nominal increment with level-centred recovery\n$"
+        + "/".join(_render(x, 1) for x in recoveries)
         + "\\%$ at $s=1/2/4$",
     )
     for planted in (0, 1, 2, 4):
@@ -856,13 +987,12 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
 
     # Common-reference baseline table and prose, including the generative row.
     for key, row_label in (
-        ("orthogonality", "exact orthogonality~\\citep{gargiulo2025task}"),
+        ("orthogonality", "exact orthogonality (no reference subtracted)"),
         ("isotropic", "isotropic $k/d$"),
         ("regmean", "whitened at the participation ratio"),
         ("tikhonov", "whitened, all stored directions"),
         ("generative", "generative activation model"),
         ("permutation", "coordinate permutation (paired action)"),
-        ("ours", "activation-conditioned (ours, circular here)"),
     ):
         add(
             f"table.baseline.{key}",
@@ -917,14 +1047,6 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
             f"${shown(f'projector.{family}.projector_in_top_activation', 4)}$ & "
             f"${shown(f'projector.{family}.activation_chance', 4)}$",
         )
-    add(
-        "appendix.projector.percentage",
-        "sections/appendix.tex",
-        "the $"
-        f"{_render(100.0 * value('projector.LoRA.projector_survives_null'), 1)}"
-        "\\%$ "
-        "projector-basis fraction",
-    )
 
     # Merge table uses conventional half-up rounding, not Python banker's rounding.
     add(
@@ -934,6 +1056,21 @@ def build_claims(metrics: MetricStore) -> list[Claim]:
         f"uncompressed task arithmetic is ${shown('merge.full.mean', 1)}\\%$",
     )
     ranks = (8, 16, 32, 64, 128, 256)
+    add(
+        "table.merge.tasks_won",
+        "sections/appendix.tex",
+        "tasks won by $\\tau$ & "
+        + " & ".join(
+            f"${shown(f'merge.tasks_won.r{rank}', 0)}/8$" for rank in ranks
+        ),
+    )
+    add(
+        "appendix.merge.gap_range",
+        "sections/appendix.tex",
+        f"from ${shown('merge.gap.r8', 1)}$ points at $r=8$ to\n"
+        f"${shown('merge.gap.r256', 1)}$ at $r=256$",
+    )
+
     add(
         "table.merge.tau",
         "sections/appendix.tex",

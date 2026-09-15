@@ -19,12 +19,20 @@ actually destroys what it claims to.
 
 On the complete ViT-B benchmarks, the corrected activation null reproduces **25.3%** (B/16) and
 **22.4%** (B/32) of above-isotropic overlap. Residual alignment stays positive in every fully
-fine-tuned pool. For shared-start LoRA, a regime-specific factor null reproduces **80.3%**.
+fine-tuned pool. For shared-start LoRA a regime-matched factor null reproduces **80.3%**, but a one-line count from
+the shared rank already gives **82.0%**: under a shared start the admissible row space, not a
+learned basis, accounts for nearly all observed overlap.
 
 The positive control is what makes those numbers reportable. Our first implementation recovered
 only **45.6–51.7%** of planted, delivered signal while returning `+0.00004` at zero plant, which
 looks well behaved under a level check alone. After correction the same arm recovers
 **99.3–99.6%**.
+
+Module role moves the fraction far more than encoder scale does: within ViT-B/16 the null
+reproduces 16.6% for modules reading the residual stream against 39.0% for modules reading a
+representation built inside the block. The apparent gradient across encoders is mostly module
+selection, and collapses from 13.5 points to 2.8 once every pool is restricted to the `q`/`v`
+modules all three share.
 
 ## What the protocol says about baselines in use
 
