@@ -36,15 +36,31 @@ ax = axes[0]
 y = np.arange(len(models))
 ax.barh(y, reproduced, color="#92c5de", label="null-reproduced")
 ax.barh(y, survives, left=reproduced, color="#2166ac", label="residual")
-for idx, frac in enumerate(100 * reproduced / above_iso):
-    ax.text(reproduced[idx] / 2, idx, f"{frac:.1f}%", ha="center", va="center", fontsize=8)
 ax.set_yticks(y, models)
 ax.invert_yaxis()
-ax.set_xlim(0, 0.10)
+# Headroom so the legend clears the longest bar.
+ax.set_xlim(0, 0.118)
 ax.set_xlabel("above-isotropic overlap")
 ax.set_title("Conditional decomposition")
 ax.grid(axis="x", alpha=0.22, linewidth=0.6)
 ax.legend(frameon=False, loc="lower right", ncol=1, fontsize=7)
+
+# Keep each share label inside its own segment, and push it out to the right when the
+# segment is too narrow to hold it.  ViT-L/14 is narrow enough that a centred label
+# would run off the axis and collide with the tick label.
+fig.canvas.draw()
+for idx, frac in enumerate(100 * reproduced / above_iso):
+    label = ax.text(
+        reproduced[idx] / 2, idx, f"{frac:.1f}%", ha="center", va="center", fontsize=8
+    )
+    text_w = label.get_window_extent(fig.canvas.get_renderer()).width
+    bar_w = ax.transData.transform((reproduced[idx], 0))[0] - ax.transData.transform((0, 0))[0]
+    if text_w > 0.88 * bar_w:
+        # Sits just past the boundary, on the residual segment, so it stays next to the
+        # share it labels.  White, because the residual colour is dark.
+        label.set_position((reproduced[idx] + 0.0022, idx))
+        label.set_ha("left")
+        label.set_color("white")
 
 ax = axes[1]
 x = np.arange(len(role_labels))
